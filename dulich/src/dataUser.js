@@ -1,6 +1,6 @@
 var dataUser =[
     {
-        "id": 1,
+        "userID": 1,
         "fullName":"Duc Hao 1",
         "email":"duchao1@gmail.com",
         "phoneNumber": "07000001",
@@ -8,7 +8,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 2,
+        "userID": 2,
         "fullName":"Duc Hao 2",
         "email":"duchao2@gmail.com",
         "phoneNumber": "07000002",
@@ -16,7 +16,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 3,
+        "userID": 3,
         "fullName":"Duc Hao 3",
         "email":"duchao3@gmail.com",
         "phoneNumber": "07000003",
@@ -24,7 +24,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 4,
+        "userID": 4,
         "fullName":"Duc Hao 4",
         "email":"duchao4@gmail.com",
         "phoneNumber": "07000004",
@@ -32,7 +32,7 @@ var dataUser =[
         "isAvailable": false,
     },
     {
-        "id": 5,
+        "userID": 5,
         "fullName":"Duc Hao 5",
         "email":"duchao5@gmail.com",
         "phoneNumber": "07000005",
@@ -40,7 +40,7 @@ var dataUser =[
         "isAvailable": false,
     },
     {
-        "id": 6,
+        "userID": 6,
         "fullName":"Duc Hao 6",
         "email":"duchao6@gmail.com",
         "phoneNumber": "07000006",
@@ -48,7 +48,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 7,
+        "userID": 7,
         "fullName":"Duc Hao 7",
         "email":"duchao7@gmail.com",
         "phoneNumber": "07000006",
@@ -56,7 +56,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 8,
+        "userID": 8,
         "fullName":"Duc Hao 8",
         "email":"duchao8@gmail.com",
         "phoneNumber": "07000008",
@@ -64,7 +64,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 9,
+        "userID": 9,
         "fullName":"Duc Hao 9",
         "email":"duchao8@gmail.com",
         "phoneNumber": "07000008",
@@ -72,7 +72,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 10,
+        "userID": 10,
         "fullName":"Duc Hao 10",
         "email":"duchao8@gmail.com",
         "phoneNumber": "07000008",
@@ -80,7 +80,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 11,
+        "userID": 11,
         "fullName":"Duc Hao 11",
         "email":"duchao8@gmail.com",
         "phoneNumber": "07000008",
@@ -88,7 +88,7 @@ var dataUser =[
         "isAvailable": true,
     },
     {
-        "id": 12,
+        "userID": 12,
         "fullName":"Duc Hao 12",
         "email":"duchao8@gmail.com",
         "phoneNumber": "07000008",

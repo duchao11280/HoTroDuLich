@@ -40,7 +40,7 @@ exports.signUp = (req,res)=>{
         UserModel.insertUser(userReqData.userName,userReqData.password,userReqData.fullName,
             userReqData.email,userReqData.phonenumber,userReqData.role,(err,user)=>{
             if(err){
-                res.send(err);
+                res.json({status: false, message: `Error is: ${err}` })
             }
             res.json({status:true, message:'Đăng kí thành công',data: user.insertID})
         })
