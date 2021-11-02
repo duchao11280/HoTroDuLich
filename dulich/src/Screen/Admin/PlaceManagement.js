@@ -1,16 +1,16 @@
 import React, { Component, useEffect, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import dataUser from '../../dataUser';
-import UserItem from '../../Component/Admin/AccountManagement/UserItem'
+import dataPlace from '../../dataPlace';
+import PlaceItem from '../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
 
-const AccountManagement = ()=> {
-    const [users, setUsers] = useState([]);
+const PlaceManagement = ()=> {
+    const [place, setPlaces] = useState([]);
     const [searchfield, setSearchfield] = useState('');
 
     useEffect(()=>{
-        setUsers(dataUser);
+        setPlaces(dataPlace);
     });
     const handleSearch = (text) => {
         setSearchfield(text);
@@ -22,7 +22,7 @@ const AccountManagement = ()=> {
             <View >
                 <Appbar.Header statusBarHeight={20}>
                     <Appbar.BackAction onPress={() => { }} />
-                    <Appbar.Content title="Quản lý người dùng" />
+                    <Appbar.Content title="Quản lý địa điểm" />
                 </Appbar.Header>
                 <SearchBar
                     placeholder="Type Here..."
@@ -32,14 +32,14 @@ const AccountManagement = ()=> {
                     value={searchfield}
                 />
                 <FlatList
-                    data={users}
+                    data={place}
                     ListFooterComponent={<View style={{ height: 150 }} />}
-                    keyExtractor={item => item.userID.toString()}
+                    keyExtractor={item => item.placeID.toString()}
                     renderItem={({ item, index }) => {
                         return (
-                            <UserItem item={item} index={index}>
+                            <PlaceItem item={item} index={index}>
 
-                            </UserItem>
+                            </PlaceItem>
                         );
                     }}
                 >
@@ -50,4 +50,4 @@ const AccountManagement = ()=> {
 }
 
 
-export default AccountManagement;
+export default PlaceManagement;

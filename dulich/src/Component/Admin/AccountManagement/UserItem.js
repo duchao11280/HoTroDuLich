@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, Alert } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import RightActions from '../Component/Admin/AccountManagement/RightActionSwipe'
+import RightActions from './RightActionSwipe'
 
 const UserItem =(props) => {
     return (
