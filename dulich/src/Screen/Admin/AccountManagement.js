@@ -5,7 +5,7 @@ import UserItem from '../../Component/Admin/AccountManagement/UserItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
 
-const AccountManagement = ()=> {
+const AccountManagement = ({navigation})=> {
     const [users, setUsers] = useState([]);
     const [searchfield, setSearchfield] = useState('');
 

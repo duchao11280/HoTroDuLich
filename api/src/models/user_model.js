@@ -1,6 +1,6 @@
 var dbConn = require('../../config/db.config');
 
-var User = (user) => {
+var User = function(user){
         this.userID = user.userID;
         this.userName = user.userName;
         this.password = user.password;

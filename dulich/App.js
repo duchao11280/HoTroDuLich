@@ -8,16 +8,19 @@ import Into from './src/Screen/Into';
 import ChangePassWord from './src/Screen/ChangePassWord';
 import ChangeInfo from './src/Screen/ChangeInfo'; 
 import AccountManagement from './src/Screen/Admin/AccountManagement';
-import PlaceManagement from './src/Screen/Admin/PlaceManagement';
+import PlaceManagement from './src/Screen/Admin/PlaceManagement/PlaceManagement';
 import { NavigationContainer } from '@react-navigation/native';
+import PlaceDetail from './src/Screen/Admin/PlaceManagement/PlaceDetail';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 const Contact =()=>(
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName='PlaceManagenent' screenOptions={{ headerShown: false }}>
     <Stack.Screen   name="Login" component={Login} />
     <Stack.Screen  name="SignUp" component={SignUp} />
-    <Stack.Screen  name="Into" component={Into} />
+    <Stack.Screen name ="AccountManagement" component={AccountManagement}/>
+    <Stack.Screen name ="PlaceManagenent" component={PlaceManagement}/>
+    <Stack.Screen name ="PlaceDetail" component={PlaceDetail} />
   </Stack.Navigator>
 )
 
@@ -25,7 +28,10 @@ const Contact =()=>(
 
 export default function App() {
     return (
-      <PlaceManagement/>
+      <NavigationContainer>
+        <Contact></Contact>
+      </NavigationContainer>
+      
      );
 } 
 

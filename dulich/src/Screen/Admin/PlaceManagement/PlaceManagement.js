@@ -1,15 +1,15 @@
 import React, { Component, useEffect, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import dataPlace from '../../dataPlace';
-import PlaceItem from '../../Component/Admin/PlaceManagement/PlaceItem'
+import dataPlace from '../../../dataPlace';
+import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
 
-const PlaceManagement = ()=> {
+const PlaceManagement = ({ navigation }) => {
     const [place, setPlaces] = useState([]);
     const [searchfield, setSearchfield] = useState('');
 
-    useEffect(()=>{
+    useEffect(() => {
         setPlaces(dataPlace);
     });
     const handleSearch = (text) => {
@@ -17,6 +17,9 @@ const PlaceManagement = ()=> {
         console.log(text)
 
     };
+    const goToDetail = (place)=>{
+        navigation.push('PlaceDetail', {place: place});
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View >
@@ -37,9 +40,14 @@ const PlaceManagement = ()=> {
                     keyExtractor={item => item.placeID.toString()}
                     renderItem={({ item, index }) => {
                         return (
-                            <PlaceItem item={item} index={index}>
+                            <Pressable
+                                onPress={()=> {goToDetail(item)}}
+                            >
+                                <PlaceItem item={item} index={index}>
 
-                            </PlaceItem>
+                                </PlaceItem>
+                            </Pressable>
+
                         );
                     }}
                 >
