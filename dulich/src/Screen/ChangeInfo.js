@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
-const ChangeInfo = () =>{
-    const [fullName, setFullName] = React.useState('Duc Hao');
-    const [email, setEmail] = React.useState('duchao3003@gmail.com');
-    const [phoneNumber, setPhoneNumber] = React.useState('01119191991');
+import {editProfile} from '../networking/usernetworking';
 
+const ChangeInfo = ({navigation, route}) =>{
+    const [fullName, setFullName] = useState(route.params.userInfo.fullName);
+    const [email, setEmail] = useState(route.params.userInfo.email);
+    const [phonenumber, setPhonenumber] = useState(route.params.userInfo.phonenumber);
+    useEffect(()=>{
 
+    })
+    const handleInputFullName = (value) =>{
+        setFullName(value);
+    }
+    const goBack = ()=> {
+        navigation.pop();
+    }
+    const handleEditProfile = () =>{
+        var params ={
+            fullName: fullName,
+            email: email,
+            phonenumber: phonenumber,
+        }
+        editProfile(18,params).then((message)=>{
+            console.log(message);
+            goBack();
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }
     return(
         <SafeAreaView style={Styles.container}>
             <Appbar.Header statusBarHeight ={20}>
-                <Appbar.BackAction onPress={() => {}} />
+                <Appbar.BackAction onPress={() => { goBack()}} />
                 <Appbar.Content title="Chỉnh sửa thông tin"/>
             </Appbar.Header>
              <KeyboardAwareScrollView>
@@ -26,7 +48,7 @@ const ChangeInfo = () =>{
                     <Text style={Styles.title}>Họ và tên</Text>
                     <TextInput
                         style={Styles.inputText}
-                        onChangeText = {setFullName}
+                        onChangeText = {(value)=>{handleInputFullName(value)}}
                         placeholder="Nhập họ và tên..."
                         value={fullName}
                     />
@@ -40,14 +62,14 @@ const ChangeInfo = () =>{
                     <Text style={Styles.title}>Số điện thoại</Text>
                     <TextInput
                         style={Styles.inputText}
-                        onChangeText = {setPhoneNumber}                       
+                        onChangeText = {setPhonenumber}                       
                         placeholder="Nhập số điện thoại..."
-                        value={phoneNumber}
+                        value={phonenumber}
                     />
                 </View>
            
             <View style={Styles.button}>
-                <Pressable onPress={()=>{console.log(fullName+" "+ email+ " "+ phoneNumber)}} style={Styles.buttonUpdate}>
+                <Pressable onPress={()=>{handleEditProfile()}} style={Styles.buttonUpdate}>
                     <Text style={Styles.textButton}>Xác nhận</Text>
                 </Pressable>
             </View>

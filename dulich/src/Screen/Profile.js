@@ -1,9 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {View,Text,Image, Pressable, StyleSheet} from 'react-native';
 import Field from '../Component/Profile/Field';
+import {getProfile} from '../networking/usernetworking';
+const Profile = ({navigation}) =>{
+    const [userInfo, setUserInfo] = useState({});
 
-const Profile = () =>{
+    useEffect(() => {
+        getProfile(18).then((profile)=>{
+            setUserInfo(profile);
+        }).catch((error)=>{
+            setUserInfo({});
+        })
+    });
+    const goToChangeInfo= (info) => {
+        navigation.push('ChangeInfo',{userInfo: info});
+    }
+    const goToChangePassWord= (info) => {
+        navigation.push('ChangePassWord');
+    }
     return(
         <View style={Styles.container}>
             <View style={Styles.logo}>
@@ -13,13 +28,16 @@ const Profile = () =>{
                 />
             </View>
             <View style={Styles.cardInfo}>
-                <Field title='Họ và tên:' content='Nguyễn Đức Hảo'></Field>
-                <Field title='Email:' content='duchao3003@gmail.com'></Field>
-                <Field title='Số điện thoại:' content='01219792465'></Field>
+                <Field title='Họ và tên:' content={userInfo.fullName}></Field>
+                <Field title='Email:' content={userInfo.email}></Field>
+                <Field title='Số điện thoại:' content={userInfo.phonenumber}></Field>
             </View>
             <View style={Styles.button}>
-                <Pressable onPress={()=>{}} style={Styles.buttonEdit}>
+                <Pressable onPress={()=>{goToChangeInfo(userInfo)}} style={Styles.buttonEdit}>
                     <Text style={Styles.textButton}>Chỉnh sửa thông tin</Text>
+                </Pressable>
+                <Pressable onPress={()=>{goToChangePassWord()}} style={Styles.buttonEdit}>
+                    <Text style={Styles.textButton}>Đổi mật khẩu</Text>
                 </Pressable>
             </View>
             
@@ -52,6 +70,7 @@ const Styles = StyleSheet.create({
     },
     button:{
         alignItems:'center',
+        flexDirection: 'row',
         marginTop:20,
         marginBottom: 30,
     },
@@ -59,7 +78,7 @@ const Styles = StyleSheet.create({
         borderRadius:20,
         padding:18,
         backgroundColor: 'white',
-        width: '70%',
+        width: '50%',
         alignItems:'center',
         justifyContent: 'center',
     },

@@ -11,23 +11,20 @@ exports.getAllUsers = (req, res) => {
 exports.getUserByID = (req, res) => {
     UserModel.getUserByID(req.params.id, (err, user) => {
         if (err) throw err;
-        res.send(user);
+        res.json({ status: true, data: user[0] });
     });
 }
 
 // update profile user
 exports.updateUser = (req, res) => {
     const userReqData = new UserModel(req.body);
-    if (req.body.contructor == Object && Object.keys(req.body).length == 0) {
-        res.send(400).send({ success: false, message: 'Empty' });
-    } else {
-        UserModel.updateUser(req.params.id, userReqData, (err, user) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json({ status: true, message: 'User updated successfully', data: user.insertID })
-        })
-    }
+    UserModel.updateUser(req.params.id, userReqData, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ status: true, message: 'User updated successfully', data: user.insertID })
+    })
+
 }
 
 // Sign up

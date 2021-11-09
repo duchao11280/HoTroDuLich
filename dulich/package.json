@@ -16,8 +16,8 @@
     "expo": "^42.0.4",
     "expo-constants": "~11.0.2",
     "expo-status-bar": "~1.0.4",
-    "formik": "^2.2.9",
-    "lodash": "^4.17.21",
+    "formik": "^2.2.9", 
+
     "octicons": "^8.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -31,7 +31,6 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "react-native-swipeout": "^2.3.6",
     "react-native-textinput-effects": "^0.6.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5",

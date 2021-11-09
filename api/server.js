@@ -1,20 +1,19 @@
 var express = require('express');
 var app = express();
-var bodyPraser = require('body-parser');
 var dotenv = require('dotenv');
 
 dotenv.config();
 const port = process.env.PORT || 3000;
 
-app.use(bodyPraser.json());
+app.use(express.json());
 
-app.use(bodyPraser.urlencoded({
+app.use(express.urlencoded({
     extended: true
 }));
 app.get('/',function(req,res){
     return res.send({messenger: 'Hỗ trợ du lịch'})
 });
-//import user
+//import user route
 const userRoutes = require('./src/routes/user_route');
 
 //create user

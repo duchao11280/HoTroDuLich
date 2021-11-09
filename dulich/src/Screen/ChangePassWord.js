@@ -2,16 +2,18 @@ import React from 'react';
 import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
-const ChangePassWord = () =>{
+const ChangePassWord = ({navigation}) =>{
     const [oldPassword, setOldPassWord] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [repeatPassword, setRepeatPassword] = React.useState('');
 
-
+    const goBack = ()=> {
+        navigation.pop();
+    }
     return(
         <SafeAreaView style={Styles.container}>
             <Appbar.Header statusBarHeight ={20}>
-                <Appbar.BackAction onPress={() => {}} />
+                <Appbar.BackAction onPress={() => {goBack()}} />
                 <Appbar.Content title="Thay đổi mật khẩu"/>
             </Appbar.Header>
              <KeyboardAwareScrollView>
