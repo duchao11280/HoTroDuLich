@@ -23,7 +23,7 @@ const ChangeInfo = ({navigation, route}) =>{
             email: email,
             phonenumber: phonenumber,
         }
-        editProfile(18,params).then((message)=>{
+        editProfile(1,params).then((message)=>{
             console.log(message);
             goBack();
         }).catch((error)=>{

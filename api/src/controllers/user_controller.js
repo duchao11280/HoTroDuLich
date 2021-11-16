@@ -1,17 +1,15 @@
 const UserModel = require('../models/user_model');
 var bcrypt = require("bcryptjs");
-exports.getAllUsers = (req, res) => {
-    UserModel.getAllUsers((err, users) => {
-        if (err) throw err;
-        res.send(users);
-    });
-}
+
 
 // get user info by ID
 exports.getUserByID = (req, res) => {
     UserModel.getUserByID(req.params.id, (err, user) => {
-        if (err) throw err;
-        res.json({ status: true, data: user[0] });
+        if (err) {{console.log("err"); return;}};
+        if(user.length==0){
+            res.json({ status: false, message:"Không tồn tại user"});
+        }else
+            res.json({ status: true,message:"Lấy thành công", data: user[0] });
     });
 }
 
@@ -22,7 +20,7 @@ exports.updateUser = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.json({ status: true, message: 'User updated successfully', data: user.insertID })
+        res.json({ status: true, message: 'User updated successfully'})
     })
 
 }
@@ -37,7 +35,26 @@ exports.signUp = (req, res) => {
             if (err) {
                 res.json({ status: false, message: `Error is: ${err}` })
             }
-            res.json({ status: true, message: 'Đăng kí thành công', data: user.insertID })
+            res.json({ status: true, message: 'Đăng kí thành công'})
         })
+
+}
+
+/**
+ * Change Password
+ * params id
+ * params oldPass, newPass, confirmPass
+ */
+exports.changePassword = (req, res) => {
+    const userReqData = new UserModel(req.body);
+    userReqData.newPassword = bcrypt.hashSync(req.body.newPassword, 14);
+    UserModel.changePassword(req.params.id, userReqData, (err, user) => {
+        if (err) {
+            res.json({status:false, message: "Đổi mật khẩu thất bại"});
+            return;
+        }
+
+        res.json({ status: true, message: 'Đổi mật khẩu thành công',})
+    })
 
 }

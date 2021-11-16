@@ -1,22 +1,34 @@
 import React, { Component, useEffect, useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import {
+    View, Text, Image, Pressable, ActivityIndicator,
+    StyleSheet, FlatList, SafeAreaView, RefreshControl
+} from 'react-native';
 import dataUser from '../../dataUser';
 import UserItem from '../../Component/Admin/AccountManagement/UserItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
+import { getAllUsers } from '../../networking/adminnetworking'
+const AccountManagement = ({ navigation }) => {
+    const [isLoading, setLoading] = useState(true);
 
-const AccountManagement = ({navigation})=> {
     const [users, setUsers] = useState([]);
     const [searchfield, setSearchfield] = useState('');
-
-    useEffect(()=>{
-        setUsers(dataUser);
-    });
+    const [refreshing, setRefreshing] = useState(false);
+    useEffect(() => {
+        getDataFromServer()
+    }, []);
     const handleSearch = (text) => {
         setSearchfield(text);
         console.log(text)
 
     };
+    const getDataFromServer = () =>{
+        setRefreshing(true);
+        getAllUsers().then((listussers) => { setUsers(listussers); })
+            .catch((err) => { console.log(err) })
+            .finally(() => {setLoading(false); setRefreshing(false)})
+    }
+    const onRefresh = () =>{ getDataFromServer()}
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View >
@@ -31,19 +43,28 @@ const AccountManagement = ({navigation})=> {
                     onChangeText={handleSearch}
                     value={searchfield}
                 />
-                <FlatList
-                    data={users}
-                    ListFooterComponent={<View style={{ height: 150 }} />}
-                    keyExtractor={item => item.userID.toString()}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <UserItem item={item} index={index}>
+                <View>
+                    {isLoading ? <ActivityIndicator size="large" color='blue' /> :
+                        <FlatList
+                            data={users}
+                            keyExtractor={item => item.userID.toString()}
+                            initialNumToRender = {users.length}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <UserItem item={item} index={index}>
 
-                            </UserItem>
-                        );
-                    }}
-                >
-                </FlatList>
+                                    </UserItem>
+                                );
+                            }}
+                            refreshControl={
+                                <RefreshControl 
+                                    refreshing={refreshing}
+                                    onRefresh={()=>onRefresh()}
+                                />
+                            }
+                        >
+                        </FlatList>}
+                </View>
             </View>
         </SafeAreaView>
     )

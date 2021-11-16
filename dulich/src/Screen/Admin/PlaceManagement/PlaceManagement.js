@@ -1,17 +1,22 @@
 import React, { Component, useEffect, useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, Image, Pressable,
+    ActivityIndicator,StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import dataPlace from '../../../dataPlace';
 import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
-
+import { getAllPlaces } from '../../../networking/adminnetworking'
 const PlaceManagement = ({ navigation }) => {
-    const [place, setPlaces] = useState([]);
+    const [isLoading, setLoading] = useState(true);
+    const [listPlaces, setListPlaces] = useState([]);
     const [searchfield, setSearchfield] = useState('');
 
     useEffect(() => {
-        setPlaces(dataPlace);
-    });
+        getAllPlaces().then((listPlaces)=>{setListPlaces(listPlaces)})
+        .catch((err)=>{console.log("Kết nối thất bại")})
+        .finally(()=> setLoading(false))
+        
+    },[]);
     const handleSearch = (text) => {
         setSearchfield(text);
         console.log(text)
@@ -34,10 +39,13 @@ const PlaceManagement = ({ navigation }) => {
                     onChangeText={handleSearch}
                     value={searchfield}
                 />
+                <View>
+                {isLoading ? <ActivityIndicator size="large" color='blue'/> :
                 <FlatList
-                    data={place}
+                    data={listPlaces}
                     ListFooterComponent={<View style={{ height: 150 }} />}
                     keyExtractor={item => item.placeID.toString()}
+                    
                     renderItem={({ item, index }) => {
                         return (
                             <Pressable
@@ -51,7 +59,8 @@ const PlaceManagement = ({ navigation }) => {
                         );
                     }}
                 >
-                </FlatList>
+                </FlatList>}
+                </View>
             </View>
         </SafeAreaView>
     )

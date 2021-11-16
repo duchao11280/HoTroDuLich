@@ -1,14 +1,50 @@
-import React from 'react';
-import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView, Alert, ActivityIndicator } from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
+import {changePassword} from '../networking/usernetworking';
 const ChangePassWord = ({navigation}) =>{
-    const [oldPassword, setOldPassWord] = React.useState('');
-    const [newPassword, setNewPassword] = React.useState('');
-    const [repeatPassword, setRepeatPassword] = React.useState('');
+    const [isLoading, setLoading] = useState(false);
 
+    const [oldPassword, setOldPassWord] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+    let isValidate = false;
     const goBack = ()=> {
         navigation.pop();
+    }
+    const handleChangePassword = () =>{
+        setLoading(true)
+        var params ={
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmPassword: repeatPassword,
+        }
+        changePassword(7,params).then((response)=>{
+            setLoading(false);
+            showAlert(response.message,response.status);
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }
+    const validate = ()=>{
+        if(oldPassword.length < 6 || newPassword.length < 6 || repeatPassword.length < 6){
+            showAlert("Độ dài mật khẩu tối thiểu 6 kí tự",false);
+            isValidate = false
+        } else if(newPassword!=repeatPassword){
+            showAlert("Mật khẩu không khớp",false);
+            isValidate = false
+        }else isValidate = true
+    }
+    // truyền vào tin nhắn và trạng thái
+    const showAlert = (mess, status) =>{
+        Alert.alert(
+            "Thông báo",
+            mess,
+            [
+              { text: "OK", onPress: () => { if(status !=false){goBack()}} }
+            ]
+          );
     }
     return(
         <SafeAreaView style={Styles.container}>
@@ -49,9 +85,20 @@ const ChangePassWord = ({navigation}) =>{
                 </View>
            
             <View style={Styles.button}>
-                <Pressable onPress={()=>{console.log(oldPassword+" "+ newPassword+ " "+ repeatPassword)}} style={Styles.buttonUpdate}>
+                {isLoading?<ActivityIndicator size="large" color='blue'/>:
+                <Pressable 
+                    onPress={()=>{
+                        validate()
+                        if(isValidate){
+                            
+                            handleChangePassword();
+                            isValidate = false;
+                        }
+                    }} 
+                    style={Styles.buttonUpdate}
+                >
                     <Text style={Styles.textButton}>Xác nhận</Text>
-                </Pressable>
+                </Pressable>}
             </View>
             </KeyboardAwareScrollView>
         </SafeAreaView>

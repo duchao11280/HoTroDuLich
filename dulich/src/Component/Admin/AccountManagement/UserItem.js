@@ -15,7 +15,7 @@ const UserItem =(props) => {
                     Email: {props.item.email}
                 </Text>
                 <Text style={Styles.textInfo}>
-                    Số điện thoại: {props.item.phoneNumber}
+                    Số điện thoại: {props.item.phonenumber}
                 </Text>
                 <Text style={Styles.textInfo}>
                     Loại tài khoản: {props.item.role == 0 ? "User" :

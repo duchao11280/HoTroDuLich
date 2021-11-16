@@ -4,11 +4,13 @@ import {View,Text,Image, Pressable, StyleSheet} from 'react-native';
 import Field from '../Component/Profile/Field';
 import {getProfile} from '../networking/usernetworking';
 const Profile = ({navigation}) =>{
-    const [userInfo, setUserInfo] = useState({});
+    const [userInfo, setUserInfo] = useState({fullName:'', email:'', phonenumber:''});
 
     useEffect(() => {
-        getProfile(18).then((profile)=>{
-            setUserInfo(profile);
+        getProfile(1).then((profile)=>{
+            if(profile.length!=0)
+                setUserInfo(profile);
+            else setUserInfo({});
         }).catch((error)=>{
             setUserInfo({});
         })
