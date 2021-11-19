@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, Alert } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import RightActions from './RightActionSwipe'
+
 
 const UserItem =(props) => {
     return (
         // truyền vào 1 cụm các props
-        <Swipeable renderRightActions={RightActions}> 
+
             <View style={Styles.container}>
                 <Text style={Styles.textInfo}>
                     Họ và tên: {props.item.fullName}
@@ -22,7 +21,7 @@ const UserItem =(props) => {
                         props.item.role == 2 ? "Khách Sạn" : "Nhà Hàng"}
                 </Text>
             </View>
-        </Swipeable>
+
         
     );
 }

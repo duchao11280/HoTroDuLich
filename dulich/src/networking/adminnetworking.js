@@ -24,4 +24,16 @@ const getAllUsers = async () => {
       
     }
 };
-export {getAllPlaces, getAllUsers}
+const disableUser = async (id) =>{
+  try {
+    const respone = await fetch(API_URL+`/api/v1/admin/disableuser/${id}`, {
+      method: 'PUT',  
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+
+}
+export {getAllPlaces, getAllUsers, disableUser}
