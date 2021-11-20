@@ -32,7 +32,7 @@ const Contact =()=>(
 export default function App() {
     return (
       <NavigationContainer>
-        <Contact></Contact>
+        <Login></Login>
       </NavigationContainer>
       
      );

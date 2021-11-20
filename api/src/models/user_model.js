@@ -8,8 +8,13 @@ var User = function(user){
         this.email = user.email;
         this.phonenumber = user.phonenumber;
         this.role = user.role;
+        this.isDisabled =user.isDisabled;
 }
-    // get all user
+
+
+
+
+// get all user
 User.getAllUsers = (result) => {
     dbConn.query(`Select * From user Where isDisabled != 1 `, (err, res) => {
         if (res) {
@@ -56,6 +61,7 @@ User.updateUser = (id, userReqData, result) =>{
         });
 }
 
+
     // search user bằng username
 User.getUserByUserName = (userName,result) => {
     dbConn.query('Select *' +
@@ -90,7 +96,6 @@ User.insertUser = (userName, password, fullName, email, phonenumber, role, resul
  * @param {*} result
  */
 User.changePassword = (id, userReqData, result) =>{
-
     dbConn.query(`Update user Set password=? where userID=${id}`,
         [userReqData.newPassword], (err, res) => {
             if (err) {
