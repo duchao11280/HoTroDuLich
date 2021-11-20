@@ -49,7 +49,7 @@ exports.login = (req, res) => {
         };
         if (user.length != 0) {
             if (user.isDisabled) {
-                res.send({ status: true, message: "Tài khoản bị khóa" });
+                res.send({ status: false, message: "Tài khoản bị khóa" });
                 return;
             }
             else {
@@ -66,7 +66,7 @@ exports.login = (req, res) => {
                 }
             }
         } else {
-            res.send({ status: true, message: "Sai tên đăng nhập hoặc mật khẩu" });
+            res.send({ status: false, message: "Sai tên đăng nhập hoặc mật khẩu" });
         }
 
     })
