@@ -15,7 +15,7 @@ Place.getAllPlaces = (result) => {
 
             result(null,res);
         }else{
-            result(null,err);
+            result(err,null);
         }
     })
 }

@@ -81,12 +81,8 @@ User.getUserByUserName = (userName,result) => {
 User.insertUser = (userName, password, fullName, email, phonenumber, role, result) => {
         dbConn.query('INSERT into user(userName,password,fullName,email,phonenumber,role,isDisabled)'
             + ' VALUES(?, ?, ?, ?, ?, ?,0) ', [userName, password, fullName,
-            email, phonenumber, role], (err, res) => {
-                if (err) {
-                    result(err, null);
-                } else {
-                    result(null, res);
-                }
+            email, phonenumber, role], (err2, res2) => {
+                result(err2,res2);
             });
 }
 /**

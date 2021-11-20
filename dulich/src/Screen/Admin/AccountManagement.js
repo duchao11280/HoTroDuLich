@@ -3,7 +3,6 @@ import {
     View, Text, Image, Pressable, ActivityIndicator,
     StyleSheet, FlatList, SafeAreaView, RefreshControl, Alert
 } from 'react-native';
-import dataUser from '../../dataUser';
 import UserItem from '../../Component/Admin/AccountManagement/UserItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
@@ -11,26 +10,28 @@ import { getAllUsers, disableUser } from '../../networking/adminnetworking'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 const AccountManagement = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
-
     const [users, setUsers] = useState([]);
     const [searchfield, setSearchfield] = useState('');
     const [refreshing, setRefreshing] = useState(false);
  
     useEffect(() => {
+        //Lấy dữ liệu từ server để hiển thị 
         getDataFromServer()
     }, []);
+    // Khi người dùng nhập dữ liệu vào ô search
     const handleSearch = (text) => {
         setSearchfield(text);
-        console.log(text)
-
     };
+    // Hàm gọi dữ liệu 
     const getDataFromServer = () => {
         setRefreshing(true);
         getAllUsers().then((listussers) => { setUsers(listussers); })
             .catch((err) => { console.log(err) })
             .finally(() => { setLoading(false); setRefreshing(false) })
     }
+    // khi kéo từ trên xuống refresh lại dữ liệu
     const onRefresh = () => { getDataFromServer() }
+    // Lọc user theo search 
     const filteredUsers = users==undefined?[] :users.filter(user=>{
         var searchFullName = user.fullName.toLowerCase().includes(searchfield.toLowerCase());
         var searchEmail = user.email.toLowerCase().includes(searchfield.toLowerCase());
@@ -38,6 +39,7 @@ const AccountManagement = ({ navigation }) => {
         var search = searchFullName || searchEmail || searchPhoneNumber;
         return search;
     })
+    // Khi vuốt qua bên phải xuất hiện 1 button để vô hiệu hóa.
     const RightActions = ({item}) => {
         return (
             <Pressable onPress={() => Alert.alert(

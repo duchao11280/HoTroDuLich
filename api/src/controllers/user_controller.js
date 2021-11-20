@@ -28,12 +28,12 @@ exports.updateUser = (req, res) => {
 // Sign up
 exports.signUp = (req, res) => {
     const userReqData = new UserModel(req.body);
-    userReqData.password = bcrypt.hashSync(req.body.password, 14);
-
+    userReqData.password = bcrypt.hashSync(userReqData.password, 14);
     UserModel.insertUser(userReqData.userName, userReqData.password, userReqData.fullName,
         userReqData.email, userReqData.phonenumber, userReqData.role, (err, user) => {
             if (err) {
-                res.json({ status: false, message: `Error is: ${err}` })
+                res.json({ status: false, message: `Error is: ${err}` });
+                return;
             }
             res.json({ status: true, message: 'Đăng kí thành công' })
         })

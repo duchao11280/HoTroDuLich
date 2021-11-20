@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { View, Text, Image, Pressable,
     ActivityIndicator,StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import dataPlace from '../../../dataPlace';
 import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
