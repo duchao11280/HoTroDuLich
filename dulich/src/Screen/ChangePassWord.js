@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView, Alert, ActivityIndicator } from 'react-native';
+import {View,Text,Image, Pressable, StyleSheet, TextInput,
+     SafeAreaView, Alert, ActivityIndicator } from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
 import {changePassword} from '../networking/usernetworking';

@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import {View,Text,Image, Pressable, StyleSheet, TextInput, SafeAreaView} from 'react-native';
+import {View,Text,Image, Pressable, Alert,
+     StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
 import {editProfile} from '../networking/usernetworking';
@@ -8,9 +9,7 @@ const ChangeInfo = ({navigation, route}) =>{
     const [fullName, setFullName] = useState(route.params.userInfo.fullName);
     const [email, setEmail] = useState(route.params.userInfo.email);
     const [phonenumber, setPhonenumber] = useState(route.params.userInfo.phonenumber);
-    useEffect(()=>{
-
-    })
+    let isValidate = false;
     const handleInputFullName = (value) =>{
         setFullName(value);
     }
@@ -29,6 +28,25 @@ const ChangeInfo = ({navigation, route}) =>{
         }).catch((error)=>{
             console.log(error);
         });
+    }
+    const validate = ()=>{
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(fullName.length ==0){
+            showAlert("Tên không được để trống",false);
+            isValidate = false
+        } else if(!re.test(email)){
+            showAlert("Email sai định dạng",false);
+            isValidate = false
+        }else isValidate = true
+    }
+    const showAlert = (mess, status) =>{
+        Alert.alert(
+            "Thông báo",
+            mess,
+            [
+              { text: "OK", onPress: () => { if(status !=false){goBack()}} }
+            ]
+          );
     }
     return(
         <SafeAreaView style={Styles.container}>
@@ -55,6 +73,7 @@ const ChangeInfo = ({navigation, route}) =>{
                     <Text style={Styles.title}>Email</Text>
                     <TextInput
                         style={Styles.inputText}
+                        keyboardType={"email-address"}
                         onChangeText = {setEmail}
                         placeholder="Nhập email..."
                         value={email}
@@ -62,6 +81,7 @@ const ChangeInfo = ({navigation, route}) =>{
                     <Text style={Styles.title}>Số điện thoại</Text>
                     <TextInput
                         style={Styles.inputText}
+                        keyboardType = {"phone-pad"}
                         onChangeText = {setPhonenumber}                       
                         placeholder="Nhập số điện thoại..."
                         value={phonenumber}
@@ -69,7 +89,15 @@ const ChangeInfo = ({navigation, route}) =>{
                 </View>
            
             <View style={Styles.button}>
-                <Pressable onPress={()=>{handleEditProfile()}} style={Styles.buttonUpdate}>
+                <Pressable onPress={()=>{
+                    validate()
+                    if(isValidate){
+                        
+                        handleEditProfile();
+                        isValidate = false;
+                    }
+                    
+                }} style={Styles.buttonUpdate}>
                     <Text style={Styles.textButton}>Xác nhận</Text>
                 </Pressable>
             </View>
