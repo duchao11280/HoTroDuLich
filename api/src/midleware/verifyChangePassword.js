@@ -17,7 +17,10 @@ exports.verifyPassword = (req, res, next) => {
     
     
     UserModel.getPasswordUserByID(id,(err,user)=>{
-        if(err){return;}
+        if(err){
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        }
         
         if(bcrypt.compareSync(oldPassword, user[0].password)){
             next()

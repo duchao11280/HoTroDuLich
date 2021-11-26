@@ -44,7 +44,7 @@ const AccountManagement = ({ navigation }) => {
         return (
             <Pressable onPress={() => Alert.alert(
                 'Cảnh Báo',
-                'Bạn có chắc muốn vô hiệu hóa tài khoản',
+                'Bạn có chắc muốn vô hiệu hóa tài khoản?',
                 [
                     {
                         text: 'Đồng ý', onPress: () => {

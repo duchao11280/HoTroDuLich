@@ -15,7 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 const Contact =()=>(
-  <Stack.Navigator initialRouteName='PlaceManagenent' screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName='Profile' screenOptions={{ headerShown: false }}>
     <Stack.Screen   name="Login" component={Login} />
     <Stack.Screen  name="SignUp" component={SignUp} />
     <Stack.Screen  name="Profile" component={Profile} />
@@ -32,7 +32,7 @@ const Contact =()=>(
 export default function App() {
     return (
       <NavigationContainer>
-        <Login></Login>
+        <Contact></Contact>
       </NavigationContainer>
       
      );

@@ -18,7 +18,7 @@ const PlaceManagement = ({ navigation }) => {
     },[]);
     const handleSearch = (text) => {
         setSearchfield(text);
-        console.log(text)
+
 
     };
     const goToDetail = (place)=>{

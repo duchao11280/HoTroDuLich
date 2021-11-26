@@ -19,5 +19,17 @@ Place.getAllPlaces = (result) => {
         }
     })
 }
-
+Place.insertPlace = (placeName, description, tips, city ,result) => {
+    dbConn.query('Insert into place(placeName, description, tips, city) VALUES(?,?,?,?) ',
+        [placeName, description, tips, city],(err,res)=>{
+        result(err,res);
+    })
+}
+Place.updateInfoPlace = (id, placeName, description, tips, city , result) =>{
+    dbConn.query(`Update place Set  placeName=?, description=?,  tips=?, city=? where placeID=${id}`,
+        [placeName, description, tips, city], (err, res) => {
+            result(err,res);
+        }
+    );
+}
 module.exports = Place;

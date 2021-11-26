@@ -9,14 +9,12 @@ var Image = function(image){
 
 Image.getAllImageByPlaceID = (id, result) => {
     dbConn.query(`Select id,image From image Where placeID=${id}`,(err,res)=>{
-        if(res){
-            console.log("get all image success");
-
-            result(null,res);
-        }else{
-            result(err ,null);
-        }
+        result(err,res);
     })
 }
-
+Image.insertImagePlace = (filename,id, result) => {
+    dbConn.query('Insert into image(image,placeID) VALUES(?,?) ',[filename,id],(err,res)=>{
+        result(err,res);
+    })
+}
 module.exports = Image;

@@ -17,14 +17,7 @@ var User = function(user){
 // get all user
 User.getAllUsers = (result) => {
     dbConn.query(`Select * From user Where isDisabled != 1 `, (err, res) => {
-        if (res) {
-            console.log("get all user success");
-            result(null, res);
-            
-        } else {
-            console.log('Error User', err);
-            result(err, null);
-        }
+        result(err,res);
     });
 }
 /**
@@ -37,11 +30,7 @@ User.getUserByID = (id, result)=> {
     dbConn.query('Select userName,fullName,email,phonenumber,role' +
         ' From user' + 
         ' Where isDisabled != 1 and userID=?', id, (err, res) => {
-            if (err) {
-                result(err, null);
-            } else {
-                result(null, res);
-            }
+            result(err,res);
         });
 }
 /**
@@ -53,12 +42,9 @@ User.getUserByID = (id, result)=> {
 User.updateUser = (id, userReqData, result) =>{
     dbConn.query(`Update user Set  fullName=?,email=?,  phonenumber=? where userID=${id}`,
         [userReqData.fullName, userReqData.email, userReqData.phonenumber], (err, res) => {
-            if (err) {
-                result(null, err);
-            } else {
-                result(null, res);
-            }
-        });
+            result(err,res);
+        }
+    );
 }
 
 
@@ -67,11 +53,7 @@ User.getUserByUserName = (userName,result) => {
     dbConn.query('Select *' +
         ' From user' +
         ` Where userName="${userName}"`, (err, res) => {
-            if (err) {
-                result(null,err);
-            } else {
-                result(null,res);
-            }
+            result(err,res);
         });
 
 }
@@ -94,32 +76,20 @@ User.insertUser = (userName, password, fullName, email, phonenumber, role, resul
 User.changePassword = (id, userReqData, result) =>{
     dbConn.query(`Update user Set password=? where userID=${id}`,
         [userReqData.newPassword], (err, res) => {
-            if (err) {
-                result(err, null);
-            } else {
-                result(null, res);
-            }
+            result(err,res);
         });
 }
 User.getPasswordUserByID = (id, result)=> {
     dbConn.query('Select password' +
         ' From user' + 
         ' Where userID=?', id, (err, res) => {
-            if (err) {
-                result(err, null);
-            } else {
-                result(null, res);
-            }
+            result(err,res);
         });
 }
 
 User.disableUser = (id, result) =>{
     dbConn.query(`Update user Set isDisabled=1 where userID=${id}`,(err, res) => {
-            if (err) {
-                result(null, err);
-            } else {
-                result(null, res);
-            }
+            result(err,res);
         });
 }
 module.exports = User;

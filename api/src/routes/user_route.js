@@ -17,7 +17,7 @@ router.put('/:id', userController.updateUser);
 router.post('/signup', verifySignUp.verifyUserName, userController.signUp);
 
 // change password
-router.put("/changePassword/:id", verifyChangePassword.verifyPassword, userController.changePassword);
+router.put("/changepassword/:id", verifyChangePassword.verifyPassword, userController.changePassword);
 
 ///Login
 router.post("/login", userController.login)

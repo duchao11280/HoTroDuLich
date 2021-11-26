@@ -4,11 +4,12 @@ const UserModel = require('../models/user_model');
 exports.verifyUserName = (req, res, next) => {
     UserModel.getUserByUserName(req.body.userName, (err, user) => {
         if (err) {
-            res.send({ status: false });
+            res.status(500).send({ status: false, message: "Thất bại" });
             return;
         };
         if (user.length != 0) {
-            res.send({ status: true, message: "Username đã tồn tại" });
+            res.send({ status: false, message: "Username đã tồn tại" });
+            return;
         } else {
             next()
         }
