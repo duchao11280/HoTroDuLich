@@ -29,6 +29,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Ứng dụng truy cập ảnh của bạn để cho phép bạn tải lên hình ảnh.",
+          "cameraPermission": "Ứng dụng truy cập camera của bạn để cho phép bạn tải lên hình ảnh."
+        }
+      ]
+    ]
   }
 }

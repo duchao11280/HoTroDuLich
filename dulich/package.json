@@ -16,6 +16,7 @@
     "color": "^4.0.1",
     "expo": "^42.0.4",
     "expo-constants": "~11.0.2",
+    "expo-image-picker": "~10.2.2",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
     "octicons": "^8.5.0",

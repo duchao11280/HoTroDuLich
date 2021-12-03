@@ -3,18 +3,19 @@ import React, {useState, useEffect} from 'react';
 import {View,Text,Image, Pressable, StyleSheet} from 'react-native';
 import Field from '../Component/Profile/Field';
 import {getProfile} from '../networking/usernetworking';
+import { useIsFocused } from '@react-navigation/native';
 const Profile = ({navigation}) =>{
     const [userInfo, setUserInfo] = useState({fullName:'', email:'', phonenumber:''});
-
+    const isFocused = useIsFocused();
     useEffect(() => {
-        getProfile(1).then((profile)=>{
+        getProfile(10).then((profile)=>{
             if(profile.length!=0)
                 setUserInfo(profile);
             else setUserInfo({});
         }).catch((error)=>{
             setUserInfo({});
         })
-    });
+    },[isFocused]);
     const goToChangeInfo= (info) => {
         navigation.push('ChangeInfo',{userInfo: info});
     }

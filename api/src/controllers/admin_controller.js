@@ -46,6 +46,16 @@ exports.uploadImagePlace= (req, res) => {
         return;
     }
 }
+// Delete image
+exports.deleteImage = (req, res)=> {
+    ImageModel.deleteImage(req.params.id, (err, data) => {
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({ status: true, message: 'Xóa hình ảnh thành công'})
+    })
+}
 // Insert Place
 exports.insertPlace = (req, res) => {
     var placeReq = new PlaceModel(req.body);
@@ -72,7 +82,16 @@ exports.updateInfoPlace = (req, res) => {
     })
 
 }
-
+// Delete Place
+exports.deletePlace = (req, res)=> {
+    PlaceModel.deletePlace(req.params.id, (err, data) => {
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({ status: true, message: 'Xóa địa điểm thành công'})
+    })
+}
 // get all user
 exports.getAllUsers = (req, res) => {
     UserModel.getAllUsers((err, users) => {

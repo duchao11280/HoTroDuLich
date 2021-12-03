@@ -21,7 +21,7 @@ const ChangePassWord = ({navigation}) =>{
             newPassword: newPassword,
             confirmPassword: repeatPassword,
         }
-        changePassword(7,params).then((response)=>{
+        changePassword(10,params).then((response)=>{
             setLoading(false);
             showAlert(response.message,response.status);
         }).catch((error)=>{

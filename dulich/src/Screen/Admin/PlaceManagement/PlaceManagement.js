@@ -1,28 +1,99 @@
 import React, { Component, useEffect, useState } from 'react';
-import { View, Text, Image, Pressable,
-    ActivityIndicator,StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import {
+    View, Text, Image, Pressable, RefreshControl,Alert,
+    ActivityIndicator, StyleSheet, FlatList, SafeAreaView
+} from 'react-native';
 import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
-import { getAllPlaces } from '../../../networking/adminnetworking'
+import { getAllPlaces, deletePlace } from '../../../networking/adminnetworking'
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
 const PlaceManagement = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
     const [listPlaces, setListPlaces] = useState([]);
     const [searchfield, setSearchfield] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
-        getAllPlaces().then((listPlaces)=>{setListPlaces(listPlaces)})
-        .catch((err)=>{console.log("Kết nối thất bại")})
-        .finally(()=> setLoading(false))
-        
-    },[]);
+        getPlaceFromServer();
+
+    }, []);
+    const getPlaceFromServer = () => {
+        getAllPlaces().then((listPlaces) => { setListPlaces(listPlaces) })
+            .catch((err) => { console.log("Kết nối thất bại") })
+            .finally(() => {setLoading(false), setRefreshing(false);});
+    }
+    // khi kéo từ trên xuống refresh lại dữ liệu
+    const onRefresh = () => {setRefreshing(true); getPlaceFromServer() }
     const handleSearch = (text) => {
         setSearchfield(text);
 
-
     };
-    const goToDetail = (place)=>{
-        navigation.push('PlaceDetail', {place: place});
+    const goToDetail = (place) => {
+        navigation.push('PlaceDetail', { place: place });
+    }
+    // Lọc place theo search 
+    const filteredPlaces = listPlaces == undefined ? [] : listPlaces.filter(place => {
+        var searchName = place.placeName.toLowerCase().includes(searchfield.toLowerCase());
+        var searchCity = place.city.toLowerCase().includes(searchfield.toLowerCase());
+        var search = searchName || searchCity;
+        return search;
+    })
+    const RightActions = ({item}) => {
+        return (
+            <Pressable onPress={() => Alert.alert(
+                'Cảnh Báo',
+                'Bạn có chắc muốn XÓA địa điểm này?',
+                [
+                    {
+                        text: 'Đồng ý', onPress: () => {
+                            deletePlace(item.placeID)
+                                .then((res) => {
+                                    onRefresh();
+                                    Alert.alert(
+                                        "Thông báo",
+                                        res.message,
+                                        [{
+                                            text: 'Ok',
+                                            onPress: () => {  }
+                                        }])
+                                })
+                                .catch(() => {
+                                    Alert.alert(
+                                        "Thông Báo",
+                                        "Vô hiệu hóa thất bại",
+                                        [{
+                                            text: 'Ok',
+                                            onPress: () => {}
+                                        }]
+                                    )
+                                })
+                        }
+                    },
+                    {
+                        text: 'Hủy bỏ', onPress: () => { }
+                    }
+                ]
+            )}>
+                <View
+                    style={{
+                        flex: 1, backgroundColor: 'red', justifyContent: 'center',
+                        marginTop: 10,
+                        borderRadius: 15,
+                    }}>
+                    <Text
+                        style={{
+                            color: 'white',
+                            paddingHorizontal: 10,
+
+                            fontWeight: '600',
+                        }}>
+                        Vô hiệu hóa
+                </Text>
+                </View>
+            </Pressable>
+        )
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -39,26 +110,34 @@ const PlaceManagement = ({ navigation }) => {
                     value={searchfield}
                 />
                 <View>
-                {isLoading ? <ActivityIndicator size="large" color='blue'/> :
-                <FlatList
-                    data={listPlaces}
-                    ListFooterComponent={<View style={{ height: 150 }} />}
-                    keyExtractor={item => item.placeID.toString()}
-                    
-                    renderItem={({ item, index }) => {
-                        return (
-                            <Pressable
-                                onPress={()=> {goToDetail(item)}}
-                            >
-                                <PlaceItem item={item} index={index}>
+                    {isLoading ? <ActivityIndicator size="large" color='blue' /> :
+                        <FlatList
+                            data={filteredPlaces}
+                            ListFooterComponent={<View style={{ height: 150 }} />}
+                            keyExtractor={item => item.placeID.toString()}
 
-                                </PlaceItem>
-                            </Pressable>
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <Pressable
+                                        onPress={() => { goToDetail(item) }}
+                                    >
+                                        <Swipeable renderRightActions={()=><RightActions item={item}/>} >
+                                        <PlaceItem item={item} index={index}>
 
-                        );
-                    }}
-                >
-                </FlatList>}
+                                        </PlaceItem>
+                                        </Swipeable>
+                                    </Pressable>
+
+                                );
+                            }}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={() => onRefresh()}
+                                />
+                            }
+                        >
+                        </FlatList>}
                 </View>
             </View>
         </SafeAreaView>

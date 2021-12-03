@@ -13,7 +13,7 @@ const PlaceItem =(props) => {
                 Địa điểm: {props.item.placeName}
             </Text>
             <Text style={Styles.textInfo}>
-                Thành phố: {props.item.city}
+                Tỉnh thành: {props.item.city}
             </Text>
         </View>
         

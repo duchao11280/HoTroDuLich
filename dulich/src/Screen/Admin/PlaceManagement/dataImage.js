@@ -1,7 +1,7 @@
 var imageList = [
     {
         "id": 1,
-        "image": "https://media.dalatcity.org//Images/DNI/kdlgiangdien.dltm/AnhG%C4%90/giangdien1_637345507196455174.jpg"
+        "image": "http://192.168.1.7:3000/public/images/1638002484834_giangdien5.jpg"
     },
     {
         "id": 2,
