@@ -1,19 +1,21 @@
 import React, { Component, useEffect, useState } from 'react';
 import {
-    View, Text, Image, Pressable, RefreshControl,Alert,
-    ActivityIndicator, StyleSheet, FlatList, SafeAreaView
+    View, Text, Image, Pressable, RefreshControl, Alert,
+    ActivityIndicator, StyleSheet, FlatList, SafeAreaView, TouchableHighlight
 } from 'react-native';
 import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
-import { getAllPlaces, deletePlace } from '../../../networking/adminnetworking'
+import { getAllPlaces, deletePlace, addPlaceInfo } from '../../../networking/adminnetworking'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import ModalAddPlace from '../../../Component/Admin/PlaceManagement/ModalAddPlace'
 
 const PlaceManagement = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
     const [listPlaces, setListPlaces] = useState([]);
     const [searchfield, setSearchfield] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         getPlaceFromServer();
@@ -22,10 +24,10 @@ const PlaceManagement = ({ navigation }) => {
     const getPlaceFromServer = () => {
         getAllPlaces().then((listPlaces) => { setListPlaces(listPlaces) })
             .catch((err) => { console.log("Kết nối thất bại") })
-            .finally(() => {setLoading(false), setRefreshing(false);});
+            .finally(() => { setLoading(false), setRefreshing(false); });
     }
     // khi kéo từ trên xuống refresh lại dữ liệu
-    const onRefresh = () => {setRefreshing(true); getPlaceFromServer() }
+    const onRefresh = () => { setRefreshing(true); getPlaceFromServer() }
     const handleSearch = (text) => {
         setSearchfield(text);
 
@@ -40,7 +42,7 @@ const PlaceManagement = ({ navigation }) => {
         var search = searchName || searchCity;
         return search;
     })
-    const RightActions = ({item}) => {
+    const RightActions = ({ item }) => {
         return (
             <Pressable onPress={() => Alert.alert(
                 'Cảnh Báo',
@@ -56,7 +58,7 @@ const PlaceManagement = ({ navigation }) => {
                                         res.message,
                                         [{
                                             text: 'Ok',
-                                            onPress: () => {  }
+                                            onPress: () => { }
                                         }])
                                 })
                                 .catch(() => {
@@ -65,7 +67,7 @@ const PlaceManagement = ({ navigation }) => {
                                         "Vô hiệu hóa thất bại",
                                         [{
                                             text: 'Ok',
-                                            onPress: () => {}
+                                            onPress: () => { }
                                         }]
                                     )
                                 })
@@ -95,6 +97,23 @@ const PlaceManagement = ({ navigation }) => {
             </Pressable>
         )
     }
+    const cancelModal = () => {
+        setModalVisible(false);
+    }
+    const addPlace = (placeName,description,tips,city) => {
+        setLoading(true)
+        var params = {
+            placeName: placeName,
+            description:description,
+            tips:tips,
+            city:city
+        }
+        
+        addPlaceInfo(params)
+            .then((response) => {Alert.alert("Thông báo",response.message,[{text: "Ok",onPress: () => {}}]);onRefresh()})
+            .catch(error=>{Alert.alert("Thông báo","Thêm thất bại",[{text: "Ok",onPress: () => {}}])})
+            .finally(() => { setLoading(false);cancelModal()})
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View >
@@ -109,11 +128,17 @@ const PlaceManagement = ({ navigation }) => {
                     onChangeText={handleSearch}
                     value={searchfield}
                 />
+                <Pressable style={{alignSelf:'flex-end'}}
+                    onPress={()=>{setModalVisible(true)}}
+                >
+                    <Text style={styles.button}>Thêm mới</Text>
+                </Pressable>
+
                 <View>
                     {isLoading ? <ActivityIndicator size="large" color='blue' /> :
                         <FlatList
                             data={filteredPlaces}
-                            ListFooterComponent={<View style={{ height: 150 }} />}
+                            ListFooterComponent={<View style={{paddingBottom: 400 }} />}
                             keyExtractor={item => item.placeID.toString()}
 
                             renderItem={({ item, index }) => {
@@ -121,10 +146,10 @@ const PlaceManagement = ({ navigation }) => {
                                     <Pressable
                                         onPress={() => { goToDetail(item) }}
                                     >
-                                        <Swipeable renderRightActions={()=><RightActions item={item}/>} >
-                                        <PlaceItem item={item} index={index}>
+                                        <Swipeable renderRightActions={() => <RightActions item={item} />} >
+                                            <PlaceItem item={item} index={index}>
 
-                                        </PlaceItem>
+                                            </PlaceItem>
                                         </Swipeable>
                                     </Pressable>
 
@@ -139,10 +164,27 @@ const PlaceManagement = ({ navigation }) => {
                         >
                         </FlatList>}
                 </View>
+                <ModalAddPlace 
+                    modalVisible={modalVisible}
+                    cancelModal={cancelModal}
+                    addPlace={addPlace}
+                />
             </View>
         </SafeAreaView>
     )
 }
 
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: 'green',
+        color: 'white',
+        borderRadius: 15,
+        marginRight: 10,
+        paddingHorizontal: 20,
+        paddingVertical:5,
+        width:'auto',
+        fontSize:18,
+    },
+})
 
 export default PlaceManagement;

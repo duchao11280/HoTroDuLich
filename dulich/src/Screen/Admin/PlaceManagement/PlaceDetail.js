@@ -5,7 +5,8 @@ import {
 } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import CardImage from '../../../Component/Admin/PlaceManagement/CardImage'
-import { getImageByPlaceID, updateInfoPlace, uploadImagePlace 
+import {
+    getImageByPlaceID, updateInfoPlace, uploadImagePlace, disableImage
 } from '../../../networking/adminnetworking'
 import { BottomSheet, Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -49,7 +50,7 @@ const PlaceDetail = ({ navigation, route }) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                uploadImagePlace(placeInfo.placeID,result.uri).then((response)=>{console.log("res: "+response)}).catch(err=>{console.log("err: "+err)})
+                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { console.log("res: " + response) }).catch(err => { console.log("err: " + err) })
                 setBottomSheetVisible(false)
                 onRefresh();
             }
@@ -65,7 +66,7 @@ const PlaceDetail = ({ navigation, route }) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                uploadImagePlace(placeInfo.placeID,result.uri).then((response)=>{console.log("res: "+response)}).catch(err=>{console.log("err: "+err)})
+                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { console.log("res: " + response) }).catch(err => { console.log("err: " + err) })
                 setBottomSheetVisible(false)
                 onRefresh();
             }
@@ -86,7 +87,19 @@ const PlaceDetail = ({ navigation, route }) => {
         setRefreshing(true)
         getImageFromServer();
     }
-
+    const disableOneImage = (id) => {
+        setLoading(true)
+        disableImage(id)
+            .then((response) => {
+                onRefresh();
+                Alert.alert("Thông báo", response.message, [{ text: "Ok", onPress: () => { } }])
+                
+            })
+            .catch((error) => {
+                Alert.alert("Thông báo", "Thất bại trong việc xóa hình ảnh", [{ text: "Ok", onPress: () => { } }])
+            })
+            .finally(() => { setLoading(false); })
+    }
     const ModalEdit = () => {
         const [infoEdit, setInfoEdit] = useState({
             placeID: placeInfo.placeID,
@@ -243,10 +256,8 @@ const PlaceDetail = ({ navigation, route }) => {
                         renderItem={({ item, index }) => {
                             return (
                                 <Pressable
-                                    onPress={() => { console.log(item.id) }}
                                 >
-                                    <CardImage item={item} index={index}>
-
+                                    <CardImage item={item} index={index} disableImage={disableOneImage}>
                                     </CardImage>
                                 </Pressable>
 

@@ -108,6 +108,42 @@ const uploadImagePlace = async (id,uriFromClient) => {
 
   }
 }
+
+// addPlace
+const addPlaceInfo = async (params) =>{
+  try {
+    const respone = await fetch(API_URL + `/api/v1/admin/place`, {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        placeName: params.placeName,
+        description: params.description,
+        tips: params.tips,
+        city: params.city
+      })
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
+// disable image
+const disableImage = async (id) =>{
+  
+  try {
+    const respone = await fetch(API_URL + `/api/v1/admin/place/image/delete/${id}`, {
+      method: 'PUT',
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
 export {
   getAllPlaces,
   getAllUsers,
@@ -116,4 +152,6 @@ export {
   getImageByPlaceID, 
   updateInfoPlace,
   uploadImagePlace,
+  addPlaceInfo,
+  disableImage,
 }

@@ -11,7 +11,7 @@
  Target Server Version : 100414
  File Encoding         : 65001
 
- Date: 03/12/2021 16:55:50
+ Date: 04/12/2021 17:07:40
 */
 
 SET NAMES utf8mb4;
@@ -111,7 +111,7 @@ CREATE TABLE `image`  (
   INDEX `fk_image_contribute`(`contributeID`) USING BTREE,
   CONSTRAINT `fk_image_contribute` FOREIGN KEY (`contributeID`) REFERENCES `contribute` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_image_place` FOREIGN KEY (`placeID`) REFERENCES `place` (`placeID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of image
@@ -127,6 +127,7 @@ INSERT INTO `image` VALUES (11, '1638524353039_2_1638524350582.jpg', 2, NULL, 0)
 INSERT INTO `image` VALUES (12, '1638524415672_2_1638524413170.jpg', 2, NULL, 0);
 INSERT INTO `image` VALUES (13, '1638524523929_1_1638524521485.jpg', 1, NULL, 0);
 INSERT INTO `image` VALUES (14, '1638524545918_1_1638524543410.jpg', 1, NULL, 0);
+INSERT INTO `image` VALUES (16, '1638527365084_2_1638527362608.jpg', 2, NULL, 0);
 
 -- ----------------------------
 -- Table structure for notification
@@ -156,7 +157,7 @@ CREATE TABLE `place`  (
   `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `isDeleted` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`placeID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of place
@@ -166,6 +167,9 @@ INSERT INTO `place` VALUES (2, 'Vườn Xoài', 'Đây là một địa điểm 
 INSERT INTO `place` VALUES (3, 'Thác Giang Điền', 'Đây là một địa điểm du lịch ưa thích đối với các bạn trẻ thích một nơi cắm trại vui vẻ', 'Mang theo đồ để cắm trại như: ...', 'Đồng Nai', 0);
 INSERT INTO `place` VALUES (4, 'Quảng trường Ba Đình', 'Quảng trường Ba Đình là quảng trường lớn nhất Việt Nam, nằm trên đường Hùng Vương, quận Ba Đình và là nơi Lăng Chủ tịch Hồ Chí Minh được xây dựng.', 'Đi cùng bạn bè', 'Hà Nội', 0);
 INSERT INTO `place` VALUES (5, 'Núi Chứa Chan', 'Ngọn núi cao thứ hai ở Đông Nam Bộ có nhiều rừng rậm, vách đá dựng đứng... được các bạn trẻ chọn để khám phá khi rảnh rỗi.', '', 'Đồng Nai', 0);
+INSERT INTO `place` VALUES (6, 'Công viên văn hóa Suối Tiên', 'Khu Du lịch Văn hóa Suối Tiên là một công viên liên hợp vui chơi giải trí kết hợp truyền thống các yếu tố văn hóa - lịch sử - tâm linh.', 'Nếu được, bạn hãy đi vào hai ngày cuối tuần để có thể tận mắt xem trình diễn truyền thuyết Sơn Tinh Thủy Tinh.\n\nNguồn bài viết: https://dulichkhampha24.com/khu-du-lich-suoi-tien-sai-gon.html', 'TP.Hồ Chí Minh', 0);
+INSERT INTO `place` VALUES (7, 'Công viên Văn hóa Đầm Sen', 'Nơi đây được ví là “ốc đảo xanh” với 36 thiết bị dưới nước hiện đại cùng nhiều trò chơi cảm giác mạnh đến nhẹ, phù hợp với mọi lứa tuổi. Vì vậy, bạn có thể vui chơi cả ngày mà không thấy chán.', 'Nên tắm sơ trước khi bơi để hạn chế khả năng hấp thu nước Clo trong hồ bơi.\nNgăn chặn tình trạng sạm da bằng cách dùng kem dưỡng ẩm, lotion và kem chống nắng.\nKhi tham gia máng trượt bạn nên mặc quần áo gọn gàng, không mang các vật dụng sắc nhọn để tránh ', 'TP.Hồ Chí Minh', 0);
+INSERT INTO `place` VALUES (8, 'Thác Đá Hàn', 'Khu du lịch thác Đá Hàn là một trong những điểm mới lạ để cho các bạn trẻ tới khám phá. Với vẻ đẹp thiên nhiên hoang sơ và hùng vĩ khó cưỡng, thác nước hữu tình điểm thêm vườn trái cây trĩu quả. Với những bạn yêu thích đi phượt thì địa điểm này hứa hẹn sẽ là điểm đến lý tưởng để dã ngoại, cắm trại những ngày cuối tuần.', 'Hãy mặc trang phục thoải mái, đi giày thể thao để bảo vệ sức khỏe trong thời gian di chuyển.\nCần mang thuốc xịt đề phòng côn trùng cắn', 'Đồng Nai', 0);
 
 -- ----------------------------
 -- Table structure for restaurant
