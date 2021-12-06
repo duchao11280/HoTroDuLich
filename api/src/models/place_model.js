@@ -43,4 +43,12 @@ Place.deletePlace = (id, result) => {
         }
     );
 }
+
+// get place and images
+Place.getAllPlaceAndImages = (result) =>{
+    dbConn.query('Select * from place LEFT JOIN image ON place.placeID = image.placeID',(err,res)=>{
+        result(err, res);
+    })
+}
+
 module.exports = Place;

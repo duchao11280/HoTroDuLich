@@ -12,15 +12,18 @@ import PlaceManagement from './src/Screen/Admin/PlaceManagement/PlaceManagement'
 import { NavigationContainer } from '@react-navigation/native';
 import PlaceDetail from './src/Screen/Admin/PlaceManagement/PlaceDetail';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import PlacesInfo from './src/Screen/PlacesInfo';
+import PlaceInfoDetail from './src/Screen/PlaceInfoDetail';
 const Stack = createNativeStackNavigator();
 const Contact =()=>(
-  <Stack.Navigator initialRouteName='PlaceManagenent' screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName='PlacesInfo' screenOptions={{ headerShown: false }}>
     <Stack.Screen   name="Login" component={Login} />
     <Stack.Screen  name="SignUp" component={SignUp} />
     <Stack.Screen  name="Profile" component={Profile} />
     <Stack.Screen  name="ChangeInfo" component={ChangeInfo} />
     <Stack.Screen  name="ChangePassWord" component={ChangePassWord} />
+    <Stack.Screen  name="PlacesInfo" component={PlacesInfo} />
+    <Stack.Screen  name="PlaceInfoDetail" component={PlaceInfoDetail} />
     <Stack.Screen name ="AccountManagement" component={AccountManagement}/>
     <Stack.Screen name ="PlaceManagenent" component={PlaceManagement}/>
     <Stack.Screen name ="PlaceDetail" component={PlaceDetail} />

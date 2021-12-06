@@ -80,7 +80,7 @@ const PlaceDetail = ({ navigation, route }) => {
             .then((response) => {
                 setListImages(response.data)
             })
-            .catch((err) => { console.log("Kết nối thất bại") })
+            .catch((err) => { Alert.alert("Thông báo","Kết nối thất bại") })
             .finally(() => { setLoading(false), setRefreshing(false); });
     }
     const onRefresh = () => {

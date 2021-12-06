@@ -26,4 +26,6 @@ Image.deleteImage = (id, result) => {
         }
     );
 }
+
+
 module.exports = Image;
