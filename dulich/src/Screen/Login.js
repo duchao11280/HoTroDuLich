@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Button,
-  ActivityIndicator, Alert, Image, TextInput, TouchableOpacity } from 'react-native';
+import {
+  Text, View, StyleSheet, Button,
+  ActivityIndicator, Alert, Image, TextInput, TouchableOpacity
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Entypo } from '@expo/vector-icons';
 import { login } from '../networking/usernetworking'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TOKEN = "keytoken"
-const Login = () => {
+const Login = ({ navigation }) => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
@@ -16,11 +18,29 @@ const Login = () => {
     const response = await login(userName, password);
     if (response.status == true) {
       try {
-        await AsyncStorage.setItem("userID", response.data.userID);
-        await AsyncStorage.setItem("role", response.data.role);
+        await AsyncStorage.setItem("userID", response.data.user.userID.toString());
+        await AsyncStorage.setItem("role", response.data.user.role.toString());
         await AsyncStorage.setItem(TOKEN, response.data.accessToken);
 
+        if (response.data.user.role == 0) {
+          console.log("User zô")
+          navigation.navigate("Home")
+        }
+        if (response.data.user.role == 1) {
+          console.log("vo bang admin");
+          navigation.navigate("Home")
+        }
+        if (response.data.user.role == 2) {
+          console.log("vo bang nha hang");
+          navigation.navigate("Home")
+        }
+        if (response.data.user.role == 3) {
+          console.log("vo bang khach san");
+          navigation.navigate("Home")
+        }
+
       } catch (e) {
+        console.log(e.message);
       }
     } else {
       Alert.alert("Thông báo", response.message), [{ text: "Ok", onPress: () => { } }];
@@ -29,21 +49,17 @@ const Login = () => {
   }
 
 
-
-
-
   //get jwt
-  const receive = async () => {
+  /*const GetRole = async () => {
     try {
-      const value = await AsyncStorage.getItem('TASKS');
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
-      }
+      const Rolevalue = JSON.parse(await AsyncStorage.getItem('role'))
+      console.log("CCCCCCCCC", Rolevalue);
+
+
     } catch (error) {
       // Error retrieving data
     }
-  }
+  }*/
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{
@@ -78,21 +94,21 @@ const Login = () => {
         </View>
 
         <View style={styles.LoginButtonView}>
-        {isLoading?<ActivityIndicator size="large" color='blue'/>:
-          <TouchableOpacity style={styles.LoginButton}
-            onPress={() => {
-              setLoading(true),
-              onLogin()
-            }}>
-            <Text style={styles.LoginButtonText}
-            > Đăng nhập</Text>
-          </TouchableOpacity>
-        }
+          {isLoading ? <ActivityIndicator size="large" color='blue' /> :
+            <TouchableOpacity style={styles.LoginButton}
+              onPress={() => {
+                setLoading(true),
+                  onLogin()
+              }}>
+              <Text style={styles.LoginButtonText}
+              > Đăng nhập</Text>
+            </TouchableOpacity>
+          }
         </View>
 
         <View >
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => {receive()}}>
+            onPress={() => navigation.navigate("SignUp")}>
             <Text style={styles.SignUpText}> Đăng ký tài khoản </Text>
           </TouchableOpacity>
         </View>

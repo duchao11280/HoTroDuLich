@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_URL = 'http://192.168.1.5:3000';
+const API_URL = 'http://192.168.1.11:3000';
 // get data cho màn hình profile
 const getProfile = async (id) => {
   try {
@@ -78,6 +78,32 @@ const login = async (userName, password) => {
   } catch (error) {
 
   }
+}
+
+
+
+const signUp = async (params) => {
+  try {
+    const respone = await fetch(API_URL + '/api/v1/user/signup', {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName: params.userName,
+        fullName: params.fullName,
+        password: params.password,
+        email: params.email,
+        phonenumber: params.phonenumber,
+        role: params.role
+      })
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
 
 }
-export { getProfile, editProfile, changePassword, login }
+export { getProfile, editProfile, changePassword, login, signUp }
