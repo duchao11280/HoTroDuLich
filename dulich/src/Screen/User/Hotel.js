@@ -125,7 +125,7 @@ const Hotel = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header statusBarHeight={20}>
-        <Appbar.BackAction onPress={() => navigation.navigate("Home")} />
+        <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Khách sạn" />
       </Appbar.Header>
 

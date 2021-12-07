@@ -41,7 +41,7 @@ const PlacesInfo = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Appbar.Header statusBarHeight={20}>
-                <Appbar.BackAction onPress={() => navigation.navigate("Home")} />
+                <Appbar.BackAction onPress={() => navigation.pop()} />
                 <Appbar.Content title="Thông tin du lịch" />
             </Appbar.Header>
             <SearchBar

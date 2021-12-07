@@ -11,7 +11,7 @@ const Information = ({ navigation }) => {
   return (
     <View style={[styles.container]}>
       <Appbar.Header statusBarHeight={20}>
-        <Appbar.BackAction onPress={() => navigation.navigate("Home")} />
+        <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Thông tin tài khoản" />
       </Appbar.Header>
 
@@ -33,7 +33,7 @@ const Information = ({ navigation }) => {
         <Line />
 
         <View style={styles.TitleView}>
-          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={()=>navigation.push('Profile')}>
+          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={() => navigation.push('Profile')}>
             <FontAwesome5 name={'user'} size={20} />
             <Text style={styles.Title}>Thông tin của bạn</Text>
           </TouchableOpacity>

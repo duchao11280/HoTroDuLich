@@ -7,7 +7,7 @@ const Receipt = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header statusBarHeight={20}>
-        <Appbar.BackAction onPress={() => navigation.navigate("Home")} />
+        <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Hóa đơn" />
       </Appbar.Header>
     </View>
