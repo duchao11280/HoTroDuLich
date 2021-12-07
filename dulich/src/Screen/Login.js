@@ -1,35 +1,65 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity } from 'react-native';
+import {
+  Text, View, StyleSheet, Button,
+  ActivityIndicator, Alert, Image, TextInput, TouchableOpacity
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Entypo } from '@expo/vector-icons';
-import { set } from 'react-native-reanimated';
 import { login } from '../networking/usernetworking'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TOKEN = "keytoken"
-const Login = () => {
+const Login = ({ navigation }) => {
+  const [userName, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setLoading] = useState(false);
   // set jwt
   const onLogin = async () => {
-    const result = await login("duchao120", "123456");
+    const response = await login(userName, password);
+    if (response.status == true) {
+      try {
+        await AsyncStorage.setItem("userID", response.data.user.userID.toString());
+        await AsyncStorage.setItem("role", response.data.user.role.toString());
+        await AsyncStorage.setItem(TOKEN, response.data.accessToken);
 
-    try {
-      await AsyncStorage.setItem(TOKEN, result.data.accessToken);
-      console.log(result.data.accessToken);
-    } catch (e) {
-      console.log('ko')
+        if (response.data.user.role == 0) {
+          console.log("User zô")
+          navigation.navigate("Home")
+        }
+        if (response.data.user.role == 1) {
+          console.log("vo bang admin");
+          navigation.navigate("Home")
+        }
+        if (response.data.user.role == 2) {
+          console.log("vo bang nha hang");
+          navigation.navigate("NaviUser")
+        }
+        if (response.data.user.role == 3) {
+          console.log("vo bang khach san");
+          navigation.navigate("NaviUser")
+        }
+
+      } catch (e) {
+        console.log(e.message);
+      }
+    } else {
+      Alert.alert("Thông báo", response.message), [{ text: "Ok", onPress: () => { } }];
     }
+    setLoading(false);
   }
+
 
   //get jwt
-  const receive = async () => {
+  /*const GetRole = async () => {
     try {
-      const value = await AsyncStorage.getItem(TOKEN)
-      if (value !== null) {
-        console.log(value)
-      }
-    } catch (e) {
+      const Rolevalue = JSON.parse(await AsyncStorage.getItem('role'))
+      console.log("CCCCCCCCC", Rolevalue);
+
+
+    } catch (error) {
+      // Error retrieving data
     }
-  }
+  }*/
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{
@@ -47,7 +77,7 @@ const Login = () => {
           <View>
             <Entypo name="user" size={24} color="black" style={styles.icon} />
             <TextInput style={styles.Input} placeholder="Tên đăng nhập"
-              onChange={(e) => { setUsername(e.target.value) }}
+              onChangeText={setUsername}
             />
           </View>
 
@@ -57,22 +87,28 @@ const Login = () => {
             <Entypo name="lock" size={24} color="black" style={styles.icon} />
             <TextInput style={styles.Input} placeholder="Mật Khẩu"
               secureTextEntry={true}
-              onChange={(e) => { setPassword(e.target.value) }}
+              onChangeText={setPassword}
             />
           </View>
 
         </View>
 
         <View style={styles.LoginButtonView}>
-          <TouchableOpacity style={styles.LoginButton} onPress={() => { onLogin(); console.log("a") }}>
-            <Text style={styles.LoginButtonText}
-            > Đăng nhập</Text>
-          </TouchableOpacity>
+          {isLoading ? <ActivityIndicator size="large" color='blue' /> :
+            <TouchableOpacity style={styles.LoginButton}
+              onPress={() => {
+                setLoading(true),
+                  onLogin()
+              }}>
+              <Text style={styles.LoginButtonText}
+              > Đăng nhập</Text>
+            </TouchableOpacity>
+          }
         </View>
 
         <View >
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => receive()}>
+            onPress={() => navigation.navigate("SignUp")}>
             <Text style={styles.SignUpText}> Đăng ký tài khoản </Text>
           </TouchableOpacity>
         </View>

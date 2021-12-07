@@ -23,7 +23,7 @@ exports.updateUser = (req, res) => {
     const userReqData = new UserModel(req.body);
     UserModel.updateUser(req.params.id, userReqData, (err, user) => {
         if (err) {
-            res.status(500).json({status: false, message: "Thất bại"})
+            res.status(500).json({ status: false, message: "Thất bại" })
             return;
         }
         res.json({ status: true, message: 'User updated successfully' })
@@ -38,7 +38,7 @@ exports.signUp = (req, res) => {
     UserModel.insertUser(userReqData.userName, userReqData.password, userReqData.fullName,
         userReqData.email, userReqData.phonenumber, userReqData.role, (err, user) => {
             if (err) {
-                res.status(500).json({status: false, message: "Thất bại"})
+                res.status(500).json({ status: false, message: "Thất bại" })
                 return;
             }
             res.json({ status: true, message: 'Đăng kí thành công' })
@@ -47,11 +47,14 @@ exports.signUp = (req, res) => {
 
 //Login 
 exports.login = (req, res) => {
+
     try {
         const userReqData = new UserModel(req.body);
         UserModel.getUserByUserName(req.body.userName, (err, user) => {
             if (err) {
                 res.status(500).send({ status: false, message: "Hệ thông xảy ra lỗi, vui lòng thử lại sau" });
+
+
                 return;
             };
             if (user.length != 0) {

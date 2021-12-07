@@ -91,7 +91,6 @@ const ChangePassWord = ({navigation}) =>{
                     onPress={()=>{
                         validate()
                         if(isValidate){
-                            
                             handleChangePassword();
                             isValidate = false;
                         }

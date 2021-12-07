@@ -1,4 +1,6 @@
-const API_URL = 'http://192.168.1.7:3000';
+
+const API_URL = 'http://192.168.1.11:3000';
+
 // get data cho màn hình profile
 const getAllPlaces = async () => {
   try {
@@ -24,6 +26,7 @@ const getAllUsers = async () => {
 
   }
 };
+
 //  vô hiệu hóa người dùng
 const disableUser = async (id) => {
   try {
@@ -85,15 +88,15 @@ const updateInfoPlace = async (params) => {
 }
 
 //Upload Image Place
-const uploadImagePlace = async (id,uriFromClient) => {
+const uploadImagePlace = async (id, uriFromClient) => {
   try {
     let form = new FormData();
     let file = {
-      name: id+ "_"+ Date.now()+'.jpg',
-      uri:uriFromClient,
-      type:"image/jpeg",
+      name: id + "_" + Date.now() + '.jpg',
+      uri: uriFromClient,
+      type: "image/jpeg",
     }
-    form.append('file',file);
+    form.append('file', file);
     const respone = await fetch(API_URL + `/api/v1/admin/place/image/upload/${id}`, {
       method: 'POST',
       headers: {
@@ -110,7 +113,7 @@ const uploadImagePlace = async (id,uriFromClient) => {
 }
 
 // addPlace
-const addPlaceInfo = async (params) =>{
+const addPlaceInfo = async (params) => {
   try {
     const respone = await fetch(API_URL + `/api/v1/admin/place`, {
       method: 'POST',
@@ -132,8 +135,8 @@ const addPlaceInfo = async (params) =>{
   }
 }
 // disable image
-const disableImage = async (id) =>{
-  
+const disableImage = async (id) => {
+
   try {
     const respone = await fetch(API_URL + `/api/v1/admin/place/image/delete/${id}`, {
       method: 'PUT',
@@ -144,14 +147,16 @@ const disableImage = async (id) =>{
 
   }
 }
+
 export {
   getAllPlaces,
   getAllUsers,
   disableUser,
   deletePlace,
-  getImageByPlaceID, 
+  getImageByPlaceID,
   updateInfoPlace,
   uploadImagePlace,
   addPlaceInfo,
   disableImage,
 }
+
