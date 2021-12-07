@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
 
@@ -29,11 +29,10 @@ const DATA = [
 
 const Notification = ({ navigation }) => {
     const renderItem = ({ item }) => (
-        <View style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("DetailNotification")}>
             <Text style={styles.title}>{item.title}</Text>
-            <Text>{item.content}</Text>
             <Text>{item.time}</Text>
-        </View>
+        </TouchableOpacity>
 
     );
 
@@ -41,7 +40,7 @@ const Notification = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.navigate("Home")} />
-                <Appbar.Content title="Thông tin du lịch" />
+                <Appbar.Content title="Thông báo" />
             </Appbar.Header>
             <FlatList
                 data={DATA}

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native'
 import Login from '../../src/Screen/Login'
 import SignUp from '../../src/Screen/SignUp';
-import NaviUser from '../Screen/User/NaviUser'
+
 
 // user
 import Home from '../Screen/User/Home'
@@ -13,6 +13,12 @@ import PlacesInfo from '../Screen/User/PlacesInfo'
 import Information from '../Screen/User/Information'
 import Notification from '../Screen/User/Notification'
 import Receipt from '../Screen/User/Receipt'
+
+//DetaiUser
+import DetailHotel from '../Screen/User/DetailHotel'
+import DetailRestaurant from '../Screen/User/DetailRestaurant'
+import DetailNotification from '../Screen/User/DetalNotification'
+
 
 
 
@@ -35,6 +41,12 @@ const Navigate = () => {
                 <Stack.Screen name="Information" component={Information} />
                 <Stack.Screen name="Notification" component={Notification} />
                 <Stack.Screen name="Receipt" component={Receipt} />
+
+                {/* DetaiUser */}
+                <Stack.Screen name="DetailNotification" component={DetailNotification} />
+
+
+
 
             </Stack.Navigator>
         </NavigationContainer>

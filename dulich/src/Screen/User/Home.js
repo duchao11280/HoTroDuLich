@@ -40,12 +40,7 @@ const Home = ({ navigation }) => {
             </View>
 
             <View style={styles.HeadButtonView}>
-                <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
-                        <Entypo name="bell" size={40} color="black" style={styles.icon} />
-                        <Text style={styles.FontButton}>Thông báo</Text>
-                    </TouchableOpacity>
-                </View>
+
 
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("Receipt")}>

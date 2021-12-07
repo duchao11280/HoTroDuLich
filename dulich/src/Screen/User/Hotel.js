@@ -1,15 +1,62 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
+import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
+import { Picker } from '@react-native-picker/picker';
 
 const Hotel = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('');
   const [text, setText] = useState('Xin hãy chọn ngày');
   const [show, setshow] = useState(false)
+  const [price, setPrice] = useState('')
+  const [slot, setSlot] = useState('')
+  const [placeID, setPlaceID] = useState('')
+  const [isLoading, setLoading] = useState(false);
+  let isValidate = false;
+
+
+  const validate = () => {
+    const reg = new RegExp('^[0-9]+$');
+    if (price.length == 0) {
+      showAlert("Bạn chưa nhập giá tiền", false);
+      isValidate = false
+    }
+    else if (!reg.test(price)) {
+      showAlert("Giá tiền không hợp lệ", false);
+      isValidate = false
+    }
+    else if (price.includes(" ")) {
+      showAlert("số tiền không được chứa khoảng trống", false);
+      isValidate = false
+    }
+    else if (slot.length == 0) {
+      showAlert("Bạn chưa nhập số người", false);
+      isValidate = false
+    }
+    else if (slot.includes(" ")) {
+      showAlert("số người không được chứa khoảng trống", false);
+      isValidate = false
+    }
+    else if (!reg.test(slot)) {
+      showAlert("Số lượng người chưa hợp lệ", false);
+      isValidate = false
+    }
+    else isValidate = true
+  }
+
+  const showAlert = (mess, status) => {
+    Alert.alert(
+      "Thông báo",
+      mess,
+      [
+        { text: "Ok", onPress: () => { if (status != false) { goBack() } } }
+      ]
+    );
+  }
+
 
 
   const DATA = [
@@ -116,11 +163,15 @@ const Hotel = ({ navigation }) => {
 
         <View style={styles.cover} >
           <View style={styles.left}>
-            <Text style={styles.font}> Giá cả</Text>
+            <Text style={styles.font}> Giá tiền</Text>
           </View>
           <View style={styles.right}>
             <View >
-              <TextInput style={styles.Inputprice} placeholder="Nhập giá phòng" />
+              <TextInput style={styles.Inputprice} placeholder="Nhập giá phòng"
+                keyboardType='numeric'
+                value={price}
+                onChangeText={setPrice}
+              />
             </View>
           </View>
         </View>
@@ -131,27 +182,47 @@ const Hotel = ({ navigation }) => {
           </View>
           <View style={styles.right}>
             <View >
-              <TextInput style={styles.Inputprice} placeholder="Nhập số người" />
+              <TextInput style={styles.Inputprice} placeholder="Nhập số người"
+                keyboardType='numeric'
+                value={slot}
+                onChangeText={setSlot} />
             </View>
           </View>
         </View>
 
         <View style={styles.cover} >
           <View style={styles.left}>
-            <Text style={styles.font}> Địa Điểm</Text>
+            <Text style={styles.font}> Địa Điểm :</Text>
           </View>
           <View style={styles.right}>
-            <View >
-              <TextInput style={styles.Inputprice} placeholder="Nhập địa điểm" />
-            </View>
           </View>
+        </View>
+
+
+        <View style={styles.ViewPicker}>
+          <Picker
+            selectedValue={placeID}
+            onValueChange={(value) => setPlaceID(value)}
+          >
+            <Picker.Item label="Đồng Nai" value="0" />
+            <Picker.Item label="TP.Hồ Chí Minh" value="2" />
+            <Picker.Item label="Bà Rịa Vũng Tàu" value="3" />
+          </Picker>
         </View>
 
 
         <View style={styles.cover} >
           <View style={styles.buttonSearch}>
             <View >
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button}
+                onPress={() => {
+                  validate()
+                  if (isValidate) {
+                    console.log('tim kiem duoc')
+                    isValidate = false;
+                  }
+                }}
+              >
                 <Text> Tìm kiếm </Text>
               </TouchableOpacity>
             </View>
@@ -270,7 +341,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#79d2a4',
     borderWidth: 1,
     borderRadius: 10,
-  }
+  },
+  ViewPicker: {
+    paddingTop: 10
+  },
 
 
 });
