@@ -3,24 +3,37 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native'
 import Login from '../../src/Screen/Login'
 import SignUp from '../../src/Screen/SignUp';
-
+import Profile from '../Screen/Profile';
+import ChangeInfo from '../Screen/ChangeInfo';
+import ChangePassWord from '../Screen/ChangePassWord';
 
 // user
 import Home from '../Screen/User/Home'
 import Hotel from '../Screen/User/Hotel'
 import Restaurant from '../Screen/User/Restaurant'
 import PlacesInfo from '../Screen/User/PlacesInfo'
+import PlaceInfoDetail from '../Screen/User/PlaceInfoDetail'
 import Information from '../Screen/User/Information'
-import Notification from '../Screen/User/Notification'
+
 import Receipt from '../Screen/User/Receipt'
 
 //DetaiUser
 import DetailHotel from '../Screen/User/DetailHotel'
 import DetailRestaurant from '../Screen/User/DetailRestaurant'
-import DetailNotification from '../Screen/User/DetalNotification'
 
 
+// admin
 
+import HomeAdmin from '../Screen/Admin/HomeAdmin';
+import PlaceManagement from '../Screen/Admin/PlaceManagement/PlaceManagement';
+import PlaceDetail from '../Screen/Admin/PlaceManagement/PlaceDetail';
+import AccountManagement from '../Screen/Admin/AccountManagement';
+
+// hotel
+import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
+
+// restaurent
+import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
 
 
 
@@ -32,22 +45,34 @@ const Navigate = () => {
             <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="SignUp" component={SignUp} />
-
                 {/* user */}
                 <Stack.Screen name="PlacesInfo" component={PlacesInfo} />
+                <Stack.Screen name="PlaceInfoDetail" component={PlaceInfoDetail} />
+
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Hotel" component={Hotel} />
                 <Stack.Screen name="Restaurant" component={Restaurant} />
                 <Stack.Screen name="Information" component={Information} />
-                <Stack.Screen name="Notification" component={Notification} />
+
                 <Stack.Screen name="Receipt" component={Receipt} />
 
-                {/* DetaiUser */}
-                <Stack.Screen name="DetailNotification" component={DetailNotification} />
 
 
+                {/** Admin */}
+                <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
+                <Stack.Screen name="PlaceManagement" component={PlaceManagement}/>
+                <Stack.Screen name="PlaceDetail" component={PlaceDetail}/>
+                <Stack.Screen name="AccountManagement" component={AccountManagement}/>
+                {/** Hotel */}
+                <Stack.Screen name="HomeHotel" component={HomeHotel} />
 
+                {/** Restaurant */}
+                <Stack.Screen name="HomeRestaurant" component={HomeRestaurant} />
 
+                {/** Other */}
+                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="ChangeInfo" component={ChangeInfo} />
+                <Stack.Screen name="ChangePassWord" component={ChangePassWord} />
             </Stack.Navigator>
         </NavigationContainer>
     )

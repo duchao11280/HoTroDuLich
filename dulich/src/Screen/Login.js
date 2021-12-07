@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text, View, StyleSheet, Button,
   ActivityIndicator, Alert, Image, TextInput, TouchableOpacity
@@ -13,6 +13,7 @@ const Login = ({ navigation }) => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
+  
   // set jwt
   const onLogin = async () => {
     const response = await login(userName, password);
@@ -25,18 +26,15 @@ const Login = ({ navigation }) => {
         if (response.data.user.role == 0) {
           console.log("User zô")
           navigation.navigate("Home")
-        }
-        if (response.data.user.role == 1) {
+        }else if (response.data.user.role == 1) {
           console.log("vo bang admin");
-          navigation.navigate("Home")
-        }
-        if (response.data.user.role == 2) {
+          navigation.navigate("HomeAdmin")
+        }else if (response.data.user.role == 2) {
           console.log("vo bang nha hang");
-          navigation.navigate("NaviUser")
-        }
-        if (response.data.user.role == 3) {
+          navigation.navigate("HomeHotel")
+        }else if (response.data.user.role == 3) {
           console.log("vo bang khach san");
-          navigation.navigate("NaviUser")
+          navigation.navigate("HomeRestaurant")
         }
 
       } catch (e) {

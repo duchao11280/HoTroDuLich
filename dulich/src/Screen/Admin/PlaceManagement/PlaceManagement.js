@@ -118,7 +118,7 @@ const PlaceManagement = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <View >
                 <Appbar.Header statusBarHeight={20}>
-                    <Appbar.BackAction onPress={() => { }} />
+                    <Appbar.BackAction onPress={() => { navigation.pop() }} />
                     <Appbar.Content title="Quản lý địa điểm" />
                 </Appbar.Header>
                 <SearchBar

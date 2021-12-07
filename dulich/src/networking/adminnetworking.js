@@ -1,5 +1,5 @@
 
-const API_URL = 'http://192.168.1.11:3000';
+const API_URL = 'http://192.168.1.7:3000';
 
 // get data cho màn hình profile
 const getAllPlaces = async () => {

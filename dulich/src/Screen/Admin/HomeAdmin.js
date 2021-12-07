@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native'
+
 import { FontAwesome5 } from 'react-native-vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -17,14 +16,14 @@ const HomeAdmin = ({ navigation }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("PlacesInfo")}>
+                    <TouchableOpacity onPress={() => navigation.push("PlaceManagement")}>
                         <Entypo name="location" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Quản lý địa điểm</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Hotel")}>
+                    <TouchableOpacity onPress={() => navigation.push("AccountManagement")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
                         <Text style={styles.FontButton}>Quản lý tài khoản</Text>
                     </TouchableOpacity>
@@ -32,7 +31,7 @@ const HomeAdmin = ({ navigation }) => {
 
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Restaurant")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                         <FontAwesome5 name={'utensils'} size={40} style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng xuất</Text>
                     </TouchableOpacity>

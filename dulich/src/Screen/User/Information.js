@@ -33,7 +33,7 @@ const Information = ({ navigation }) => {
         <Line />
 
         <View style={styles.TitleView}>
-          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]}>
+          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={()=>navigation.push('Profile')}>
             <FontAwesome5 name={'user'} size={20} />
             <Text style={styles.Title}>Thông tin của bạn</Text>
           </TouchableOpacity>
