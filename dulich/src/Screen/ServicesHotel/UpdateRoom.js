@@ -1,32 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import { getAllPlace, updateRoom } from '../../networking/hotelnetworking'
 
-const UpdateRoom = ({ navigation }) => {
+const UpdateRoom = ({ navigation, route}) => {
 
-    const [slot, setSlot] = useState('')
-    const [roomName, setRoomName] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
-    const [placeID, setPlaceID] = useState('')
+    const [slot, setSlot] = useState(route.params.room.slot.toString())
+    const [roomName, setRoomName] = useState(route.params.room.roomName)
+    const [description, setDescription] = useState(route.params.room.description)
+    const [price, setPrice] = useState(route.params.room.price.toString())
+    const [placeID, setPlaceID] = useState(route.params.room.placeID)
+    const [address, setAddress] = useState(route.params.room.address)
     const [isLoading, setLoading] = useState(false);
     let isValidate = false;
-
+    const [listPlace, setListPlaces] = useState([])
+    useEffect(() => {
+        setLoading(true);
+        getAllPlace()
+            .then((list)=>{ setListPlaces(list)})
+            .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+            .finally(()=>{setLoading(false)})
+        
+    },[])
     //Signup
-    const onAddRoom = () => {
+    const onUpdateRoom = () => {
         var params = {
             roomName: roomName,
             slot: slot,
             price: price,
             description: description,
+            address: address,
             placeID: placeID
         };
+        updateRoom(route.params.room.roomID, params)
+            .then((res) => {console.log(res.message)})
+            .catch((err) => {console.log(err)})
     }
-
+    const goBack = () => {
+        navigation.pop();
+    }
     const validate = () => {
         const reg = new RegExp('^[0-9]+$');
         if (roomName.length == 0) {
@@ -83,7 +99,7 @@ const UpdateRoom = ({ navigation }) => {
             //body
             'Bạn có chắc muốn cập nhật phòng này?',
             [
-                { text: 'Có', onPress: () => console.log('Yes Pressed') },
+                { text: 'Có', onPress: () => {onUpdateRoom(), goBack()} },
                 {
                     text: 'Không',
                     onPress: () => console.log('No Pressed'),
@@ -129,8 +145,9 @@ const UpdateRoom = ({ navigation }) => {
                         <View >
                             <TextInput style={styles.Inputprice} placeholder="Nhập số người"
                                 value={slot}
+                                
                                 onChangeText={setSlot}
-                                keyboardType='numeric'
+                                keyboardType='decimal-pad'
                             />
                         </View>
                     </View>
@@ -145,7 +162,22 @@ const UpdateRoom = ({ navigation }) => {
                         <View >
                             <TextInput style={styles.Inputprice} placeholder="Nhập mô tả"
                                 value={description}
+                                multiline
                                 onChangeText={setDescription}
+                            />
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.cover} >
+                    <View style={styles.left}>
+                        <Text style={styles.font}> Địa chỉ:</Text>
+                    </View>
+                    <View style={styles.right}>
+                        <View >
+                            <TextInput style={styles.Inputprice} placeholder="Nhập địa chỉ"
+                                value={address}
+                                onChangeText={setAddress}
                             />
                         </View>
                     </View>
@@ -157,7 +189,7 @@ const UpdateRoom = ({ navigation }) => {
                     </View>
                     <View style={styles.right}>
                         <View >
-                            <TextInput style={styles.Inputprice} placeholder="Nhập giá bàn"
+                            <TextInput style={styles.Inputprice} placeholder="Nhập giá phòng"
                                 keyboardType='numeric'
                                 value={price}
                                 onChangeText={setPrice}
@@ -182,9 +214,10 @@ const UpdateRoom = ({ navigation }) => {
                         selectedValue={placeID}
                         onValueChange={(value) => setPlaceID(value)}
                     >
-                        <Picker.Item label="Đồng Nai" value="0" />
-                        <Picker.Item label="TP.Hồ Chí Minh" value="2" />
-                        <Picker.Item label="Bà Rịa Vũng Tàu" value="3" />
+                        {listPlace.length!==undefined?listPlace.map(({placeID,placeName})=>{
+                            return (<Picker.Item label={placeName} value={placeID} key={placeID}/>)
+                        }):<Picker.Item label="Bãi Dâu" value="1" />}
+                        
                     </Picker>
                 </View>
 
@@ -196,22 +229,19 @@ const UpdateRoom = ({ navigation }) => {
                                 onPress={() => {
                                     validate()
                                     if (isValidate) {
-                                        console.log('Thêm được')
+                                        console.log(roomName + ' ' + slot + ' ' + price + ' ' + placeID +' ' + description)
                                         popup()
                                         isValidate = false;
                                     }
                                 }}
                             >
                                 <View style={styles.PositionInSearch}>
-                                    <Text> Thêm Bàn </Text>
+                                    <Text> Cập nhật phòng </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-
-
-
             </View>
 
         </SafeAreaView >

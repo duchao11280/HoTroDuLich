@@ -6,120 +6,85 @@ import {
 import RoomItem from '../../Component/HotelService/RoomItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
-// import { getAllPlaces, deletePlace, addPlaceInfo } from '../../../networking/adminnetworking'
+import { getAllRoomByUserID, disableRoom } from '../../networking/hotelnetworking'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
-
-
-const PlaceManagement = ({ navigation }) => {
+const RoomManagement = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
     const [listRoom, setListRoom] = useState([]);
     const [searchfield, setSearchfield] = useState('');
     const [refreshing, setRefreshing] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
-
+    const isFocused = useIsFocused();
+    let userID;
+    const getUserID = async () => {
+        try {
+            const id = await AsyncStorage.getItem('userID')
+            userID = parseInt(id);
+        } catch (error) {
+            Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")
+        }
+    }
     useEffect(() => {
+        getRoomFromServer()
 
+    }, [isFocused]);
+    const getRoomFromServer = () => {
+        getUserID()
+            .then(() => {
+                getAllRoomByUserID(userID).then((listRoom) => { setListRoom(listRoom) })
+                    .catch((err) => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+                    .finally(() => { setLoading(false), setRefreshing(false); });
+            })
+            .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
 
-    }, []);
-    const getPlaceFromServer = () => {
-        getAllPlaces().then((listRoom) => { setListRoom(listRoom) })
-            .catch((err) => { console.log("Kết nối thất bại") })
-            .finally(() => { setLoading(false), setRefreshing(false); });
     }
     // khi kéo từ trên xuống refresh lại dữ liệu
-    const onRefresh = () => { setRefreshing(true); getPlaceFromServer() }
+    const onRefresh = () => { setRefreshing(true); getRoomFromServer() }
     const handleSearch = (text) => {
         setSearchfield(text);
-
     };
-    const goToDetail = (place) => {
-        navigation.push('PlaceDetail', { place: place });
-    }
-    // Lọc place theo search 
-    const filteredPlaces = listRoom == undefined ? [] : listRoom.filter(place => {
-        var searchName = place.placeName.toLowerCase().includes(searchfield.toLowerCase());
-        var searchCity = place.city.toLowerCase().includes(searchfield.toLowerCase());
-        var search = searchName || searchCity;
-        return search;
+    // Lọc room theo search 
+    const filteredRoom = listRoom == undefined ? [] : listRoom.filter(room => {
+        var searchName = room.roomName.toLowerCase().includes(searchfield.toLowerCase());
+
+        return searchName;
     })
-    const RightActions = ({ item }) => {
-        return (
-            <Pressable onPress={() => Alert.alert(
-                'Cảnh Báo',
-                'Bạn có chắc muốn XÓA địa điểm này?',
-                [
-                    {
-                        text: 'Đồng ý', onPress: () => {
-                            deletePlace(item.placeID)
-                                .then((res) => {
-                                    onRefresh();
-                                    Alert.alert(
-                                        "Thông báo",
-                                        res.message,
-                                        [{
-                                            text: 'Ok',
-                                            onPress: () => { }
-                                        }])
-                                })
-                                .catch(() => {
-                                    Alert.alert(
-                                        "Thông Báo",
-                                        "Vô hiệu hóa thất bại",
-                                        [{
-                                            text: 'Ok',
-                                            onPress: () => { }
-                                        }]
-                                    )
-                                })
-                        }
-                    },
-                    {
-                        text: 'Hủy bỏ', onPress: () => { }
+    const gotoUpdate = (room) => {
+        navigation.push('UpdateRoom', { room: room })
+    }
+    const onDisableRoom = (id) => {
+        Alert.alert(
+            //title
+            'Cảnh báo',
+            //body
+            'Bạn có chắc muốn vô hiệu hóa phòng này?',
+            [
+                {
+                    text: 'Có', onPress: () => {
+                        disableRoom(id)
+                            .then((res) => { console.log(res.message) })
+                            .catch((err) => { console.log(err) })
+                            .finally(() => { onRefresh() })
                     }
-                ]
-            )}>
-                <View
-                    style={{
-                        flex: 1, backgroundColor: 'red', justifyContent: 'center',
-                        marginTop: 10,
-                        borderRadius: 15,
-                    }}>
-                    <Text
-                        style={{
-                            color: 'white',
-                            paddingHorizontal: 10,
-
-                            fontWeight: '600',
-                        }}>
-                        Vô hiệu hóa
-                    </Text>
-                </View>
-            </Pressable>
+                },
+                {
+                    text: 'Không',
+                    onPress: () => console.log('No Pressed'),
+                    style: 'cancel',
+                },
+            ],
+            { cancelable: false }
+            //clicking out side of alert will not cancel
         )
-    }
-    const cancelModal = () => {
-        setModalVisible(false);
-    }
-    const addPlace = (placeName, description, tips, city) => {
-        setLoading(true)
-        var params = {
-            placeName: placeName,
-            description: description,
-            tips: tips,
-            city: city
-        }
 
-        addPlaceInfo(params)
-            .then((response) => { Alert.alert("Thông báo", response.message, [{ text: "Ok", onPress: () => { } }]); onRefresh() })
-            .catch(error => { Alert.alert("Thông báo", "Thêm thất bại", [{ text: "Ok", onPress: () => { } }]) })
-            .finally(() => { setLoading(false); cancelModal() })
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View >
                 <Appbar.Header statusBarHeight={20}>
                     <Appbar.BackAction onPress={() => { navigation.pop() }} />
-                    <Appbar.Content title="Quản lý địa điểm" />
+                    <Appbar.Content title="Quản lý phòng" />
                 </Appbar.Header>
                 <SearchBar
                     placeholder="Type Here..."
@@ -129,7 +94,7 @@ const PlaceManagement = ({ navigation }) => {
                     value={searchfield}
                 />
                 <Pressable style={{ alignSelf: 'flex-end' }}
-                    onPress={() => { setModalVisible(true) }}
+                    onPress={() => { navigation.push('AddRoom') }}
                 >
                     <Text style={styles.button}>Thêm mới</Text>
                 </Pressable>
@@ -137,21 +102,16 @@ const PlaceManagement = ({ navigation }) => {
                 <View>
                     {isLoading ? <ActivityIndicator size="large" color='blue' /> :
                         <FlatList
-                            data={filteredPlaces}
+                            data={filteredRoom}
                             ListFooterComponent={<View style={{ paddingBottom: 400 }} />}
-                            keyExtractor={item => item.placeID.toString()}
+                            keyExtractor={item => item.roomID.toString()}
 
                             renderItem={({ item, index }) => {
                                 return (
-                                    <View
-                                        onPress={() => { goToDetail(item) }}
-                                    >
 
-                                        <RoomItem item={item} index={index}>
-
-                                        </RoomItem>
-
-                                    </View>
+                                    <RoomItem item={item} index={index}
+                                        handleUpdate={gotoUpdate} handleDisable={onDisableRoom}>
+                                    </RoomItem>
 
                                 );
                             }}
@@ -164,11 +124,6 @@ const PlaceManagement = ({ navigation }) => {
                         >
                         </FlatList>}
                 </View>
-                <ModalAddPlace
-                    modalVisible={modalVisible}
-                    cancelModal={cancelModal}
-                    addPlace={addPlace}
-                />
             </View>
         </SafeAreaView>
     )
@@ -187,4 +142,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PlaceManagement;
+export default RoomManagement;

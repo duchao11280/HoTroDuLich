@@ -9,53 +9,48 @@ const RoomItem = (props) => {
         <View style={Styles.RoomItem}>
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Id: ok
+                    Id: {props.item.roomID}
                 </Text>
             </View>
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Tên phòng: {props.item.placeName}
+                    Tên phòng: {props.item.roomName}
                 </Text>
             </View>
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Số người: {props.item.city}
+                    Số người: {props.item.slot}
                 </Text>
             </View>
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Giá: {props.item.city}
+                    Giá: {props.item.price} đ
                 </Text>
             </View>
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Mô tả: {props.item.city}
+                    Mô tả: {props.item.description}
                 </Text>
             </View>
-
-
-
-
-
             <View>
                 <Text style={Styles.textInfo}>
-                    Tỉnh thành: {props.item.city}
+                    Địa chỉ: {props.item.address}
                 </Text>
             </View>
 
             <View style={Styles.Updatebutton}>
-                <TouchableOpacity style={Styles.PositionTextUpdate}>
+                <TouchableOpacity style={Styles.PositionTextUpdate} onPress={() =>{props.handleUpdate(props.item)}}>
                     <Text>Cập nhật</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={Styles.Deletebutton}>
-                <TouchableOpacity style={Styles.PositionTextDelete}>
-                    <Text>xóa</Text>
+            <View style={Styles.Deletebutton} >
+                <TouchableOpacity style={Styles.PositionTextDelete} onPress={() =>{props.handleDisable(props.item.roomID)}}>
+                    <Text>Vô hiệu hóa</Text>
                 </TouchableOpacity>
             </View>
 

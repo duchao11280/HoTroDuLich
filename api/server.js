@@ -22,13 +22,17 @@ app.get('/public/images/:filename', (req,res)=>{
 const userRoutes = require('./src/routes/user_route');
 const adminRoutes = require('./src/routes/admin_route');
 const placeRoutes = require('./src/routes/place_route');
+const hotelRoutes = require('./src/routes/hotel_route')
+
 
 //create user
 app.use('/api/v1/user', userRoutes); 
 // route cho admin
 app.use('/api/v1/admin', adminRoutes); 
 // route cho place
-app.use('/api/v1/place', placeRoutes); 
+app.use('/api/v1/place', placeRoutes);
+// route cho services hotel
+app.use('/api/v1/hotel',hotelRoutes); 
 app.listen(port,function(){
     console.log(`Node server running @ http://localhost:${port}`)
 });

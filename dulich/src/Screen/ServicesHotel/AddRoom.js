@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-
+import { getAllPlace, addNewRoom } from '../../networking/hotelnetworking'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const AddRoom = ({ navigation }) => {
 
     const [slot, setSlot] = useState('')
@@ -13,18 +14,46 @@ const AddRoom = ({ navigation }) => {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [placeID, setPlaceID] = useState('')
+    const [address, setAddress] = useState("")
     const [isLoading, setLoading] = useState(false);
-    let isValidate = false;
+    const [listPlace, setListPlaces] = useState([])
 
+    let isValidate = false;
+    let userID
+    useEffect(() => {
+        setLoading(true);
+        getAllPlace()
+            .then((list)=>{ setListPlaces(list)})
+            .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+            .finally(()=>{setLoading(false)})
+    },[])
+    const getUserID = async () => {
+        try {
+            const id = await AsyncStorage.getItem('userID')
+            userID = parseInt(id);
+            return userID
+        } catch (error) {
+            return
+        }
+    }
+    const goBack = () => {
+        navigation.pop();
+    }
     //Signup
-    const onAddRoom = () => {
+    const onAddRoom = async () => {
+        const uid = await getUserID();
         var params = {
             roomName: roomName,
             slot: slot,
             price: price,
             description: description,
+            address: address,
+            userID: uid,
             placeID: placeID
         };
+        addNewRoom(params)
+            .then((res)=>{console.log(res.message)})
+            .catch((err)=>{console.log(err)})
     }
 
     const validate = () => {
@@ -83,7 +112,7 @@ const AddRoom = ({ navigation }) => {
             //body
             'Bạn có chắc muốn thêm phòng này?',
             [
-                { text: 'Có', onPress: () => console.log('Yes Pressed') },
+                { text: 'Có', onPress: () => {onAddRoom(), goBack()} },
                 {
                     text: 'Không',
                     onPress: () => console.log('No Pressed'),
@@ -153,6 +182,20 @@ const AddRoom = ({ navigation }) => {
 
                 <View style={styles.cover} >
                     <View style={styles.left}>
+                        <Text style={styles.font}> Địa chỉ:</Text>
+                    </View>
+                    <View style={styles.right}>
+                        <View >
+                            <TextInput style={styles.Inputprice} placeholder="Nhập địa chỉ"
+                                value={address}
+                                onChangeText={setAddress}
+                            />
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.cover} >
+                    <View style={styles.left}>
                         <Text style={styles.font}> Giá tiền</Text>
                     </View>
                     <View style={styles.right}>
@@ -182,9 +225,9 @@ const AddRoom = ({ navigation }) => {
                         selectedValue={placeID}
                         onValueChange={(value) => setPlaceID(value)}
                     >
-                        <Picker.Item label="Đồng Nai" value="0" />
-                        <Picker.Item label="TP.Hồ Chí Minh" value="2" />
-                        <Picker.Item label="Bà Rịa Vũng Tàu" value="3" />
+                        {listPlace.length!==undefined?listPlace.map(({placeID,placeName})=>{
+                            return (<Picker.Item label={placeName} value={placeID} key={placeID}/>)
+                        }):<Picker.Item label="Bãi Dâu" value="1" />}
                     </Picker>
                 </View>
 
@@ -203,7 +246,7 @@ const AddRoom = ({ navigation }) => {
                                 }}
                             >
                                 <View style={styles.PositionInSearch}>
-                                    <Text> Thêm Bàn </Text>
+                                    <Text> Thêm Phòng </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

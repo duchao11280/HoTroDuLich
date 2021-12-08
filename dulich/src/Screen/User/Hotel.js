@@ -102,7 +102,7 @@ const Hotel = ({ navigation }) => {
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth()) + '/' + tempDate.getFullYear();
     let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
     setText(fTime + ',' + fDate)
-    console.log(fTime + ',' + fDate);
+    console.log(Date.parse(fDate + ' ' + fTime));
     setshow(false);
   };
 

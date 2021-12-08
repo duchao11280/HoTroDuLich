@@ -11,7 +11,7 @@
  Target Server Version : 100414
  File Encoding         : 65001
 
- Date: 04/12/2021 17:07:40
+ Date: 09/12/2021 01:50:13
 */
 
 SET NAMES utf8mb4;
@@ -26,18 +26,18 @@ CREATE TABLE `bookroom`  (
   `roomID` int NULL DEFAULT NULL,
   `userID` int NULL DEFAULT NULL,
   `startTime` datetime(6) NULL DEFAULT NULL,
-  `endTime` datetime(6) NULL DEFAULT NULL,
   `phoneNumber` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_bookroom_room`(`roomID`) USING BTREE,
   INDEX `fk_bookroom_user`(`userID`) USING BTREE,
   CONSTRAINT `fk_bookroom_room` FOREIGN KEY (`roomID`) REFERENCES `room` (`roomID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_bookroom_user` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bookroom
 -- ----------------------------
+INSERT INTO `bookroom` VALUES (1, 1, 15, '2021-12-09 23:16:57.000000', 112412421);
 
 -- ----------------------------
 -- Table structure for booktable
@@ -205,19 +205,26 @@ CREATE TABLE `room`  (
   `slot` int NULL DEFAULT NULL,
   `price` int NULL DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `isBook` bit(1) NULL DEFAULT NULL COMMENT 'phong duoc dat hay chua',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `isBook` tinyint(1) NULL DEFAULT NULL COMMENT 'phong duoc dat hay chua',
   `userID` int NULL DEFAULT NULL COMMENT 'chu phong',
   `placeID` int NULL DEFAULT NULL,
+  `isDisabled` tinyint NULL DEFAULT NULL,
   PRIMARY KEY (`roomID`) USING BTREE,
   INDEX `fk_room_user`(`userID`) USING BTREE,
   INDEX `fk_room_place1`(`placeID`) USING BTREE,
   CONSTRAINT `fk_room_place1` FOREIGN KEY (`placeID`) REFERENCES `place` (`placeID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_room_user` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of room
 -- ----------------------------
+INSERT INTO `room` VALUES (1, 'R1', 4, 500000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 500000vnd/1 ngày', 'Số 2 đường phan bội châu', 0, 8, 1, 0);
+INSERT INTO `room` VALUES (2, 'R2', 2, 300000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 300000vnd/1 ngày', 'Số 14 đường Nguyễn Huệ', 0, 8, 2, 0);
+INSERT INTO `room` VALUES (3, 'R3', 3, 400000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 400000vnd/1 ngày', 'Duong cach mang t8', 0, 8, 5, 0);
+INSERT INTO `room` VALUES (4, 'R4', 3, 400000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 400000vnd/1 ngày', 'Số 10 đường Nguyễn Thị Minh Khai', 0, 8, 1, 0);
+INSERT INTO `room` VALUES (5, 'R5', 1, 150000, 'Phong hoi hep', '6 Vo Nguyen GIap', 0, 8, 3, 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -243,11 +250,11 @@ INSERT INTO `user` VALUES (2, 'thanhhoang111', 'password', 'Thanh Hoang', 'thanh
 INSERT INTO `user` VALUES (3, 'duchao113', '$2a$14$0lPTjp0te.bFSvfu0TxcvOj1d1gNMEWo31Gh5702E4aGyF1Est6/a', 'Nguyen Duc Hao', 'Duchao112@gmail.com', '012123333', 0, 0);
 INSERT INTO `user` VALUES (4, 'duchao114', '$2a$14$LH29vk844fq1uHuL829EDuAad.Y/eXjuEwrasyLegpKT5jYf28mXe', 'Duc Hiep 1', 'duchiiep111@gmail.com', '0123412313', 0, 0);
 INSERT INTO `user` VALUES (5, 'thanhhoang112', '$2a$14$M5uqzO4Vq2bqsy4w0biWCORB3a8yaeS7xmusPXqqdm7w/Cpeqrvw2', 'Duc Hiep', 'duchiep111@gmail.com', '0123412313', 1, 0);
-INSERT INTO `user` VALUES (6, 'duchao115', '$2a$14$dVlLDqcZvsIQGyL45DlUP.4p2FZgfzUGLqj3QmCHdMt4OrsHltRE.', 'Hảo 115', 'test@gmail.com', '4231', 1, 1);
+INSERT INTO `user` VALUES (6, 'duchao115', '$2a$14$GiREHdJzg2ZUxlXCTxuLNuqSRzur/VNTjKSuGkM4DF1kWUiY8Np06', 'Hảo 115', 'test115n0@gmail.com', '4231123', 0, 0);
 INSERT INTO `user` VALUES (7, 'duchao116', '$2a$14$CZIupvBA..R8pCGT7TNgZ.X/sh7X0mYDuykkx1NJn3WeatYMfEwbm', 'Hảo 116', 'test@gmail.com', '4231', 1, 0);
-INSERT INTO `user` VALUES (8, 'duchao117', '$2a$14$hynyf8zpGM.zrNYmLsr9HOggA/nsSHjibJ/CtqDCgatUd4F8cnJje', 'Hảo 117', 'test@gmail.com', '4231', 1, 0);
-INSERT INTO `user` VALUES (9, 'duchao118', '$2a$14$5MaATbFq9JAUMqpG1Ilqo.mFUKud5wKDkfXyVvN/W7Ht4SbFxSXPe', 'Hảo 118', 'test@gmail.com', '4231', 1, 0);
-INSERT INTO `user` VALUES (10, 'duchao119', '$2a$14$oVdUR46EtRzpu9AOp8rr2uFZhiBv50Ruax4ChncanCZL8ftS3IrWa', 'Hảo 119', 'test@gmail.com', '4231', 1, 0);
+INSERT INTO `user` VALUES (8, 'duchao117', '$2a$14$hynyf8zpGM.zrNYmLsr9HOggA/nsSHjibJ/CtqDCgatUd4F8cnJje', 'Hảo 117', 'test@gmail.com', '4231', 2, 0);
+INSERT INTO `user` VALUES (9, 'duchao118', '$2a$14$5MaATbFq9JAUMqpG1Ilqo.mFUKud5wKDkfXyVvN/W7Ht4SbFxSXPe', 'Hảo 118', 'test@gmail.com', '4231', 3, 0);
+INSERT INTO `user` VALUES (10, 'duchao119', '$2a$14$AoR8dfUmvEx7JnfOZyXuKes3QGxNL6tLGASqPrUk4sdO/FRkoR6wm', 'Hảo 119', 'tes1t@gmail.com', '4231', 1, 0);
 INSERT INTO `user` VALUES (11, 'duchao120', '$2a$14$.8MhrkIzdy6AXUNXU.pVDO0gdah7ItwY0u6gKtxMejd8k7o1EIdU2', 'Hảo 120', 'test@gmail.com', '4231', 1, 0);
 INSERT INTO `user` VALUES (12, 'duchao121', '$2a$14$7NOD2DXAQ/R8gbdC3.J7DOeanImOxdw9gIJMGIKq23UWczDYrlQhe', 'Hảo 121', 'test@gmail.com', '4231', 1, 0);
 INSERT INTO `user` VALUES (13, 'duchao122', '$2a$14$0Cr5kip1AG/UCM7Q0hhhGOldrhsNCxI0dH/PgkGFsdoiq9z0Jumqi', 'Hảo 122', 'duchao121@gmail.com', '01651564', 1, 0);

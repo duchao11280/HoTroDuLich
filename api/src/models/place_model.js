@@ -20,6 +20,17 @@ Place.getAllPlaces = (result) => {
         }
     })
 }
+Place.getPlaceIDandName = (result) => {
+    dbConn.query('Select placeID,placeName From place Where isDeleted != 1', (err, res) => {
+        if (res) {
+            console.log("get all places success");
+
+            result(null, res);
+        } else {
+            result(err, null);
+        }
+    })
+}
 // thêm vào một địa điểm mới
 Place.insertPlace = (placeName, description, tips, city, result) => {
     dbConn.query('Insert into place(placeName, description, tips, city, isDeleted) VALUES(?,?,?,?,0) ',
