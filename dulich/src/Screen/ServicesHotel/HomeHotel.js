@@ -13,7 +13,7 @@ import Restaurant from '../../Screen/User/Restaurant'
 
 
 
-const HomeHotel = ({ }) => {
+const HomeHotel = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.BeachImage}>
@@ -22,7 +22,7 @@ const HomeHotel = ({ }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("AddRoom")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
                         <Text style={styles.FontButton}>Thêm Khách sạn</Text>
                     </TouchableOpacity>
@@ -30,7 +30,7 @@ const HomeHotel = ({ }) => {
 
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.pop()}>
                         <MaterialIcons name="logout" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng suất</Text>
                     </TouchableOpacity>

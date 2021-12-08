@@ -31,9 +31,11 @@ import AccountManagement from '../Screen/Admin/AccountManagement';
 
 // hotel
 import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
+import AddRoom from '../Screen/ServicesHotel/AddRoom'
 
 // restaurent
 import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
+import AddTable from '../Screen/ServicesRestaurant/AddTable';
 
 
 
@@ -60,14 +62,16 @@ const Navigate = () => {
 
                 {/** Admin */}
                 <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
-                <Stack.Screen name="PlaceManagement" component={PlaceManagement}/>
-                <Stack.Screen name="PlaceDetail" component={PlaceDetail}/>
-                <Stack.Screen name="AccountManagement" component={AccountManagement}/>
+                <Stack.Screen name="PlaceManagement" component={PlaceManagement} />
+                <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
+                <Stack.Screen name="AccountManagement" component={AccountManagement} />
                 {/** Hotel */}
                 <Stack.Screen name="HomeHotel" component={HomeHotel} />
+                <Stack.Screen name="AddRoom" component={AddRoom} />
 
                 {/** Restaurant */}
                 <Stack.Screen name="HomeRestaurant" component={HomeRestaurant} />
+                <Stack.Screen name="AddTable" component={AddTable} />
 
                 {/** Other */}
                 <Stack.Screen name="Profile" component={Profile} />

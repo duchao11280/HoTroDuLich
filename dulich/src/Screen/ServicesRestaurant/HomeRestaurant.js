@@ -13,7 +13,7 @@ import Restaurant from '../../Screen/User/Restaurant'
 
 
 
-const HomeRestaurant = ({ }) => {
+const HomeRestaurant = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.BeachImage}>
@@ -22,7 +22,7 @@ const HomeRestaurant = ({ }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("AddTable")}>
                         <Ionicons name="restaurant" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Thêm Bàn</Text>
                     </TouchableOpacity>
@@ -30,7 +30,7 @@ const HomeRestaurant = ({ }) => {
 
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.pop()}>
                         <MaterialIcons name="logout" size={43} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng suất</Text>
                     </TouchableOpacity>

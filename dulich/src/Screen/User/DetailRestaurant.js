@@ -20,9 +20,9 @@ const DetailRestaurant = () => {
     const popup = () => {
         Alert.alert(
             //title
-            'Xác nhận đặt phòng',
+            'Xác nhận đặt bàn',
             //body
-            'Bạn có chắc muốn đặt phòng này?',
+            'Bạn có chắc muốn đặt bàn này?',
             [
                 { text: 'Có', onPress: () => console.log('Yes Pressed') },
                 {
