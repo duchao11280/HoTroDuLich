@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet, Alert } from 'react-native';
 
 
-const PlaceItem =(props) => {
+const PlaceItem = (props) => {
     return (
         // truyền vào 1 cụm các props
         <View style={Styles.container}>
@@ -16,9 +16,14 @@ const PlaceItem =(props) => {
                 Tỉnh thành: {props.item.city}
             </Text>
         </View>
-        
+
     );
 }
+
+
+
+
+
 
 const Styles = StyleSheet.create({
     container: {
@@ -35,4 +40,6 @@ const Styles = StyleSheet.create({
     },
 
 })
+// export default PlaceItem;
+
 export default PlaceItem;

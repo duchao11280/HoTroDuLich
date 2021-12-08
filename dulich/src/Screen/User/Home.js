@@ -8,7 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.BeachImage}>

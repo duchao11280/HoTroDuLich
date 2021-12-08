@@ -17,22 +17,25 @@ const HomeAdmin = ({ navigation }) => {
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.push("PlaceManagement")}>
-                        <Entypo name="location" size={40} color="black" style={styles.icon} />
+                        <Entypo name="location" size={40} color="black" style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý địa điểm</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.push("AccountManagement")}>
-                        <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
+                        <FontAwesome5 name={'hotel'} size={40} style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý tài khoản</Text>
                     </TouchableOpacity>
                 </View>
 
 
+
+            </View>
+            <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                        <FontAwesome5 name={'utensils'} size={40} style={styles.icon} />
+                    <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 20 }}>
+                        <Entypo name="log-out" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng xuất</Text>
                     </TouchableOpacity>
                 </View>
@@ -73,6 +76,9 @@ const styles = StyleSheet.create({
     },
     smallIcon: {
         paddingLeft: 9,
+    },
+    longTexticon: {
+        paddingLeft: 30,
     }
 })
 

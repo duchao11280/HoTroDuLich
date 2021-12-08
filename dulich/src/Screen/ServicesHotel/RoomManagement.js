@@ -3,26 +3,26 @@ import {
     View, Text, Image, Pressable, RefreshControl, Alert,
     ActivityIndicator, StyleSheet, FlatList, SafeAreaView, TouchableHighlight
 } from 'react-native';
-import PlaceItem from '../../../Component/Admin/PlaceManagement/PlaceItem'
+import RoomItem from '../../Component/HotelService/RoomItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
-import { getAllPlaces, deletePlace, addPlaceInfo } from '../../../networking/adminnetworking'
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import ModalAddPlace from '../../../Component/Admin/PlaceManagement/ModalAddPlace'
+// import { getAllPlaces, deletePlace, addPlaceInfo } from '../../../networking/adminnetworking'
+
+
 
 const PlaceManagement = ({ navigation }) => {
     const [isLoading, setLoading] = useState(true);
-    const [listPlaces, setListPlaces] = useState([]);
+    const [listRoom, setListRoom] = useState([]);
     const [searchfield, setSearchfield] = useState('');
     const [refreshing, setRefreshing] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        getPlaceFromServer();
+
 
     }, []);
     const getPlaceFromServer = () => {
-        getAllPlaces().then((listPlaces) => { setListPlaces(listPlaces) })
+        getAllPlaces().then((listRoom) => { setListRoom(listRoom) })
             .catch((err) => { console.log("Kết nối thất bại") })
             .finally(() => { setLoading(false), setRefreshing(false); });
     }
@@ -36,7 +36,7 @@ const PlaceManagement = ({ navigation }) => {
         navigation.push('PlaceDetail', { place: place });
     }
     // Lọc place theo search 
-    const filteredPlaces = listPlaces == undefined ? [] : listPlaces.filter(place => {
+    const filteredPlaces = listRoom == undefined ? [] : listRoom.filter(place => {
         var searchName = place.placeName.toLowerCase().includes(searchfield.toLowerCase());
         var searchCity = place.city.toLowerCase().includes(searchfield.toLowerCase());
         var search = searchName || searchCity;
@@ -143,15 +143,15 @@ const PlaceManagement = ({ navigation }) => {
 
                             renderItem={({ item, index }) => {
                                 return (
-                                    <Pressable
+                                    <View
                                         onPress={() => { goToDetail(item) }}
                                     >
-                                        <Swipeable renderRightActions={() => <RightActions item={item} />} >
-                                            <PlaceItem item={item} index={index}>
 
-                                            </PlaceItem>
-                                        </Swipeable>
-                                    </Pressable>
+                                        <RoomItem item={item} index={index}>
+
+                                        </RoomItem>
+
+                                    </View>
 
                                 );
                             }}

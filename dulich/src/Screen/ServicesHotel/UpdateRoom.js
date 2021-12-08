@@ -6,7 +6,7 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 
-const AddRoom = ({ navigation }) => {
+const UpdateRoom = ({ navigation }) => {
 
     const [slot, setSlot] = useState('')
     const [roomName, setRoomName] = useState('')
@@ -79,9 +79,9 @@ const AddRoom = ({ navigation }) => {
     const popup = () => {
         Alert.alert(
             //title
-            'Xác nhận Thêm Phòng',
+            'Xác nhận cập nhật Phòng',
             //body
-            'Bạn có chắc muốn thêm phòng này?',
+            'Bạn có chắc muốn cập nhật phòng này?',
             [
                 { text: 'Có', onPress: () => console.log('Yes Pressed') },
                 {
@@ -102,7 +102,7 @@ const AddRoom = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
-                <Appbar.Content title="Thêm phòng" />
+                <Appbar.Content title="Cập nhật phòng" />
             </Appbar.Header>
 
 
@@ -322,4 +322,4 @@ const styles = StyleSheet.create({
 
 
 
-export default AddRoom;
+export default UpdateRoom;

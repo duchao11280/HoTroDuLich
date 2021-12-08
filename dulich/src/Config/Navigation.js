@@ -32,6 +32,9 @@ import AccountManagement from '../Screen/Admin/AccountManagement';
 // hotel
 import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
 import AddRoom from '../Screen/ServicesHotel/AddRoom'
+import RoomManagement from '../Screen/ServicesHotel/RoomManagement'
+import UpdateRoom from '../Screen/ServicesHotel/UpdateRoom'
+
 
 // restaurent
 import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
@@ -55,7 +58,6 @@ const Navigate = () => {
                 <Stack.Screen name="Hotel" component={Hotel} />
                 <Stack.Screen name="Restaurant" component={Restaurant} />
                 <Stack.Screen name="Information" component={Information} />
-
                 <Stack.Screen name="Receipt" component={Receipt} />
 
 
@@ -68,6 +70,8 @@ const Navigate = () => {
                 {/** Hotel */}
                 <Stack.Screen name="HomeHotel" component={HomeHotel} />
                 <Stack.Screen name="AddRoom" component={AddRoom} />
+                <Stack.Screen name="RoomManagement" component={RoomManagement} />
+                <Stack.Screen name="UpdateRoom" component={UpdateRoom} />
 
                 {/** Restaurant */}
                 <Stack.Screen name="HomeRestaurant" component={HomeRestaurant} />

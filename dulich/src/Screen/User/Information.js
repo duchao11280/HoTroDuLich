@@ -1,13 +1,30 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FontAwesome5 } from 'react-native-vector-icons';
 import Line from '../../Component/Line'
 import { Appbar } from 'react-native-paper';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Information = ({ navigation }) => {
+
+  const getUserName = async () => {
+    try {
+      const fullname = await AsyncStorage.getItem('fullName')
+      return fullname
+    } catch (error) {
+      return
+    }
+  }
+
+  const [fullName, setfullName] = useState('');
+  useEffect(() => {
+    getUserName().then((response) => {
+      setfullName(response);
+      console.log(fullName);
+    }).catch(() => { Alert.alert("Thông báo", "Có lỗi xảy ra vui lòng thử lại") });
+  })
   return (
     <View style={[styles.container]}>
       <Appbar.Header statusBarHeight={20}>
@@ -18,7 +35,7 @@ const Information = ({ navigation }) => {
       <View style={styles.HeadContainer}>
         <View style={styles.WelcomeView}>
           <Text style={styles.TextWelcome} > Xin Chào! {"\n "}
-            Hảo</Text>
+            {fullName}</Text>
         </View>
 
         <TouchableOpacity style={styles.LogoutButton} onPress={() => navigation.navigate("Login")} >

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.7:3000';
+const API_URL = 'http://192.168.1.11:3000';
 
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('keytoken')
     return token
   } catch (error) {
-      return;
+    return;
   }
 }
 // get data cho màn hình profile

@@ -13,7 +13,7 @@ const Login = ({ navigation }) => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  
+
   // set jwt
   const onLogin = async () => {
     const response = await login(userName, password);
@@ -22,17 +22,18 @@ const Login = ({ navigation }) => {
         await AsyncStorage.setItem("userID", response.data.user.userID.toString());
         await AsyncStorage.setItem("role", response.data.user.role.toString());
         await AsyncStorage.setItem(TOKEN, response.data.accessToken);
+        await AsyncStorage.setItem("fullName", response.data.user.fullName.toString());
 
         if (response.data.user.role == 0) {
           console.log("User zô")
           navigation.navigate("Home")
-        }else if (response.data.user.role == 1) {
+        } else if (response.data.user.role == 1) {
           console.log("vo bang admin");
           navigation.navigate("HomeAdmin")
-        }else if (response.data.user.role == 2) {
+        } else if (response.data.user.role == 2) {
           console.log("vo bang nha hang");
           navigation.navigate("HomeHotel")
-        }else if (response.data.user.role == 3) {
+        } else if (response.data.user.role == 3) {
           console.log("vo bang khach san");
           navigation.navigate("HomeRestaurant")
         }

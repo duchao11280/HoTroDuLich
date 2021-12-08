@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.7:3000';
+const API_URL = 'http://192.168.1.11:3000';
 
 const getToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem('keytoken')
-      return token
-    } catch (error) {
-        return;
-    }
+  try {
+    const token = await AsyncStorage.getItem('keytoken')
+    return token
+  } catch (error) {
+    return;
+  }
 }
 // get data cho màn hình profile
 const getAllPlaces = async () => {
@@ -17,7 +17,7 @@ const getAllPlaces = async () => {
       API_URL + `/api/v1/admin/places`,
       {
         method: 'GET',
-        headers:{
+        headers: {
           "x-access-token": accessToken,
         }
       }
@@ -37,7 +37,7 @@ const getAllUsers = async () => {
       API_URL + `/api/v1/admin/users`,
       {
         method: 'GET',
-        headers:{
+        headers: {
           "x-access-token": accessToken,
         }
       }
@@ -55,7 +55,7 @@ const disableUser = async (id) => {
     let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/disableuser/${id}`, {
       method: 'PUT',
-      headers:{
+      headers: {
         "x-access-token": accessToken,
       }
 
@@ -90,7 +90,7 @@ const getImageByPlaceID = async (id) => {
     const response = await fetch(
       API_URL + `/api/v1/admin/place/images/${id}`,
       {
-        headers:{
+        headers: {
           "x-access-token": accessToken,
         }
       }
@@ -183,7 +183,7 @@ const disableImage = async (id) => {
     let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/place/image/delete/${id}`, {
       method: 'PUT',
-      headers:{
+      headers: {
         "x-access-token": accessToken,
       }
     });

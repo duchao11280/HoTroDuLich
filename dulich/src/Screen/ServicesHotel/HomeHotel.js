@@ -28,7 +28,19 @@ const HomeHotel = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={styles.ServiceButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate("RoomManagement")}>
+                        <MaterialIcons name="room-service" size={43} color="black" style={styles.iconSmall} />
+                        <Text style={styles.FontButton}>Quản lý phòng</Text>
+                    </TouchableOpacity>
+                </View>
 
+
+
+            </View>
+
+
+            <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
                         <MaterialIcons name="logout" size={40} color="black" style={styles.icon} />
@@ -71,6 +83,9 @@ const styles = StyleSheet.create({
     },
     icon: {
         paddingLeft: 12,
+    },
+    iconSmall: {
+        paddingLeft: 20,
     }
 })
 
