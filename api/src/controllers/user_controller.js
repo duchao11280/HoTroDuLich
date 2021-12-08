@@ -69,7 +69,7 @@ exports.login = (req, res) => {
                         return;
                     }
                     if (bcrypt.compareSync(userReqData.password, currentUser.password)) {
-                        const token = jwt.sign({ userID: currentUser.userid, userName: currentUser.useruserName, role: currentUser.role },
+                        const token = jwt.sign({ userID: currentUser.userID, userName: currentUser.userName, role: currentUser.role },
                             process.env.SECRET_KEY, { expiresIn: 86400 });
                         delete currentUser["password"];
                         res.send({ status: true, message: "Dang nhap thanh cong", data: { user: currentUser, accessToken: token } })

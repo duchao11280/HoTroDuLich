@@ -1,10 +1,25 @@
-import React, { useState, useEffect } from 'react';
-const API_URL = 'http://192.168.1.11:3000';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const API_URL = 'http://192.168.1.7:3000';
+
+const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('keytoken')
+    return token
+  } catch (error) {
+      return;
+  }
+}
 // get data cho màn hình profile
 const getProfile = async (id) => {
   try {
+    let accessToken = await getToken();
     const response = await fetch(
-      API_URL + `/api/v1/user/${id}`
+      API_URL + `/api/v1/user/${id}`,
+      {
+        headers: {
+          "x-access-token": accessToken,
+        }
+      }
     );
     const json = await response.json();
     return json.data;
@@ -15,11 +30,13 @@ const getProfile = async (id) => {
 // edit profile
 const editProfile = async (id, params) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/user/${id}`, {
       method: 'PUT',
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
+        "x-access-token": accessToken,
       },
       body: JSON.stringify({
         fullName: params.fullName,
@@ -38,11 +55,13 @@ const editProfile = async (id, params) => {
 // change password
 const changePassword = async (id, params) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/user/changepassword/${id}`, {
       method: 'PUT',
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
+        "x-access-token": accessToken,
       },
       body: JSON.stringify({
         oldPassword: params.oldPassword,

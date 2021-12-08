@@ -2,22 +2,24 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/user_controller');
-const verifySignUp = require('../midleware/verifySignUp');
-const verifyChangePassword = require("../midleware/verifyChangePassword")
+const verifySignUp = require('../middleware/verifySignUp');
+const verifyChangePassword = require("../middleware/verifyChangePassword")
 
+const checkRole = require('../middleware/checkRole');
+const verifyToken = require('../middleware/verifyToken');
 
 
 //get user by ID
-router.get('/:id', userController.getUserByID);
+router.get('/:id',[verifyToken.verifyToken,checkRole.isUser], userController.getUserByID);
 
 //update user info
-router.put('/:id', userController.updateUser);
+router.put('/:id',[verifyToken.verifyToken,checkRole.isUser], userController.updateUser);
 
 // signup
 router.post('/signup', verifySignUp.verifyUserName, userController.signUp);
 
 // change password
-router.put("/changepassword/:id", verifyChangePassword.verifyPassword, userController.changePassword);
+router.put("/changepassword/:id",[verifyToken.verifyToken,checkRole.isUser], verifyChangePassword.verifyPassword, userController.changePassword);
 
 ///Login
 router.post("/login", userController.login)

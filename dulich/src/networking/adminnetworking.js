@@ -1,11 +1,26 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const API_URL = 'http://192.168.1.7:3000';
 
-const API_URL = 'http://192.168.1.11:3000';
-
+const getToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem('keytoken')
+      return token
+    } catch (error) {
+        return;
+    }
+}
 // get data cho màn hình profile
 const getAllPlaces = async () => {
   try {
+    let accessToken = await getToken();
     const response = await fetch(
-      API_URL + `/api/v1/admin/places`
+      API_URL + `/api/v1/admin/places`,
+      {
+        method: 'GET',
+        headers:{
+          "x-access-token": accessToken,
+        }
+      }
     );
     const json = await response.json();
     return json.data;
@@ -17,8 +32,15 @@ const getAllPlaces = async () => {
 // get all users
 const getAllUsers = async () => {
   try {
+    let accessToken = await getToken();
     const response = await fetch(
-      API_URL + `/api/v1/admin/users`
+      API_URL + `/api/v1/admin/users`,
+      {
+        method: 'GET',
+        headers:{
+          "x-access-token": accessToken,
+        }
+      }
     );
     const json = await response.json();
     return json.data;
@@ -30,8 +52,13 @@ const getAllUsers = async () => {
 //  vô hiệu hóa người dùng
 const disableUser = async (id) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/disableuser/${id}`, {
       method: 'PUT',
+      headers:{
+        "x-access-token": accessToken,
+      }
+
     });
     const json = await respone.json();
     return json;
@@ -43,8 +70,12 @@ const disableUser = async (id) => {
 //  vô hiệu hóa địa điểm
 const deletePlace = async (id) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/place/delete/${id}`, {
       method: 'PUT',
+      headers: {
+        "x-access-token": accessToken,
+      }
     });
     const json = await respone.json();
     return json;
@@ -55,8 +86,14 @@ const deletePlace = async (id) => {
 // lấy hình ảnh bằng id place 
 const getImageByPlaceID = async (id) => {
   try {
+    let accessToken = await getToken();
     const response = await fetch(
-      API_URL + `/api/v1/admin/place/images/${id}`
+      API_URL + `/api/v1/admin/place/images/${id}`,
+      {
+        headers:{
+          "x-access-token": accessToken,
+        }
+      }
     );
     const json = await response.json();
     return json;
@@ -67,11 +104,13 @@ const getImageByPlaceID = async (id) => {
 //  Cập nhật thông tin địa điểm du lịch
 const updateInfoPlace = async (params) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/place/update/${params.placeID}`, {
       method: 'PUT',
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
+        "x-access-token": accessToken,
       },
       body: JSON.stringify({
         placeName: params.placeName,
@@ -90,6 +129,7 @@ const updateInfoPlace = async (params) => {
 //Upload Image Place
 const uploadImagePlace = async (id, uriFromClient) => {
   try {
+    let accessToken = await getToken();
     let form = new FormData();
     let file = {
       name: id + "_" + Date.now() + '.jpg',
@@ -101,6 +141,7 @@ const uploadImagePlace = async (id, uriFromClient) => {
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
+        "x-access-token": accessToken,
       },
       body: form
     });
@@ -115,11 +156,13 @@ const uploadImagePlace = async (id, uriFromClient) => {
 // addPlace
 const addPlaceInfo = async (params) => {
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/place`, {
       method: 'POST',
       headers: {
         "Accept": 'application/json',
         'Content-Type': 'application/json',
+        "x-access-token": accessToken,
       },
       body: JSON.stringify({
         placeName: params.placeName,
@@ -136,10 +179,13 @@ const addPlaceInfo = async (params) => {
 }
 // disable image
 const disableImage = async (id) => {
-
   try {
+    let accessToken = await getToken();
     const respone = await fetch(API_URL + `/api/v1/admin/place/image/delete/${id}`, {
       method: 'PUT',
+      headers:{
+        "x-access-token": accessToken,
+      }
     });
     const json = await respone.json();
     return json;
