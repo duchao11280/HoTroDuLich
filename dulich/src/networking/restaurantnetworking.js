@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.11:3000';
+const API_URL = 'http://192.168.1.7:3000';
 
 const getToken = async () => {
     try {
@@ -64,7 +64,6 @@ const updateTable = async (id, params) => {
                 body: JSON.stringify({
                     tableName: params.tableName,
                     slot: params.slot,
-                    price: params.price,
                     description: params.description,
                     address: params.address,
                     placeID: params.placeID
@@ -94,7 +93,6 @@ const addNewtable = async (params) => {
                 body: JSON.stringify({
                     tableName: params.tableName,
                     slot: params.slot,
-                    price: params.price,
                     description: params.description,
                     address: params.address,
                     userID: params.userID,

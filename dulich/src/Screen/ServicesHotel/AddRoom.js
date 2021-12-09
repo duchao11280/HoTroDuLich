@@ -39,7 +39,7 @@ const AddRoom = ({ navigation }) => {
     const goBack = () => {
         navigation.pop();
     }
-    //Signup
+    //Add room
     const onAddRoom = async () => {
         const uid = await getUserID();
         var params = {

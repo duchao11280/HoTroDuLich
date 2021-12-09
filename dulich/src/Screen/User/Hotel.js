@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-
+import {getAllPlaceIDandName} from '../../networking/placeNetworking'
+import {searchRoomtoBook} from '../../networking/roomnetworking'
 const Hotel = ({ navigation }) => {
+  const [listRoom, setListRoom] = useState([])
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('');
   const [text, setText] = useState('Xin hãy chọn ngày');
   const [show, setshow] = useState(false)
   const [price, setPrice] = useState('')
   const [slot, setSlot] = useState('')
+  const [listPlace, setListPlaces] = useState([])
   const [placeID, setPlaceID] = useState('')
+  const [timeBook, setTimeBook] = useState('')
   const [isLoading, setLoading] = useState(false);
   let isValidate = false;
 
-
+  useEffect(() => {
+    setLoading(true);
+    getAllPlaceIDandName()
+        .then((list)=>{ setListPlaces(list)})
+        .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+        .finally(()=>{setLoading(false)})
+},[])
   const validate = () => {
     const reg = new RegExp('^[0-9]+$');
     if (price.length == 0) {
       showAlert("Bạn chưa nhập giá tiền", false);
+      isValidate = false
+    }
+    else if (text == 'Xin hãy chọn ngày') {
+      showAlert("Vui lòng chọn ngày đến", false);
       isValidate = false
     }
     else if (!reg.test(price)) {
@@ -44,7 +56,17 @@ const Hotel = ({ navigation }) => {
       showAlert("Số lượng người chưa hợp lệ", false);
       isValidate = false
     }
+    else if (placeID == -1) {
+      showAlert("Chọn Địa điểm", false);
+      isValidate = false
+    }
     else isValidate = true
+  }
+  const onSearch = () =>{ 
+    
+    searchRoomtoBook(slot, price,placeID,text)
+      .then((response)=>{console.log(response);setListRoom(response.data);setTimeBook(response.timeBook)})
+      .catch(()=> { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
   }
 
   const showAlert = (mess, status) => {
@@ -56,39 +78,14 @@ const Hotel = ({ navigation }) => {
       ]
     );
   }
-
-
-
-  const DATA = [
-    {
-      roomID: '01',
-      roomName: 'First Item',
-      slot: "mot",
-      price: "2",
-      placeID: "01"
-    },
-    {
-      roomID: '02',
-      roomName: 'First Item',
-      slot: "mot",
-      price: "2",
-      placeID: "01"
-    },
-    {
-      roomID: '03',
-      roomName: 'First Item',
-      slot: "mot",
-      price: "2",
-      placeID: "01"
-    },
-  ];
-
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={() =>{
+      navigation.push('DetailHotel',{room: item, timeBook: timeBook})
+    }}>
       <Text style={styles.title}>{item.roomName}</Text>
       <Text>{item.slot}</Text>
       <Text>{item.price}</Text>
+    <Text>{item.address}</Text>
     </TouchableOpacity>
 
   );
@@ -99,10 +96,9 @@ const Hotel = ({ navigation }) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
     let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth()) + '/' + tempDate.getFullYear();
+    let fDate = tempDate.getFullYear() + '-' + (tempDate.getMonth()) + '-' + tempDate.getDate();
     let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
-    setText(fTime + ',' + fDate)
-    console.log(Date.parse(fDate + ' ' + fTime));
+    setText(fDate + ' ' + fTime)
     setshow(false);
   };
 
@@ -202,11 +198,12 @@ const Hotel = ({ navigation }) => {
         <View style={styles.ViewPicker}>
           <Picker
             selectedValue={placeID}
-            onValueChange={(value) => setPlaceID(value)}
+            onValueChange={setPlaceID}
           >
-            <Picker.Item label="Đồng Nai" value="0" />
-            <Picker.Item label="TP.Hồ Chí Minh" value="2" />
-            <Picker.Item label="Bà Rịa Vũng Tàu" value="3" />
+            <Picker.Item label="Lựa chọn" value="-1" />
+            {listPlace.length !== 0 ? listPlace.map(({ placeID, placeName }) => {
+              return (<Picker.Item label={placeName} value={placeID} key={placeID} />)
+            }) : <Picker.Item label="" value="-2" />}
           </Picker>
         </View>
 
@@ -218,7 +215,7 @@ const Hotel = ({ navigation }) => {
                 onPress={() => {
                   validate()
                   if (isValidate) {
-                    console.log('tim kiem duoc')
+                    onSearch()
                     isValidate = false;
                   }
                 }}
@@ -230,14 +227,13 @@ const Hotel = ({ navigation }) => {
         </View>
 
 
-
       </View>
       <View style={styles.result}>
         <FlatList
-          data={DATA}
+          data={listRoom}
           ListFooterComponent={<View style={{ paddingBottom: 400 }}></View>}
           renderItem={renderItem}
-          keyExtractor={item => item.roomID}
+          keyExtractor={item => item.roomID.toString()}
         />
       </View>
 

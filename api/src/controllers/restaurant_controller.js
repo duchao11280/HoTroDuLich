@@ -4,6 +4,7 @@ const PlaceModel = require('../models/place_model')
 exports.getAllTableByUserID = (req, res) => {
     TableModel.getAllTableByUserID(req.params.id, (err, table) => {
         if (err) {
+            console.log(err)
             res.status(500).json({ status: false, message: "Thất bại" })
             return;
         };
@@ -14,7 +15,7 @@ exports.getAllTableByUserID = (req, res) => {
 
 exports.addNewTable = (req, res) => {
     const table = new TableModel(req.body);
-    TableModel.addNewTable(table.tableName, table.slot, table.price,
+    TableModel.addNewTable(table.tableName, table.slot,
         table.description, table.address, table.userID, table.placeID, (err, table) => {
             if (err) {
                 res.status(500).json({ status: false, message: "Thất bại" })
@@ -26,7 +27,7 @@ exports.addNewTable = (req, res) => {
 
 exports.updateTable = (req, res) => {
     const table = new TableModel(req.body);
-    TableModel.updateTable(req.params.id, table.tableName, table.slot, table.price,
+    TableModel.updateTable(req.params.id, table.tableName, table.slot,
         table.description, table.address, table.placeID, (err, table) => {
             if (err) {
                 res.status(500).json({ status: false, message: "Thất bại" })

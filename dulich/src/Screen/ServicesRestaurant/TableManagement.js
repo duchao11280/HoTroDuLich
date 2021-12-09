@@ -63,7 +63,7 @@ const TableManagement = ({ navigation }) => {
                 {
                     text: 'Có', onPress: () => {
                         disableTable(id)
-                            .then((res) => { console.log(res.message) })
+                            .then((res) => { Alert.alert("Thông báo",res.message) })
                             .catch((err) => { console.log(err) })
                             .finally(() => { onRefresh() })
                     }

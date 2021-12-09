@@ -43,5 +43,15 @@ Room.disableRoom = (id, result) => {
             result(err, res)
         })
 }
-
+Room.searchRoomtoBook = (placeID, price, slot, time, result) => {
+    dbConn.query(`Select DISTINCT room.roomID, roomName, room.slot, room.price,
+            room.description, room.address 
+        FROM room LEFT JOIN bookroom ON room.roomID = bookroom.roomID 
+        WHERE room.price<=? and room.slot<= ? and room.placeID = ?
+            and (bookroom.startTime != ? or ISNULL(bookroom.startTime) = 1)`,
+        [price, slot, placeID, time],
+        (err, res) => {
+            result(err, res);
+        })
+}
 module.exports = Room; 

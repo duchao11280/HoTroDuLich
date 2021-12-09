@@ -12,7 +12,7 @@ const UpdateTable = ({ navigation, route }) => {
     const [slot, setSlot] = useState(route.params.table.slot.toString())
     const [tableName, setTableName] = useState(route.params.table.tableName)
     const [description, setDescription] = useState(route.params.table.description)
-    const [price, setPrice] = useState(route.params.table.price.toString())
+   
     const [placeID, setPlaceID] = useState(route.params.table.placeID)
     const [address, setAddress] = useState(route.params.table.address)
     const [isLoading, setLoading] = useState(false);
@@ -31,14 +31,13 @@ const UpdateTable = ({ navigation, route }) => {
         var params = {
             tableName: tableName,
             slot: slot,
-            price: price,
             description: description,
             address: address,
             placeID: placeID
         };
         updateTable(route.params.table.tableID, params)
-            .then((res) => { console.log(res.message) })
-            .catch((err) => { console.log(err) })
+            .then((res) => { Alert.alert("Thông báo", "Cập nhật thành công") })
+            .catch((err) => {Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
     }
     const goBack = () => {
         navigation.pop();
@@ -46,7 +45,7 @@ const UpdateTable = ({ navigation, route }) => {
     const validate = () => {
         const reg = new RegExp('^[0-9]+$');
         if (tableName.length == 0) {
-            showAlert("Bạn chưa nhập tên phòng", false);
+            showAlert("Bạn chưa nhập tên bàn", false);
             isValidate = false
         }
         else if (slot.length == 0) {
@@ -63,19 +62,6 @@ const UpdateTable = ({ navigation, route }) => {
         }
         else if (description.length == 0) {
             showAlert("Bạn chưa nhập mô tả", false);
-            isValidate = false
-        }
-
-        else if (price.length == 0) {
-            showAlert("Bạn chưa nhập giá tiền", false);
-            isValidate = false
-        }
-        else if (!reg.test(price)) {
-            showAlert("Giá tiền không hợp lệ", false);
-            isValidate = false
-        }
-        else if (price.includes(" ")) {
-            showAlert("số tiền không được chứa khoảng trắng", false);
             isValidate = false
         }
         else isValidate = true
@@ -95,9 +81,9 @@ const UpdateTable = ({ navigation, route }) => {
     const popup = () => {
         Alert.alert(
             //title
-            'Xác nhận cập nhật Phòng',
+            'Xác nhận cập nhật bàn',
             //body
-            'Bạn có chắc muốn cập nhật phòng này?',
+            'Bạn có chắc muốn cập nhật bàn này?',
             [
                 { text: 'Có', onPress: () => { onUpdateTable(), goBack() } },
                 {
@@ -118,18 +104,18 @@ const UpdateTable = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
-                <Appbar.Content title="Cập nhật phòng" />
+                <Appbar.Content title="Cập nhật bàn" />
             </Appbar.Header>
 
 
             <View style={styles.searchInfo}>
                 <View style={styles.cover} >
                     <View style={styles.left}>
-                        <Text style={styles.font}> Tên phòng:</Text>
+                        <Text style={styles.font}> Tên bàn:</Text>
                     </View>
                     <View style={styles.right}>
                         <View >
-                            <TextInput style={styles.Inputprice} placeholder="Nhập tên phòng"
+                            <TextInput style={styles.Inputprice} placeholder="Nhập tên bàn"
                                 value={tableName}
                                 onChangeText={setTableName}
                             />
@@ -183,21 +169,6 @@ const UpdateTable = ({ navigation, route }) => {
                     </View>
                 </View>
 
-                <View style={styles.cover} >
-                    <View style={styles.left}>
-                        <Text style={styles.font}> Giá tiền</Text>
-                    </View>
-                    <View style={styles.right}>
-                        <View >
-                            <TextInput style={styles.Inputprice} placeholder="Nhập giá phòng"
-                                keyboardType='numeric'
-                                value={price}
-                                onChangeText={setPrice}
-                            />
-                        </View>
-                    </View>
-                </View>
-
 
 
                 <View style={styles.cover} >
@@ -225,18 +196,17 @@ const UpdateTable = ({ navigation, route }) => {
                 <View style={styles.cover} >
                     <View style={styles.buttonSearch}>
                         <View >
-                            <TouchableOpacity title="Thêm Phòng" style={styles.button}
+                            <TouchableOpacity title="Thêm Bàn" style={styles.button}
                                 onPress={() => {
                                     validate()
                                     if (isValidate) {
-                                        console.log(tableName + ' ' + slot + ' ' + price + ' ' + placeID + ' ' + description)
                                         popup()
                                         isValidate = false;
                                     }
                                 }}
                             >
                                 <View style={styles.PositionInSearch}>
-                                    <Text> Cập nhật phòng </Text>
+                                    <Text> Cập nhật bàn </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

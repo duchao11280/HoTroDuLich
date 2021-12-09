@@ -59,6 +59,8 @@ const Navigate = () => {
 
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Hotel" component={Hotel} />
+                <Stack.Screen name="DetailHotel" component={DetailHotel} />
+
                 <Stack.Screen name="Restaurant" component={Restaurant} />
                 <Stack.Screen name="Information" component={Information} />
                 <Stack.Screen name="Receipt" component={Receipt} />

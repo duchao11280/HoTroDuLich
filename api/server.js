@@ -23,16 +23,20 @@ const userRoutes = require('./src/routes/user_route');
 const adminRoutes = require('./src/routes/admin_route');
 const placeRoutes = require('./src/routes/place_route');
 const hotelRoutes = require('./src/routes/hotel_route')
-
-
+const restaurantRoutes = require('./src/routes/restaurant_route')
+const roomRoutes = require('./src/routes/room_route');
 //create user
 app.use('/api/v1/user', userRoutes); 
-// route cho admin
-app.use('/api/v1/admin', adminRoutes); 
 // route cho place
 app.use('/api/v1/place', placeRoutes);
+// route cho room
+app.use('/api/v1/room/', roomRoutes);
+// route cho admin
+app.use('/api/v1/admin', adminRoutes); 
 // route cho services hotel
 app.use('/api/v1/hotel',hotelRoutes); 
+//route cho services restaurant
+app.use('/api/v1/restaurant',restaurantRoutes)
 app.listen(port,function(){
     console.log(`Node server running @ http://localhost:${port}`)
 });

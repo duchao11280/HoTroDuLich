@@ -1,25 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import { getAllPlace, addNewtable } from '../../networking/restaurantnetworking'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddTable = ({ navigation }) => {
 
     const [slot, setSlot] = useState('')
-    const [roomName, setRoomName] = useState('')
+    const [tableName, setTableName] = useState('')
     const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
+    const [address, setAddress] = useState("")
     const [placeID, setPlaceID] = useState('')
     const [isLoading, setLoading] = useState(false);
+    const [listPlace, setListPlaces] = useState([])
     let isValidate = false;
+    let userID;
+    useEffect(() => {
+        setLoading(true);
+        getAllPlace()
+            .then((list) => { setListPlaces(list) })
+            .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+            .finally(() => { setLoading(false) })
 
-
+    }, [])
+    const getUserID = async () => {
+        try {
+            const id = await AsyncStorage.getItem('userID')
+            userID = parseInt(id);
+            return userID
+        } catch (error) {
+            return
+        }
+    }
+    const onAddTable = async () => {
+        const uid = await getUserID();
+        var params = {
+            tableName: tableName,
+            slot: slot,
+            description: description,
+            address: address,
+            userID: uid,
+            placeID: placeID
+        };
+        addNewtable(params)
+            .then((res)=>{ Alert.alert("Thông báo", "Thêm thành công")})
+            .catch((err)=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+    }
+    const goBack = () => {
+        navigation.pop();
+    }
     const validate = () => {
         const reg = new RegExp('^[0-9]+$');
-        if (roomName.length == 0) {
+        if (tableName.length == 0) {
             showAlert("Bạn chưa nhập tên phòng", false);
             isValidate = false
         }
@@ -37,19 +71,6 @@ const AddTable = ({ navigation }) => {
         }
         else if (description.length == 0) {
             showAlert("Bạn chưa nhập mô tả", false);
-            isValidate = false
-        }
-
-        else if (price.length == 0) {
-            showAlert("Bạn chưa nhập giá tiền", false);
-            isValidate = false
-        }
-        else if (!reg.test(price)) {
-            showAlert("Giá tiền không hợp lệ", false);
-            isValidate = false
-        }
-        else if (price.includes(" ")) {
-            showAlert("số tiền không được chứa khoảng trắng", false);
             isValidate = false
         }
         else isValidate = true
@@ -73,7 +94,7 @@ const AddTable = ({ navigation }) => {
             //body
             'Bạn có chắc muốn thêm bàn này?',
             [
-                { text: 'Có', onPress: () => console.log('Yes Pressed') },
+                { text: 'Có', onPress: () => {onAddTable(), goBack()} },
                 {
                     text: 'Không',
                     onPress: () => console.log('No Pressed'),
@@ -84,39 +105,6 @@ const AddTable = ({ navigation }) => {
             //clicking out side of alert will not cancel
         )
     }
-
-
-
-    const DATA = [
-        {
-            roomID: '01',
-            roomName: 'First Item',
-            slot: "mot",
-            price: "2",
-            placeID: "01"
-        },
-        {
-            roomID: '02',
-            roomName: 'First Item',
-            slot: "mot",
-            price: "2",
-            placeID: "01"
-        },
-        {
-            roomID: '03',
-            roomName: 'First Item',
-            slot: "mot",
-            price: "2",
-            placeID: "01"
-        },
-    ];
-
-
-
-
-
-
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -134,8 +122,8 @@ const AddTable = ({ navigation }) => {
                     <View style={styles.right}>
                         <View >
                             <TextInput style={styles.Inputprice} placeholder="Nhập tên phòng"
-                                value={roomName}
-                                onChangeText={setRoomName}
+                                value={tableName}
+                                onChangeText={setTableName}
                             />
                         </View>
                     </View>
@@ -170,24 +158,19 @@ const AddTable = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-
                 <View style={styles.cover} >
                     <View style={styles.left}>
-                        <Text style={styles.font}> Giá tiền</Text>
+                        <Text style={styles.font}> Địa chỉ:</Text>
                     </View>
                     <View style={styles.right}>
                         <View >
-                            <TextInput style={styles.Inputprice} placeholder="Nhập giá bàn"
-                                keyboardType='numeric'
-                                value={price}
-                                onChangeText={setPrice}
+                            <TextInput style={styles.Inputprice} placeholder="Nhập địa chỉ"
+                                value={address}
+                                onChangeText={setAddress}
                             />
                         </View>
                     </View>
                 </View>
-
-
-
                 <View style={styles.cover} >
                     <View style={styles.left}>
                         <Text style={styles.font}> Địa Điểm :</Text>
@@ -196,15 +179,14 @@ const AddTable = ({ navigation }) => {
                     </View>
                 </View>
 
-
                 <View style={styles.ViewPicker}>
                     <Picker
                         selectedValue={placeID}
                         onValueChange={(value) => setPlaceID(value)}
                     >
-                        <Picker.Item label="Đồng Nai" value="0" />
-                        <Picker.Item label="TP.Hồ Chí Minh" value="2" />
-                        <Picker.Item label="Bà Rịa Vũng Tàu" value="3" />
+                        {listPlace.length !== undefined ? listPlace.map(({ placeID, placeName }) => {
+                            return (<Picker.Item label={placeName} value={placeID} key={placeID} />)
+                        }) : <Picker.Item label="Bãi Dâu" value="1" />}
                     </Picker>
                 </View>
 
@@ -216,7 +198,6 @@ const AddTable = ({ navigation }) => {
                                 onPress={() => {
                                     validate()
                                     if (isValidate) {
-                                        console.log('Thêm được')
                                         popup()
                                         isValidate = false;
                                     }

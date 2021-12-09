@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { bookRoom} from '../../networking/roomnetworking'
 
-const DetailHotel = () => {
-  const DATA = [
-    {
-      roomID: '01',
-      roomName: 'Name',
-      description: " mot khach san chat luong",
-      slot: "mot",
-      price: "2",
-      placeID: "01"
-    },
+const DetailHotel = ({ navigation, route }) => {
+  const [room, setRoom] = useState(route.params.room);
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  ];
+  // lấy userID từ store
+  let userID;
+  const getUserID = async () => {
+    try {
+      const id = await AsyncStorage.getItem('userID')
+      userID = parseInt(id);
+      return userID
+    } catch (error) {
+      return
+    }
+  }
 
+  const goBack = () => {
+    navigation.pop();
+  }
+  const onBookRoom =  async() => {
+    const user = await getUserID()
+    bookRoom(room.roomID,user,route.params.timeBook,phoneNumber)
+      .then((response) => {Alert.alert("Thông báo",response.message); goBack()})
+      .catch(()=> { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+  }
   const popup = () => {
     Alert.alert(
       //title
@@ -24,7 +38,7 @@ const DetailHotel = () => {
       //body
       'Bạn có chắc muốn đặt phòng này?',
       [
-        { text: 'Có', onPress: () => console.log('Yes Pressed') },
+        { text: 'Có', onPress: () => onBookRoom() },
         {
           text: 'Không',
           onPress: () => console.log('No Pressed'),
@@ -37,34 +51,35 @@ const DetailHotel = () => {
   }
 
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item}>
-      <Text style={styles.title}>Tên phòng :{item.roomName}</Text>
-      <Text>Số người: {item.slot}</Text>
-      <Text>Giá phòng: {item.price}</Text>
-      <Text>Mô tả: {item.description}</Text>
-      <Text>Địa chỉ: {item.placeID}</Text>
-    </TouchableOpacity>
-
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={[{ paddingTop: 30 }]}>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { goBack() }}>
           <AntDesignIcon name="arrowleft" style={styles.Arrowback} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.showInfo}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.roomID}
-        />
+        <Text style={styles.title}>Tên phòng :{room.roomName}</Text>
+        <Text>Số người: {room.slot}</Text>
+        <Text>Giá phòng: {room.price}</Text>
+        <Text>Mô tả: {room.description}</Text>
+        <Text>Địa chỉ: {room.address}</Text>
       </View>
-      <View style={styles.Image}>
-        <Image source={require('../../../assets/Beach.png')} />
+
+      <View style={styles.cover} >
+        <View style={styles.left}>
+          <Text style={styles.font}> Số điện thoại</Text>
+        </View>
+        <View style={styles.right}>
+          <View >
+            <TextInput style={styles.inputText} placeholder="Nhập số điện thoại để liên lạc"
+              keyboardType='numeric'
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+            />
+          </View>
+        </View>
       </View>
       <View>
         <TouchableOpacity style={styles.button}
@@ -147,9 +162,30 @@ const styles = StyleSheet.create({
   center: {
     position: 'absolute',
     top: 10,
-  }
-
-
+  },
+  cover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 7
+  },
+  left: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  right: {
+    paddingRight: 20
+  },
+  inputText: {
+    width: 200,
+    height: 35,
+    marginLeft: 10,
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#48BBEC',
+    backgroundColor: 'white',
+    paddingLeft: 20,
+  },
 });
 
 export default DetailHotel;

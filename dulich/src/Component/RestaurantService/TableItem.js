@@ -27,12 +27,6 @@ const TableItem = (props) => {
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Giá: {props.item.price} đ
-                </Text>
-            </View>
-
-            <View style={Styles.limmitRow}>
-                <Text style={Styles.textInfo}>
                     Mô tả: {props.item.description}
                 </Text>
             </View>

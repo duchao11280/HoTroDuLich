@@ -43,3 +43,12 @@ exports.getAllPlaceAndImages = (req, res) => {
         }
     });
 }
+exports.getAllPlaceIDandName = (req, res) =>{
+    PlaceModel.getPlaceIDandName((err,place)=>{
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({status: true, message:'Lấy dữ liệu thành công', data: place})
+    })
+}
