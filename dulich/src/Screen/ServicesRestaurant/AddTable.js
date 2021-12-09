@@ -129,7 +129,7 @@ const AddTable = ({ navigation }) => {
             <View style={styles.searchInfo}>
                 <View style={styles.cover} >
                     <View style={styles.left}>
-                        <Text style={styles.font}> Tên phòng:</Text>
+                        <Text style={styles.font}> Tên Bàn:</Text>
                     </View>
                     <View style={styles.right}>
                         <View >
