@@ -3,7 +3,7 @@ import {
     View, Text, Image, Pressable, RefreshControl, Alert,
     ActivityIndicator, StyleSheet, FlatList, SafeAreaView, TouchableHighlight
 } from 'react-native';
-import Table from '../../Component/RestaurantService/TableItem'
+import TableItem from '../../Component/RestaurantService/TableItem'
 import { Appbar } from 'react-native-paper';
 import { SearchBar } from "react-native-elements";
 import { getAllTableByUserID, disableTable } from '../../networking/restaurantnetworking'
