@@ -39,6 +39,9 @@ import UpdateRoom from '../Screen/ServicesHotel/UpdateRoom'
 // restaurent
 import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
 import AddTable from '../Screen/ServicesRestaurant/AddTable';
+import TableManagement from '../Screen/ServicesRestaurant/TableManagement';
+import UpdateTable from '../Screen/ServicesRestaurant/UpdateTable';
+
 
 
 
@@ -76,6 +79,8 @@ const Navigate = () => {
                 {/** Restaurant */}
                 <Stack.Screen name="HomeRestaurant" component={HomeRestaurant} />
                 <Stack.Screen name="AddTable" component={AddTable} />
+                <Stack.Screen name="UpdateTable" component={UpdateTable} />
+                <Stack.Screen name="TableManagement" component={TableManagement} />
 
                 {/** Other */}
                 <Stack.Screen name="Profile" component={Profile} />

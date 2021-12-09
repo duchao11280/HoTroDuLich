@@ -28,10 +28,19 @@ const HomeRestaurant = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={styles.ServiceButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate("TableManagement")}>
+                        <MaterialIcons name="room-service" size={43} color="black" style={styles.iconSmall} />
+                        <Text style={styles.FontButton}>Quản lý bàn</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
 
+
+            <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
-                        <MaterialIcons name="logout" size={43} color="black" style={styles.icon} />
+                        <MaterialIcons name="logout" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng suất</Text>
                     </TouchableOpacity>
                 </View>

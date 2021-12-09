@@ -31,10 +31,10 @@ const Login = ({ navigation }) => {
           console.log("vo bang admin");
           navigation.navigate("HomeAdmin")
         } else if (response.data.user.role == 2) {
-          console.log("vo bang nha hang");
+          console.log("vo bang Khach san");
           navigation.navigate("HomeHotel")
         } else if (response.data.user.role == 3) {
-          console.log("vo bang khach san");
+          console.log("vo bang Nha hang");
           navigation.navigate("HomeRestaurant")
         }
 

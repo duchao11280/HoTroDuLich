@@ -10,11 +10,11 @@ const getToken = async () => {
     }
 }
 // get data cho màn hình profile
-const getAllRoomByUserID = async (id) => {
+const getAllTableByUserID = async (id) => {
     try {
         let accessToken = await getToken();
         const response = await fetch(
-            API_URL + `/api/v1/hotel/room/${id}`,
+            API_URL + `/api/v1/restaurant/table/${id}`,
             {
                 method: 'GET',
                 headers: {
@@ -34,7 +34,7 @@ const getAllPlace = async () => {
     try {
         let accessToken = await getToken();
         const response = await fetch(
-            API_URL + `/api/v1/hotel/places`,
+            API_URL + `/api/v1/restaurant/places`,
             {
                 method: 'GET',
                 headers: {
@@ -48,12 +48,12 @@ const getAllPlace = async () => {
 
     }
 };
-// update room 
-const updateRoom = async (id, params) => {
+// update table
+const updateTable = async (id, params) => {
     try {
         let accessToken = await getToken();
         const response = await fetch(
-            API_URL + `/api/v1/hotel/room/updateroom/${id}`,
+            API_URL + `/api/v1/restaurant/table/updatetable/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -62,7 +62,7 @@ const updateRoom = async (id, params) => {
                     "x-access-token": accessToken,
                 },
                 body: JSON.stringify({
-                    roomName: params.roomName,
+                    tableName: params.tableName,
                     slot: params.slot,
                     price: params.price,
                     description: params.description,
@@ -78,12 +78,12 @@ const updateRoom = async (id, params) => {
     }
 };
 
-// add new room
-const addNewRoom = async (params) => {
+// add new table
+const addNewtable = async (params) => {
     try {
         let accessToken = await getToken();
         const response = await fetch(
-            API_URL + `/api/v1/hotel/room/addnew`,
+            API_URL + `/api/v1/restaurant/table/addnew`,
             {
                 method: 'POST',
                 headers: {
@@ -92,7 +92,7 @@ const addNewRoom = async (params) => {
                     "x-access-token": accessToken,
                 },
                 body: JSON.stringify({
-                    roomName: params.roomName,
+                    tableName: params.tableName,
                     slot: params.slot,
                     price: params.price,
                     description: params.description,
@@ -108,12 +108,12 @@ const addNewRoom = async (params) => {
 
     }
 };
-// disable room
-const disableRoom = async (id) => {
+// disable table
+const disableTable = async (id) => {
     try {
         let accessToken = await getToken();
         const response = await fetch(
-            API_URL + `/api/v1/hotel/room/disable/${id}`,
+            API_URL + `/api/v1/restaurant/table/disable/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -129,9 +129,9 @@ const disableRoom = async (id) => {
     }
 };
 export {
-    getAllRoomByUserID,
+    getAllTableByUserID,
     getAllPlace,
-    updateRoom,
-    addNewRoom,
-    disableRoom
+    updateTable,
+    addNewtable,
+    disableTable
 }
