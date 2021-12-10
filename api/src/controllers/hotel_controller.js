@@ -1,5 +1,6 @@
 const RoomModel = require('../models/room_model');
 const PlaceModel = require('../models/place_model')
+const BookRoomModel = require('../models/bookroom_model')
 // lấy room theo từng chủ khách sạn
 exports.getAllRoomByUserID = (req,res) => {
     RoomModel.getAllRoomByUserID(req.params.id,(err,room)=>{
@@ -54,4 +55,15 @@ exports.getAllPlace = (req, res) =>{
         };
         res.json({status: true, message:'Lấy dữ liệu thành công', data: place})
     })
+}
+
+exports.getRoomsHaveBooked = (req, res) =>{
+
+        BookRoomModel.getAllBookedByOwnerID(req.params.id, (err,bookroom)=>{
+            if (err) {
+                res.status(500).json({status: false, message: "Thất bại"})
+                return;
+            };
+            res.json({status: true, message:'Lấy dữ liệu thành công',data:bookroom })
+        })
 }

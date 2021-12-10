@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.11:3000';
+const API_URL = 'http://192.168.1.9:3000';
 
 const getToken = async () => {
     try {
@@ -128,10 +128,31 @@ const disableRoom = async (id) => {
 
     }
 };
+
+const getRoomsHaveBooked = async (id) => {
+    try {
+        let accessToken = await getToken();
+        const response = await fetch(
+            API_URL + `/api/v1/hotel/room/booked/${id}`,
+            {
+                method: 'GET',
+                headers: {
+                    "x-access-token": accessToken,
+                },
+            }
+        );
+        const json = await response.json();
+        return json;
+    } catch (error) {
+
+    }
+}
+
 export {
     getAllRoomByUserID,
     getAllPlace,
     updateRoom,
     addNewRoom,
-    disableRoom
+    disableRoom,
+    getRoomsHaveBooked
 }

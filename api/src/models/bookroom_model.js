@@ -12,13 +12,25 @@ BookRoom.insertBookRoom = (roomID,userID,startTime,phoneNumber,result) =>{
          result(err, res)
      })
 }
-
+// người dùng 
 BookRoom.getAllByUserID = (id, result) =>{
     dbConn.query(` SELECT DISTINCT bookroom.id, room.roomID, room.roomName,
             room.price, room.slot, room.description, room.address,place.placeName
         from bookroom, room, place 
         WHERE room.roomID =bookroom.roomID and bookroom.userID = ${id}
             and place.placeID = room.placeID`,
+        (err,res)=>{
+        result(err, res)
+    })
+}
+
+// lấy danh sách phòng đã được đặt theo chủ phòng
+BookRoom.getAllBookedByOwnerID = (id, result) =>{
+    dbConn.query(` SELECT DISTINCT bookroom.id, room.roomID, room.roomName,
+        room.price, room.slot, room.description, room.address,place.placeName, user.fullName, bookroom.phoneNumber, bookroom.startTime
+    from bookroom, room, place, user 
+    WHERE room.roomID =bookroom.roomID and room.userID = ${id}
+        and place.placeID = room.placeID and user.userID = bookroom.userID`,
         (err,res)=>{
         result(err, res)
     })

@@ -34,7 +34,7 @@ import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
 import AddRoom from '../Screen/ServicesHotel/AddRoom'
 import RoomManagement from '../Screen/ServicesHotel/RoomManagement'
 import UpdateRoom from '../Screen/ServicesHotel/UpdateRoom'
-
+import BillRoom from '../Screen/ServicesHotel/BillRoom'
 
 // restaurent
 import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
@@ -77,7 +77,7 @@ const Navigate = () => {
                 <Stack.Screen name="AddRoom" component={AddRoom} />
                 <Stack.Screen name="RoomManagement" component={RoomManagement} />
                 <Stack.Screen name="UpdateRoom" component={UpdateRoom} />
-
+                <Stack.Screen name="BillRoom" component={BillRoom} />
                 {/** Restaurant */}
                 <Stack.Screen name="HomeRestaurant" component={HomeRestaurant} />
                 <Stack.Screen name="AddTable" component={AddTable} />

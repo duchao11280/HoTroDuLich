@@ -25,4 +25,8 @@ hotelController.disableRoom)
 router.get('/places',[verifyToken.verifyToken,checkRole.isHotel],
 hotelController.getAllPlace)
 
+// get rooms have been booked
+router.get('/room/booked/:id',[verifyToken.verifyToken,checkRole.isHotel],
+hotelController.getRoomsHaveBooked )
+
 module.exports = router;
