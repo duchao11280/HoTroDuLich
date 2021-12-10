@@ -35,11 +35,11 @@ const ChangeInfo = ({ navigation, route }) => {
             phonenumber: phonenumber,
         }
         getUserID()
-            .then(()=> editProfile(userID, params).then((message) => {
-                console.log(message);
+            .then(() => editProfile(userID, params).then((message) => {
+
                 goBack();
             }).catch((error) => {
-                console.log(error);
+                Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
             })
             )
             .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") });

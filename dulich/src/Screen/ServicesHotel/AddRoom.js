@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -23,10 +23,10 @@ const AddRoom = ({ navigation }) => {
     useEffect(() => {
         setLoading(true);
         getAllPlace()
-            .then((list)=>{ setListPlaces(list)})
-            .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
-            .finally(()=>{setLoading(false)})
-    },[])
+            .then((list) => { setListPlaces(list) })
+            .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+            .finally(() => { setLoading(false) })
+    }, [])
     const getUserID = async () => {
         try {
             const id = await AsyncStorage.getItem('userID')
@@ -52,8 +52,8 @@ const AddRoom = ({ navigation }) => {
             placeID: placeID
         };
         addNewRoom(params)
-            .then((res)=>{console.log(res.message)})
-            .catch((err)=>{console.log(err)})
+            .then((res) => { console.log(res.message) })
+            .catch((err) => { console.log(err) })
     }
 
     const validate = () => {
@@ -112,7 +112,7 @@ const AddRoom = ({ navigation }) => {
             //body
             'Bạn có chắc muốn thêm phòng này?',
             [
-                { text: 'Có', onPress: () => {onAddRoom(), goBack()} },
+                { text: 'Có', onPress: () => { onAddRoom(), goBack() } },
                 {
                     text: 'Không',
                     onPress: () => console.log('No Pressed'),
@@ -225,9 +225,9 @@ const AddRoom = ({ navigation }) => {
                         selectedValue={placeID}
                         onValueChange={(value) => setPlaceID(value)}
                     >
-                        {listPlace.length!==undefined?listPlace.map(({placeID,placeName})=>{
-                            return (<Picker.Item label={placeName} value={placeID} key={placeID}/>)
-                        }):<Picker.Item label="Bãi Dâu" value="1" />}
+                        {listPlace.length !== undefined ? listPlace.map(({ placeID, placeName }) => {
+                            return (<Picker.Item label={placeName} value={placeID} key={placeID} />)
+                        }) : <Picker.Item label="Bãi Dâu" value="1" />}
                     </Picker>
                 </View>
 
@@ -356,7 +356,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     PositionInSearch: {
-        paddingTop: 6
+        paddingTop: 2,
+        paddingLeft: 13
     }
 
 

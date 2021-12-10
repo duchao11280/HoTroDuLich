@@ -25,21 +25,16 @@ const Login = ({ navigation }) => {
         await AsyncStorage.setItem("fullName", response.data.user.fullName.toString());
 
         if (response.data.user.role == 0) {
-          console.log("User zô")
           navigation.navigate("Home")
         } else if (response.data.user.role == 1) {
-          console.log("vo bang admin");
           navigation.navigate("HomeAdmin")
         } else if (response.data.user.role == 2) {
-          console.log("vo bang Khach san");
           navigation.navigate("HomeHotel")
         } else if (response.data.user.role == 3) {
-          console.log("vo bang Nha hang");
           navigation.navigate("HomeRestaurant")
         }
 
       } catch (e) {
-        console.log(e.message);
       }
     } else {
       Alert.alert("Thông báo", response.message), [{ text: "Ok", onPress: () => { } }];
@@ -48,17 +43,6 @@ const Login = ({ navigation }) => {
   }
 
 
-  //get jwt
-  /*const GetRole = async () => {
-    try {
-      const Rolevalue = JSON.parse(await AsyncStorage.getItem('role'))
-      console.log("CCCCCCCCC", Rolevalue);
-
-
-    } catch (error) {
-      // Error retrieving data
-    }
-  }*/
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{

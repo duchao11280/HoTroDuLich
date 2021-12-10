@@ -3,7 +3,6 @@ import {
   Text, View, StyleSheet, Button, Image, FlatList,
   ActivityIndicator, TextInput, TouchableOpacity
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { bookedRoomByUserID } from '../../networking/roomnetworking'
@@ -33,7 +32,7 @@ const Receipt = ({ navigation }) => {
       .finally(() => { setLoading(false) })
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Appbar.Header statusBarHeight={20}>
         <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Hóa đơn" />
@@ -71,7 +70,8 @@ const Receipt = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#e6e6ff'
+    backgroundColor: '#e6e6ff',
+    flex: 1
   },
   title: {
     fontSize: 20,

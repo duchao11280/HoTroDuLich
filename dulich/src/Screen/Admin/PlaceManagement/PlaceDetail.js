@@ -50,7 +50,7 @@ const PlaceDetail = ({ navigation, route }) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { console.log("res: " + response) }).catch(err => { console.log("err: " + err) })
+                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { }).catch(err => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
                 setBottomSheetVisible(false)
                 onRefresh();
             }
@@ -66,7 +66,7 @@ const PlaceDetail = ({ navigation, route }) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { console.log("res: " + response) }).catch(err => { console.log("err: " + err) })
+                uploadImagePlace(placeInfo.placeID, result.uri).then((response) => { }).catch(err => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
                 setBottomSheetVisible(false)
                 onRefresh();
             }
@@ -80,7 +80,7 @@ const PlaceDetail = ({ navigation, route }) => {
             .then((response) => {
                 setListImages(response.data)
             })
-            .catch((err) => { Alert.alert("Thông báo","Kết nối thất bại") })
+            .catch((err) => { Alert.alert("Thông báo", "Kết nối thất bại") })
             .finally(() => { setLoading(false), setRefreshing(false); });
     }
     const onRefresh = () => {
@@ -93,7 +93,7 @@ const PlaceDetail = ({ navigation, route }) => {
             .then((response) => {
                 onRefresh();
                 Alert.alert("Thông báo", response.message, [{ text: "Ok", onPress: () => { } }])
-                
+
             })
             .catch((error) => {
                 Alert.alert("Thông báo", "Thất bại trong việc xóa hình ảnh", [{ text: "Ok", onPress: () => { } }])

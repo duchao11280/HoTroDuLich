@@ -4,7 +4,6 @@ const PlaceModel = require('../models/place_model')
 exports.getAllTableByUserID = (req, res) => {
     TableModel.getAllTableByUserID(req.params.id, (err, table) => {
         if (err) {
-            console.log(err)
             res.status(500).json({ status: false, message: "Thất bại" })
             return;
         };

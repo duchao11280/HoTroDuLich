@@ -24,7 +24,7 @@ const HomeHotel = ({ navigation }) => {
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("BillRoom")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
-                        <Text style={styles.FontButton}>Xem danh sách phòng được đặt</Text>
+                        <Text style={styles.FontButton}> phòng được đặt</Text>
                     </TouchableOpacity>
                 </View>
 

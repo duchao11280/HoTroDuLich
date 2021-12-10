@@ -45,7 +45,7 @@ const ChangePassWord = ({ navigation }) => {
                     showAlert(response.message, response.status);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
                 })
             )
             .catch(() => Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau"));

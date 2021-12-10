@@ -94,8 +94,8 @@ const Styles = StyleSheet.create({
         paddingLeft: 10
     },
     PositionTextDelete: {
-        paddingTop: 15,
-        paddingLeft: 25
+        paddingTop: 10,
+        paddingLeft: 15
     }
 
 })

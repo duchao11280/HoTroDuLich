@@ -12,7 +12,7 @@ const UpdateTable = ({ navigation, route }) => {
     const [slot, setSlot] = useState(route.params.table.slot.toString())
     const [tableName, setTableName] = useState(route.params.table.tableName)
     const [description, setDescription] = useState(route.params.table.description)
-   
+
     const [placeID, setPlaceID] = useState(route.params.table.placeID)
     const [address, setAddress] = useState(route.params.table.address)
     const [isLoading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ const UpdateTable = ({ navigation, route }) => {
         };
         updateTable(route.params.table.tableID, params)
             .then((res) => { Alert.alert("Thông báo", "Cập nhật thành công") })
-            .catch((err) => {Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+            .catch((err) => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
     }
     const goBack = () => {
         navigation.pop();
@@ -88,7 +88,7 @@ const UpdateTable = ({ navigation, route }) => {
                 { text: 'Có', onPress: () => { onUpdateTable(), goBack() } },
                 {
                     text: 'Không',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => console.log(''),
                     style: 'cancel',
                 },
             ],

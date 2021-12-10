@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native'
 import { FontAwesome5 } from 'react-native-vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -44,15 +42,15 @@ const Home = ({ navigation, route }) => {
 
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("Receipt")}>
-                        <MaterialIcons name="receipt-long" size={42.5} color="black" style={styles.smallIcon} />
-                        <Text style={styles.FontButton}>Hóa đơn</Text>
+                        <MaterialIcons name="receipt-long" size={42.5} color="black" style={styles.IconThreeword} />
+                        <Text style={styles.FontButton}>Hóa đơn phòng</Text>
                     </TouchableOpacity>
                 </View>
 
 
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("Information")}>
-                        <MaterialIcons name="account-circle" size={42.5} color="black" style={styles.smallIcon} />
+                        <MaterialIcons name="account-circle" size={42.5} color="black" style={styles.IconTwoWord} />
                         <Text style={styles.FontButton}>Tài khoản</Text>
                     </TouchableOpacity>
                 </View>
@@ -92,8 +90,11 @@ const styles = StyleSheet.create({
     icon: {
         paddingLeft: 12,
     },
-    smallIcon: {
-        paddingLeft: 9,
+    IconThreeword: {
+        paddingLeft: 24,
+    },
+    IconTwoWord: {
+        paddingLeft: 13,
     }
 })
 

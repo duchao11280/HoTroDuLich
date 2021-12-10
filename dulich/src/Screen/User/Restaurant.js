@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 
@@ -89,7 +87,6 @@ const Hotel = ({ navigation }) => {
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth()) + '/' + tempDate.getFullYear();
     let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
     setText(fTime + ',' + fDate)
-    console.log(fTime + ',' + fDate);
     setshow(false);
   };
 
@@ -193,7 +190,7 @@ const Hotel = ({ navigation }) => {
                 onPress={() => {
                   validate()
                   if (isValidate) {
-                    console.log('tim kiem duoc')
+
                     isValidate = false;
                   }
                 }}

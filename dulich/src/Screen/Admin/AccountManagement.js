@@ -13,7 +13,7 @@ const AccountManagement = ({ navigation }) => {
     const [users, setUsers] = useState([]);
     const [searchfield, setSearchfield] = useState('');
     const [refreshing, setRefreshing] = useState(false);
- 
+
     useEffect(() => {
         //Lấy dữ liệu từ server để hiển thị 
         getDataFromServer()
@@ -26,13 +26,13 @@ const AccountManagement = ({ navigation }) => {
     const getDataFromServer = () => {
         setRefreshing(true);
         getAllUsers().then((listussers) => { setUsers(listussers); })
-            .catch((err) => { console.log(err) })
+            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
             .finally(() => { setLoading(false); setRefreshing(false) })
     }
     // khi kéo từ trên xuống refresh lại dữ liệu
     const onRefresh = () => { getDataFromServer() }
     // Lọc user theo search 
-    const filteredUsers = users==undefined?[] :users.filter(user=>{
+    const filteredUsers = users == undefined ? [] : users.filter(user => {
         var searchFullName = user.fullName.toLowerCase().includes(searchfield.toLowerCase());
         var searchEmail = user.email.toLowerCase().includes(searchfield.toLowerCase());
         var searchPhoneNumber = user.phonenumber.toLowerCase().includes(searchfield.toLowerCase());
@@ -40,7 +40,7 @@ const AccountManagement = ({ navigation }) => {
         return search;
     })
     // Khi vuốt qua bên phải xuất hiện 1 button để vô hiệu hóa.
-    const RightActions = ({item}) => {
+    const RightActions = ({ item }) => {
         return (
             <Pressable onPress={() => Alert.alert(
                 'Cảnh Báo',
@@ -56,7 +56,7 @@ const AccountManagement = ({ navigation }) => {
                                         res.message,
                                         [{
                                             text: 'Ok',
-                                            onPress: () => {  }
+                                            onPress: () => { }
                                         }])
                                 })
                                 .catch(() => {
@@ -65,7 +65,7 @@ const AccountManagement = ({ navigation }) => {
                                         "Vô hiệu hóa thất bại",
                                         [{
                                             text: 'Ok',
-                                            onPress: () => {}
+                                            onPress: () => { }
                                         }]
                                     )
                                 })
@@ -90,7 +90,7 @@ const AccountManagement = ({ navigation }) => {
                             fontWeight: '600',
                         }}>
                         Vô hiệu hóa
-                </Text>
+                    </Text>
                 </View>
             </Pressable>
         )
@@ -117,7 +117,7 @@ const AccountManagement = ({ navigation }) => {
                             ListFooterComponent={<View style={{ paddingBottom: 400 }}></View>}
                             renderItem={({ item, index }) => {
                                 return (
-                                    <Swipeable renderRightActions={()=><RightActions item={item}></RightActions>}>
+                                    <Swipeable renderRightActions={() => <RightActions item={item}></RightActions>}>
                                         <UserItem item={item} index={index}>
 
                                         </UserItem>

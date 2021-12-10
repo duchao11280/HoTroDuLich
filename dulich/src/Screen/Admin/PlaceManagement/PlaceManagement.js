@@ -23,7 +23,7 @@ const PlaceManagement = ({ navigation }) => {
     }, []);
     const getPlaceFromServer = () => {
         getAllPlaces().then((listPlaces) => { setListPlaces(listPlaces) })
-            .catch((err) => { console.log("Kết nối thất bại") })
+            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
             .finally(() => { setLoading(false), setRefreshing(false); });
     }
     // khi kéo từ trên xuống refresh lại dữ liệu

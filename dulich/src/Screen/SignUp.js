@@ -6,7 +6,6 @@ import { Picker } from '@react-native-picker/picker';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { signUp } from '../networking/usernetworking';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignUp = ({ navigation }) => {
@@ -36,7 +35,6 @@ const SignUp = ({ navigation }) => {
     };
 
     signUp(params).then((response) => {
-      console.log(response);
       if (response === undefined) {
 
         Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
@@ -44,7 +42,7 @@ const SignUp = ({ navigation }) => {
       }
       Alert.alert("Thông báo", response.message), [{ text: "Ok", onPress: () => { } }];
     }).catch((error) => {
-      console.log(error);
+      Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
     }).finally(() => {
       setLoading(false);
     })
@@ -192,7 +190,7 @@ const SignUp = ({ navigation }) => {
         <View style={styles.LoginButtonView}>
           <TouchableOpacity style={styles.LoginButton}
             onPress={() => {
-              console.log(fullName + password + userName + email + phonenumber + role);
+
               setLoading(true),
                 validate()
               if (isValidate) {

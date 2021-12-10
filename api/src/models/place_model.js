@@ -12,7 +12,7 @@ var Place = function (place) {
 Place.getAllPlaces = (result) => {
     dbConn.query('Select * From place Where isDeleted != 1', (err, res) => {
         if (res) {
-            console.log("get all places success");
+
 
             result(null, res);
         } else {
@@ -23,7 +23,7 @@ Place.getAllPlaces = (result) => {
 Place.getPlaceIDandName = (result) => {
     dbConn.query('Select placeID,placeName From place Where isDeleted != 1', (err, res) => {
         if (res) {
-            console.log("get all places success");
+
 
             result(null, res);
         } else {
@@ -56,8 +56,8 @@ Place.deletePlace = (id, result) => {
 }
 
 // get place and images
-Place.getAllPlaceAndImages = (result) =>{
-    dbConn.query('Select * from place LEFT JOIN image ON place.placeID = image.placeID',(err,res)=>{
+Place.getAllPlaceAndImages = (result) => {
+    dbConn.query('Select * from place LEFT JOIN image ON place.placeID = image.placeID', (err, res) => {
         result(err, res);
     })
 }

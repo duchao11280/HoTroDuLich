@@ -4,12 +4,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { bookRoom} from '../../networking/roomnetworking'
+import { bookRoom } from '../../networking/roomnetworking'
 
 const DetailHotel = ({ navigation, route }) => {
   const [room, setRoom] = useState(route.params.room);
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  let isValidate = false;
   // lấy userID từ store
   let userID;
   const getUserID = async () => {
@@ -21,15 +21,33 @@ const DetailHotel = ({ navigation, route }) => {
       return
     }
   }
+  const validate = () => {
+    if (phoneNumber.length < 10) {
+      showAlert("số điện thoại không hợp lệ", false);
+      isValidate = false
+    }
+    else isValidate = true
+
+  }
+
+  const showAlert = (mess, status) => {
+    Alert.alert(
+      "Thông báo",
+      mess,
+      [
+        { text: "Ok", onPress: () => { if (status != false) { goBack() } } }
+      ]
+    );
+  }
 
   const goBack = () => {
     navigation.pop();
   }
-  const onBookRoom =  async() => {
+  const onBookRoom = async () => {
     const user = await getUserID()
-    bookRoom(room.roomID,user,route.params.timeBook,phoneNumber)
-      .then((response) => {Alert.alert("Thông báo",response.message); goBack()})
-      .catch(()=> { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+    bookRoom(room.roomID, user, route.params.timeBook, phoneNumber)
+      .then((response) => { Alert.alert("Thông báo", response.message); goBack() })
+      .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
   }
   const popup = () => {
     Alert.alert(
@@ -84,7 +102,12 @@ const DetailHotel = ({ navigation, route }) => {
       <View>
         <TouchableOpacity style={styles.button}
           onPress={() => {
-            popup()
+            validate()
+            if (isValidate) {
+              console.log("Press")
+              popup()
+              isValidate = false;
+            }
           }}>
           <View style={styles.center}>
             <Text> Đặt phòng này</Text>

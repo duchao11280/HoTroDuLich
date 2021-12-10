@@ -22,7 +22,6 @@ const Information = ({ navigation }) => {
   useEffect(() => {
     getUserName().then((response) => {
       setfullName(response);
-      console.log(fullName);
     }).catch(() => { Alert.alert("Thông báo", "Có lỗi xảy ra vui lòng thử lại") });
   })
   return (

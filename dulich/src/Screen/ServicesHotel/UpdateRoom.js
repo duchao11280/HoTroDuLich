@@ -7,7 +7,7 @@ import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { getAllPlace, updateRoom } from '../../networking/hotelnetworking'
 
-const UpdateRoom = ({ navigation, route}) => {
+const UpdateRoom = ({ navigation, route }) => {
 
     const [slot, setSlot] = useState(route.params.room.slot.toString())
     const [roomName, setRoomName] = useState(route.params.room.roomName)
@@ -21,11 +21,11 @@ const UpdateRoom = ({ navigation, route}) => {
     useEffect(() => {
         setLoading(true);
         getAllPlace()
-            .then((list)=>{ setListPlaces(list)})
-            .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
-            .finally(()=>{setLoading(false)})
-        
-    },[])
+            .then((list) => { setListPlaces(list) })
+            .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+            .finally(() => { setLoading(false) })
+
+    }, [])
     //Signup
     const onUpdateRoom = () => {
         var params = {
@@ -37,8 +37,8 @@ const UpdateRoom = ({ navigation, route}) => {
             placeID: placeID
         };
         updateRoom(route.params.room.roomID, params)
-            .then((res) => {console.log(res.message)})
-            .catch((err) => {console.log(err)})
+            .then((res) => { })
+            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
     }
     const goBack = () => {
         navigation.pop();
@@ -99,10 +99,10 @@ const UpdateRoom = ({ navigation, route}) => {
             //body
             'Bạn có chắc muốn cập nhật phòng này?',
             [
-                { text: 'Có', onPress: () => {onUpdateRoom(), goBack()} },
+                { text: 'Có', onPress: () => { onUpdateRoom(), goBack() } },
                 {
                     text: 'Không',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => console.log(''),
                     style: 'cancel',
                 },
             ],
@@ -145,7 +145,7 @@ const UpdateRoom = ({ navigation, route}) => {
                         <View >
                             <TextInput style={styles.Inputprice} placeholder="Nhập số người"
                                 value={slot}
-                                
+
                                 onChangeText={setSlot}
                                 keyboardType='decimal-pad'
                             />
@@ -214,10 +214,10 @@ const UpdateRoom = ({ navigation, route}) => {
                         selectedValue={placeID}
                         onValueChange={(value) => setPlaceID(value)}
                     >
-                        {listPlace.length!==undefined?listPlace.map(({placeID,placeName})=>{
-                            return (<Picker.Item label={placeName} value={placeID} key={placeID}/>)
-                        }):<Picker.Item label="Bãi Dâu" value="1" />}
-                        
+                        {listPlace.length !== undefined ? listPlace.map(({ placeID, placeName }) => {
+                            return (<Picker.Item label={placeName} value={placeID} key={placeID} />)
+                        }) : <Picker.Item label="Bãi Dâu" value="1" />}
+
                     </Picker>
                 </View>
 
@@ -229,7 +229,6 @@ const UpdateRoom = ({ navigation, route}) => {
                                 onPress={() => {
                                     validate()
                                     if (isValidate) {
-                                        console.log(roomName + ' ' + slot + ' ' + price + ' ' + placeID +' ' + description)
                                         popup()
                                         isValidate = false;
                                     }
@@ -343,7 +342,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     PositionInSearch: {
-        paddingTop: 6
+        paddingTop: 2,
+        paddingLeft: 5
     }
 
 

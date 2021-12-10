@@ -45,8 +45,8 @@ const AddTable = ({ navigation }) => {
             placeID: placeID
         };
         addNewtable(params)
-            .then((res)=>{ Alert.alert("Thông báo", "Thêm thành công")})
-            .catch((err)=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
+            .then((res) => { Alert.alert("Thông báo", "Thêm thành công") })
+            .catch((err) => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
     }
     const goBack = () => {
         navigation.pop();
@@ -94,10 +94,10 @@ const AddTable = ({ navigation }) => {
             //body
             'Bạn có chắc muốn thêm bàn này?',
             [
-                { text: 'Có', onPress: () => {onAddTable(), goBack()} },
+                { text: 'Có', onPress: () => { onAddTable(), goBack() } },
                 {
                     text: 'Không',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => console.log(''),
                     style: 'cancel',
                 },
             ],

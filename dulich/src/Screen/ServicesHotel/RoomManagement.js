@@ -63,14 +63,14 @@ const RoomManagement = ({ navigation }) => {
                 {
                     text: 'Có', onPress: () => {
                         disableRoom(id)
-                            .then((res) => { console.log(res.message) })
-                            .catch((err) => { console.log(err) })
+                            .then((res) => { Alert.alert("Thông báo", "Vô hiệu hóa thành công"); })
+                            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
                             .finally(() => { onRefresh() })
                     }
                 },
                 {
                     text: 'Không',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => console.log(''),
                     style: 'cancel',
                 },
             ],

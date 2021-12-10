@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import {getAllPlaceIDandName} from '../../networking/placeNetworking'
-import {searchRoomtoBook} from '../../networking/roomnetworking'
+import { getAllPlaceIDandName } from '../../networking/placeNetworking'
+import { searchRoomtoBook } from '../../networking/roomnetworking'
 const Hotel = ({ navigation }) => {
   const [listRoom, setListRoom] = useState([])
   const [date, setDate] = useState(new Date());
@@ -14,7 +14,7 @@ const Hotel = ({ navigation }) => {
   const [price, setPrice] = useState('')
   const [slot, setSlot] = useState('')
   const [listPlace, setListPlaces] = useState([])
-  const [placeID, setPlaceID] = useState('')
+  const [placeID, setPlaceID] = useState(-1)
   const [timeBook, setTimeBook] = useState('')
   const [isLoading, setLoading] = useState(false);
   let isValidate = false;
@@ -22,10 +22,10 @@ const Hotel = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     getAllPlaceIDandName()
-        .then((list)=>{ setListPlaces(list)})
-        .catch(()=>{ Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")})
-        .finally(()=>{setLoading(false)})
-},[])
+      .then((list) => { setListPlaces(list) })
+      .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+      .finally(() => { setLoading(false) })
+  }, [])
   const validate = () => {
     const reg = new RegExp('^[0-9]+$');
     if (price.length == 0) {
@@ -62,11 +62,11 @@ const Hotel = ({ navigation }) => {
     }
     else isValidate = true
   }
-  const onSearch = () =>{ 
-    
-    searchRoomtoBook(slot, price,placeID,text)
-      .then((response)=>{console.log(response);setListRoom(response.data);setTimeBook(response.timeBook)})
-      .catch(()=> { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
+  const onSearch = () => {
+
+    searchRoomtoBook(slot, price, placeID, text)
+      .then((response) => { setListRoom(response.data); setTimeBook(response.timeBook) })
+      .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
   }
 
   const showAlert = (mess, status) => {
@@ -79,13 +79,13 @@ const Hotel = ({ navigation }) => {
     );
   }
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() =>{
-      navigation.push('DetailHotel',{room: item, timeBook: timeBook})
+    <TouchableOpacity style={styles.item} onPress={() => {
+      navigation.push('DetailHotel', { room: item, timeBook: timeBook })
     }}>
-      <Text style={styles.title}>{item.roomName}</Text>
-      <Text>{item.slot}</Text>
-      <Text>{item.price}</Text>
-    <Text>{item.address}</Text>
+      <Text style={styles.title}>Tên phòng: {item.roomName}</Text>
+      <Text>Số người: {item.slot}</Text>
+      <Text>Giá: {item.price}</Text>
+      <Text>Địa chỉ: {item.address}</Text>
     </TouchableOpacity>
 
   );
@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    fontWeight: 'bold',
   },
   result: {
     borderWidth: 1,

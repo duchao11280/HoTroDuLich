@@ -63,14 +63,14 @@ const TableManagement = ({ navigation }) => {
                 {
                     text: 'Có', onPress: () => {
                         disableTable(id)
-                            .then((res) => { Alert.alert("Thông báo",res.message) })
-                            .catch((err) => { console.log(err) })
+                            .then((res) => { Alert.alert("Thông báo", res.message) })
+                            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
                             .finally(() => { onRefresh() })
                     }
                 },
                 {
                     text: 'Không',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => console.log(''),
                     style: 'cancel',
                 },
             ],
