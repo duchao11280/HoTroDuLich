@@ -11,6 +11,7 @@ import HomeAdmin from './src/Screen/Admin/HomeAdmin'
 import AddTable from './src/Screen/ServicesRestaurant/AddTable';
 import HomeHotel from './src/Screen/ServicesHotel/HomeHotel'
 import PlaceManagement from './src/Screen/Admin/PlaceManagement/PlaceManagement'
+import Receipt from './src/Screen/User/Receipt'
 export default function App() {
   return (
     < Navigate />

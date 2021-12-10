@@ -30,7 +30,7 @@ const Receipt = ({ navigation }) => {
     bookedRoomByUserID(user)
       .then((response) => { setListBookedRoom(response.data) })
       .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
-      .finally(() => { setLoading(false)})
+      .finally(() => { setLoading(false) })
   }
   return (
     <View style={{ flex: 1 }}>
@@ -38,8 +38,8 @@ const Receipt = ({ navigation }) => {
         <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Hóa đơn" />
       </Appbar.Header>
-      <View>
-        <View>
+      <View style={styles.container}>
+        <View >
           {isLoading ? <ActivityIndicator size="large" color='blue' /> :
             <FlatList
               data={listBookedRoom}
@@ -48,13 +48,13 @@ const Receipt = ({ navigation }) => {
 
               renderItem={({ item, index }) => {
                 return (
-                  <View>
-                    <Text>Địa điểm: {item.placeName} </Text>
-                    <Text>Địa chỉ: {item.address} </Text>
-                    <Text>Tên phòng {item.roomName} </Text>
-                    <Text>Giá:  {item.price} </Text>
-                    <Text>Số người {item.slot} </Text>
-                    <Text>Môt tả {item.description} </Text>
+                  <View style={styles.result}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Phòng:{item.roomName} </Text>
+                    <Text style={styles.textinfo}>Địa điểm: {item.placeName} </Text>
+                    <Text style={styles.textinfo}>Địa chỉ: {item.address} </Text>
+                    <Text style={styles.textinfo}>Giá:  {item.price} </Text>
+                    <Text style={styles.textinfo}>Số người {item.slot} </Text>
+                    <Text style={styles.textinfo}>Môt tả {item.description} </Text>
                   </View>
 
                 );
@@ -68,4 +68,30 @@ const Receipt = ({ navigation }) => {
   )
 
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#e6e6ff'
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginLeft: 15,
+  },
+  content: {
+    fontSize: 18,
+    marginLeft: 18,
+  },
+  result: {
+    backgroundColor: '#ffe6ff',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 5,
+    margin: 10
+  },
+  textinfo: {
+    padding: 2
+  }
+})
 export default Receipt;
