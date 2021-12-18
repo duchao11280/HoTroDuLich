@@ -110,7 +110,7 @@ const DetailHotel = ({ navigation, route }) => {
             }
           }}>
           <View style={styles.center}>
-            <Text> Đặt phòng này</Text>
+            <Text> Đặt phòng</Text>
           </View>
         </TouchableOpacity>
 
