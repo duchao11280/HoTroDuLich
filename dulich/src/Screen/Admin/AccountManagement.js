@@ -137,6 +137,4 @@ const AccountManagement = ({ navigation }) => {
         </SafeAreaView>
     )
 }
-
-
 export default AccountManagement;

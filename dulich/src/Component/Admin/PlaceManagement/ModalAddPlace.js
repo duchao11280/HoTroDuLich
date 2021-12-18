@@ -3,12 +3,17 @@ import {
     View, Text, Pressable, StyleSheet, FlatList, RefreshControl,
     ActivityIndicator, SafeAreaView, ScrollView, Modal, TextInput, Alert
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import { updateInfoPlace
+import {
+    updateInfoPlace
 } from '../../../networking/adminnetworking'
 
 
-const ModalAddPlace = ({modalVisible,cancelModal, addPlace}) => {
+const ModalAddPlace = ({ modalVisible, cancelModal, addPlace }) => {
+
+
+    let isValidate = false;
     const [infoEdit, setInfoEdit] = useState({
         placeID: "",
         placeName: "",
@@ -16,13 +21,42 @@ const ModalAddPlace = ({modalVisible,cancelModal, addPlace}) => {
         tips: "",
         city: ""
     })
+    const validate = () => {
+        if (infoEdit.placeName.length == 0) {
+            showAlert("Chưa nhập tên địa điểm", false);
+            isValidate = false
+        }
+        else if (infoEdit.description.length == 0) {
+            showAlert("Chưa nhập tên địa điểm", false);
+            isValidate = false
+        }
+        else if (infoEdit.tips.length == 0) {
+            showAlert("Chưa nhập tên địa điểm", false);
+            isValidate = false
+        }
+        else if (infoEdit.city.length == 0) {
+            showAlert("Chưa nhập tên địa điểm", false);
+            isValidate = false
+        }
+        else isValidate = true
+    }
+
+    const showAlert = (mess, status) => {
+        Alert.alert(
+            "Thông báo",
+            mess,
+            [
+                { text: "Ok", onPress: () => { if (status != false) { goBack() } } }
+            ]
+        );
+    }
     return (
-        <View >
+        <KeyboardAwareScrollView >
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
- 
+
             >
                 <View style={styles.centeredView}>
                     <ScrollView style={styles.modalBody}>
@@ -78,12 +112,19 @@ const ModalAddPlace = ({modalVisible,cancelModal, addPlace}) => {
                             <Pressable
                                 style={styles.buttonUpdate}
                                 onPress={() => {
-                                    addPlace(infoEdit.placeName,infoEdit.description,infoEdit.tips,infoEdit.city);
-                                    setInfoEdit({placeID: "",
-                                    placeName: "",
-                                    description: "",
-                                    tips: "",
-                                    city: ""})
+                                    validate()
+                                    if (isValidate) {
+                                        addPlace(infoEdit.placeName, infoEdit.description, infoEdit.tips, infoEdit.city);
+                                        setInfoEdit({
+                                            placeID: "",
+                                            placeName: "",
+                                            description: "",
+                                            tips: "",
+                                            city: ""
+                                        })
+                                        isValidate = false;
+                                    }
+
                                 }}
                             >
                                 <Text >Thêm mới</Text>
@@ -99,7 +140,7 @@ const ModalAddPlace = ({modalVisible,cancelModal, addPlace}) => {
                     </ScrollView>
                 </View>
             </Modal>
-        </View>
+        </KeyboardAwareScrollView>
     );
 }
 const styles = StyleSheet.create({
