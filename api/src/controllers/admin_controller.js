@@ -1,6 +1,8 @@
 const PlaceModel = require('../models/place_model.js');
 const ImageModel = require('../models/image_model');
 const UserModel = require('../models/user_model');
+const NotificationModel = require('../models/notification_model');
+//========================PLace================================//
 //get all user
 exports.getAllPlaces = (req, res) => {
     PlaceModel.getAllPlaces((err, places) => {
@@ -92,6 +94,8 @@ exports.deletePlace = (req, res)=> {
         res.json({ status: true, message: 'Xóa địa điểm thành công'})
     })
 }
+
+//========================User================================//
 // get all user
 exports.getAllUsers = (req, res) => {
     UserModel.getAllUsers((err, users) => {
@@ -113,4 +117,41 @@ exports.disableUser = (req, res) => {
         res.json({ status: true, message: 'Vô hiệu hóa thành công'})
     })
 
+}
+//========================Notification================================//
+exports.addNotification = (req, res) =>{
+    var title = req.body.title;
+    var content = req.body.content;
+    var time = req.body.time;
+    NotificationModel.insertNotification(title,content,time, (err, data)=>{
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({ status: true, message: 'Thêm mới thành công'})
+    })
+}
+
+exports.updateNotification = (req, res) =>{
+    var id = req.params.id;
+    var title = req.body.title;
+    var content = req.body.content;
+    var time = req.body.time;
+    NotificationModel.updateNotification(id,title,content,time, (err, data)=>{
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({ status: true, message: 'Cập nhật thành công'})
+    })
+}
+exports.deleteNotification = (req, res) =>{
+    var id = req.params.id;
+    NotificationModel.deleteNotification(id, (err, data)=>{
+        if (err) {
+            res.status(500).json({status: false, message: "Thất bại"})
+            return;
+        };
+        res.json({ status: true, message: 'Xóa thành công'})
+    })
 }
