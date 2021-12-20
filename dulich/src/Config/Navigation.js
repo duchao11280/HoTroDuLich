@@ -41,6 +41,7 @@ import HomeRestaurant from '../Screen/ServicesRestaurant/HomeRestaurant';
 import AddTable from '../Screen/ServicesRestaurant/AddTable';
 import TableManagement from '../Screen/ServicesRestaurant/TableManagement';
 import UpdateTable from '../Screen/ServicesRestaurant/UpdateTable';
+import BillTable from '../Screen/ServicesRestaurant/BillTable';
 
 
 
@@ -62,6 +63,7 @@ const Navigate = () => {
                 <Stack.Screen name="DetailHotel" component={DetailHotel} />
 
                 <Stack.Screen name="Restaurant" component={Restaurant} />
+                <Stack.Screen name="DetailRestaurant" component={DetailRestaurant} />
                 <Stack.Screen name="Information" component={Information} />
                 <Stack.Screen name="Receipt" component={Receipt} />
 
@@ -83,6 +85,7 @@ const Navigate = () => {
                 <Stack.Screen name="AddTable" component={AddTable} />
                 <Stack.Screen name="UpdateTable" component={UpdateTable} />
                 <Stack.Screen name="TableManagement" component={TableManagement} />
+                <Stack.Screen name="BillTable" component={BillTable} />
 
                 {/** Other */}
                 <Stack.Screen name="Profile" component={Profile} />

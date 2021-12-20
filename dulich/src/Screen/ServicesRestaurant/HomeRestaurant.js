@@ -22,9 +22,9 @@ const HomeRestaurant = ({ navigation }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("AddTable")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("BillTable")}>
                         <Ionicons name="restaurant" size={40} color="black" style={styles.icon} />
-                        <Text style={styles.FontButton}>Thêm Bàn</Text>
+                        <Text style={styles.FontButton}>Bàn được đặt</Text>
                     </TouchableOpacity>
                 </View>
 

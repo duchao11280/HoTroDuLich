@@ -25,4 +25,8 @@ router.put('/table/disable/:id', [verifyToken.verifyToken, checkRole.isRestauran
 router.get('/places', [verifyToken.verifyToken, checkRole.isRestaurant],
     restaurantController.getAllPlace)
 
+// get rooms have been booked
+router.get('/table/booked/:id', [verifyToken.verifyToken, checkRole.isRestaurant],
+    restaurantController.getTablesHaveBooked)
+
 module.exports = router;

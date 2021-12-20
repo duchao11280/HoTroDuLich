@@ -23,19 +23,19 @@ const ModalAddPlace = ({ modalVisible, cancelModal, addPlace }) => {
     })
     const validate = () => {
         if (infoEdit.placeName.length == 0) {
-            showAlert("Chưa nhập tên địa điểm", false);
+            showAlert("Bạn chưa nhập tên địa điểm", false);
             isValidate = false
         }
         else if (infoEdit.description.length == 0) {
-            showAlert("Chưa nhập tên địa điểm", false);
+            showAlert("Bạn chưa nhập Mô tả", false);
             isValidate = false
         }
         else if (infoEdit.tips.length == 0) {
-            showAlert("Chưa nhập tên địa điểm", false);
+            showAlert("Bạn chưa nhập mẹo", false);
             isValidate = false
         }
         else if (infoEdit.city.length == 0) {
-            showAlert("Chưa nhập tên địa điểm", false);
+            showAlert("Bạn chưa nhập thành phố", false);
             isValidate = false
         }
         else isValidate = true

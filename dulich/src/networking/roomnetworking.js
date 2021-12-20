@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.1.9:3000';
+const API_URL = 'http://192.168.1.6:3000';
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('keytoken')
@@ -11,58 +11,58 @@ const getToken = async () => {
 }
 
 // get place for picker
-const searchRoomtoBook = async (slot,price,placeID,startTime) => {
+const searchRoomtoBook = async (slot, price, placeID, startTime) => {
   try {
-      let accessToken = await getToken();
-      const response = await fetch(
-          API_URL + `/api/v1/room/searchroom`,
-          {
-              method: 'POST',
-              headers: {
-                "Accept": 'application/json',
-                'Content-Type': 'application/json',
-                  "x-access-token": accessToken,
-              },
-              body: JSON.stringify({
-                slot: slot,
-                price: price,
-                placeID: placeID,
-                startTime: startTime
-              })
-          }
-      );
-      const json = await response.json();
-      return json;
+    let accessToken = await getToken();
+    const response = await fetch(
+      API_URL + `/api/v1/room/searchroom`,
+      {
+        method: 'POST',
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "x-access-token": accessToken,
+        },
+        body: JSON.stringify({
+          slot: slot,
+          price: price,
+          placeID: placeID,
+          startTime: startTime
+        })
+      }
+    );
+    const json = await response.json();
+    return json;
   } catch (error) {
 
   }
 };
 // book room 
-const bookRoom = async (roomID,userID,startTime,phoneNumber) => {
+const bookRoom = async (roomID, userID, startTime, phoneNumber) => {
   try {
-      let accessToken = await getToken();
-      const response = await fetch(
-          API_URL + `/api/v1/room/bookroom`,
-          {
-              method: 'POST',
-              headers: {
-                "Accept": 'application/json',
-                'Content-Type': 'application/json',
-                "x-access-token": accessToken,
-              },
-              body: JSON.stringify({
-                roomID: roomID,
-                userID: userID,
-                startTime: startTime,
-                phoneNumber: phoneNumber
-              })
-          }
-      );
-      if(response.status !=200){
-        return {"message":"Thất bại"}
+    let accessToken = await getToken();
+    const response = await fetch(
+      API_URL + `/api/v1/room/bookroom`,
+      {
+        method: 'POST',
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "x-access-token": accessToken,
+        },
+        body: JSON.stringify({
+          roomID: roomID,
+          userID: userID,
+          startTime: startTime,
+          phoneNumber: phoneNumber
+        })
       }
-      const json = await response.json();
-      return json;
+    );
+    if (response.status != 200) {
+      return { "message": "Thất bại" }
+    }
+    const json = await response.json();
+    return json;
   } catch (error) {
 
   }
@@ -71,23 +71,23 @@ const bookRoom = async (roomID,userID,startTime,phoneNumber) => {
 // xem phòng đã đặt
 const bookedRoomByUserID = async (id) => {
   try {
-      let accessToken = await getToken();
-      const response = await fetch(
-          API_URL + `/api/v1/room/bookroom/${id}`,
-          {
-              method: 'GET',
-              headers: {
-                "Accept": 'application/json',
-                'Content-Type': 'application/json',
-                "x-access-token": accessToken,
-              },
-          }
-      );
-      if(response.status !=200){
-        return {"message":"Thất bại"}
+    let accessToken = await getToken();
+    const response = await fetch(
+      API_URL + `/api/v1/room/bookroom/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+          "x-access-token": accessToken,
+        },
       }
-      const json = await response.json();
-      return json;
+    );
+    if (response.status != 200) {
+      return { "message": "Thất bại" }
+    }
+    const json = await response.json();
+    return json;
   } catch (error) {
 
   }

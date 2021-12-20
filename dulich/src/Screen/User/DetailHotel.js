@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TextInput, TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { bookRoom } from '../../networking/roomnetworking'

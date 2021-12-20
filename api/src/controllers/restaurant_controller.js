@@ -1,5 +1,6 @@
 const TableModel = require('../models/table_model');
-const PlaceModel = require('../models/place_model')
+const PlaceModel = require('../models/place_model');
+const BookTableModel = require('../models/booktable_model')
 // lấy table theo từng chủ nhà hàng
 exports.getAllTableByUserID = (req, res) => {
     TableModel.getAllTableByUserID(req.params.id, (err, table) => {
@@ -53,5 +54,17 @@ exports.getAllPlace = (req, res) => {
             return;
         };
         res.json({ status: true, message: 'Lấy dữ liệu thành công', data: place })
+    })
+}
+
+
+exports.getTablesHaveBooked = (req, res) => {
+    BookTableModel.getAllBookedByOwnerID(req.params.id, (err, booktable) => {
+        if (err) {
+            console.log(err)
+            res.status(500).json({ status: false, message: "Thất bại" })
+            return;
+        };
+        res.json({ status: true, message: 'Lấy dữ liệu thành công', data: booktable })
     })
 }

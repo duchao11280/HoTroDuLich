@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.9:3000';
+const API_URL = 'http://192.168.1.6:3000';
 
 const getToken = async () => {
   try {

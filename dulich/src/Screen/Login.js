@@ -14,10 +14,14 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+
+
   // set jwt
   const onLogin = async () => {
     const response = await login(userName, password);
     if (response.status == true) {
+      setUsername('')
+      setPassword('')
       try {
         await AsyncStorage.setItem("userID", response.data.user.userID.toString());
         await AsyncStorage.setItem("role", response.data.user.role.toString());
@@ -39,6 +43,7 @@ const Login = ({ navigation }) => {
     } else {
       Alert.alert("Thông báo", response.message), [{ text: "Ok", onPress: () => { } }];
     }
+
     setLoading(false);
   }
 
@@ -60,7 +65,10 @@ const Login = ({ navigation }) => {
           <View>
             <Entypo name="user" size={24} color="black" style={styles.icon} />
             <TextInput style={styles.Input} placeholder="Tên đăng nhập"
+              // value={text}
               onChangeText={setUsername}
+              value={userName}
+
             />
           </View>
 
@@ -71,6 +79,7 @@ const Login = ({ navigation }) => {
             <TextInput style={styles.Input} placeholder="Mật Khẩu"
               secureTextEntry={true}
               onChangeText={setPassword}
+              value={password}
             />
           </View>
 
