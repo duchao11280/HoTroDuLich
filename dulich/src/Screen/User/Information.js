@@ -57,9 +57,9 @@ const Information = ({ navigation }) => {
 
 
         <View style={styles.TitleView}>
-          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]}>
+          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={() => navigation.push('Feedback')}>
             <FontAwesome5 name={'envelope'} size={20} />
-            <Text style={styles.Title}>Tin nhắn</Text>
+            <Text style={styles.Title}>Gửi thư góp ý</Text>
           </TouchableOpacity>
         </View>
 

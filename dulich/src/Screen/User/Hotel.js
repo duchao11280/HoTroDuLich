@@ -18,6 +18,8 @@ const Hotel = ({ navigation }) => {
   const [timeBook, setTimeBook] = useState('')
   const [isLoading, setLoading] = useState(false);
   let isValidate = false;
+  let tempDate
+  let now
 
   useEffect(() => {
     setLoading(true);
@@ -95,10 +97,16 @@ const Hotel = ({ navigation }) => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    let tempDate = new Date(currentDate);
+    tempDate = new Date(currentDate);
+    now = Date.now();
+    //console.log(tempDate > now);
     let fDate = tempDate.getFullYear() + '-' + (tempDate.getMonth()) + '-' + tempDate.getDate();
     let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
     setText(fDate + ' ' + fTime)
+    if (tempDate < now) {
+      showAlert("ngày chưa hợp lệ, bạn sẽ không tìm thấy kết quả", false);
+      isValidate = false
+    }
     setshow(false);
   };
 

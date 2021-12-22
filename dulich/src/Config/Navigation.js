@@ -14,6 +14,7 @@ import Restaurant from '../Screen/User/Restaurant'
 import PlacesInfo from '../Screen/User/PlacesInfo'
 import PlaceInfoDetail from '../Screen/User/PlaceInfoDetail'
 import Information from '../Screen/User/Information'
+import Feedback from '../Screen/User/Feedback'
 
 import Receipt from '../Screen/User/Receipt'
 
@@ -66,6 +67,7 @@ const Navigate = () => {
                 <Stack.Screen name="DetailRestaurant" component={DetailRestaurant} />
                 <Stack.Screen name="Information" component={Information} />
                 <Stack.Screen name="Receipt" component={Receipt} />
+                <Stack.Screen name="Feedback" component={Feedback} />
 
 
 

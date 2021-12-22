@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.6:3000';
+const API_URL = 'http://192.168.0.105:3000';
 
 const getToken = async () => {
   try {
@@ -35,6 +35,27 @@ const getAllUsers = async () => {
     let accessToken = await getToken();
     const response = await fetch(
       API_URL + `/api/v1/admin/users`,
+      {
+        method: 'GET',
+        headers: {
+          "x-access-token": accessToken,
+        }
+      }
+    );
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+
+  }
+};
+
+
+// get all feedback
+const getAllFeedBack = async () => {
+  try {
+    let accessToken = await getToken();
+    const response = await fetch(
+      API_URL + `/api/v1/admin/feedback`,
       {
         method: 'GET',
         headers: {
@@ -137,6 +158,7 @@ const uploadImagePlace = async (id, uriFromClient) => {
       type: "image/jpeg",
     }
     form.append('file', file);
+    //console.log(form);
     const respone = await fetch(API_URL + `/api/v1/admin/place/image/upload/${id}`, {
       method: 'POST',
       headers: {
@@ -204,5 +226,6 @@ export {
   uploadImagePlace,
   addPlaceInfo,
   disableImage,
+  getAllFeedBack
 }
 

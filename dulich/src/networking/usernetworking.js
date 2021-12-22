@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.6:3000';
+const API_URL = 'http://192.168.0.105:3000';
 
 const getToken = async () => {
   try {
@@ -124,4 +124,30 @@ const signUp = async (params) => {
   }
 
 }
-export { getProfile, editProfile, changePassword, login, signUp }
+
+
+const sendFeedback = async (id, params) => {
+  try {
+    let accessToken = await getToken();
+    const respone = await fetch(API_URL + `/api/v1/user/sendfeedback/${id}`, {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "x-access-token": accessToken,
+      },
+      body: JSON.stringify({
+        content: params.content,
+        title: params.title
+      })
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+
+}
+
+
+export { getProfile, editProfile, changePassword, login, signUp, sendFeedback }
