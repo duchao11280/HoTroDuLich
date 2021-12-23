@@ -26,6 +26,7 @@ const hotelRoutes = require('./src/routes/hotel_route')
 const restaurantRoutes = require('./src/routes/restaurant_route')
 const roomRoutes = require('./src/routes/room_route');
 const tableRoutes = require('./src/routes/tableservices_route');
+const notificationRoutes = require('./src/routes/notification_route')
 //create user
 app.use('/api/v1/user', userRoutes);
 // route cho place
@@ -40,7 +41,9 @@ app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/hotel', hotelRoutes);
 //route cho services restaurant
 app.use('/api/v1/restaurant', restaurantRoutes)
+app.use('/api/v1/notification', notificationRoutes)
 app.listen(port, function () {
     console.log(`Node server running @ http://localhost:${port}`)
 });
+
 module.exports = app;

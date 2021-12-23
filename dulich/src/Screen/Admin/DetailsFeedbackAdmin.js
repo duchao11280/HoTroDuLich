@@ -8,12 +8,12 @@ import { Appbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAllFeedBack } from '../../networking/adminnetworking'
 
-const DetailsNotificationAdmin = ({ navigation, route }) => {
+const DetailsFeedbackAdmin = ({ navigation, route }) => {
     return (
         <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
-                <Appbar.Content title="Chi Tiết Thông báo" />
+                <Appbar.Content title="Chi Tiết Góp ý" />
             </Appbar.Header>
             <View style={styles.container}>
                 <View style={styles.reading}>
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
 })
-export default DetailsNotificationAdmin;
+export default DetailsFeedbackAdmin;

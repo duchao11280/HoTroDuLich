@@ -15,7 +15,8 @@ import PlacesInfo from '../Screen/User/PlacesInfo'
 import PlaceInfoDetail from '../Screen/User/PlaceInfoDetail'
 import Information from '../Screen/User/Information'
 import Feedback from '../Screen/User/Feedback'
-
+import Notification from '../Screen/User/Notification'
+import DetailNotificationUser from '../Screen/User/DetailNotificationUser'
 import Receipt from '../Screen/User/Receipt'
 
 //DetaiUser
@@ -29,8 +30,14 @@ import HomeAdmin from '../Screen/Admin/HomeAdmin';
 import PlaceManagement from '../Screen/Admin/PlaceManagement/PlaceManagement';
 import PlaceDetail from '../Screen/Admin/PlaceManagement/PlaceDetail';
 import AccountManagement from '../Screen/Admin/AccountManagement';
-import NotificationAdmin from '../Screen/Admin/NotificationAdmin';
-import DetailsNotificationAdmin from '../Screen/Admin/DetailsNotificationAdmin';
+import AdminFeedBack from '../Screen/Admin/AdminFeedBack';
+import DetailsFeedbackAdmin from '../Screen/Admin/DetailsFeedbackAdmin';
+
+import NotificationManagement from '../Screen/Admin/NotificationManagement/NotificationManagement';
+import AddNotification from '../Screen/Admin/NotificationManagement/AddNotification';
+import UpdateNotification from '../Screen/Admin/NotificationManagement/UpdateNotification';
+import DetailNotification from '../Screen/Admin/NotificationManagement/DetailNotification';
+
 // hotel
 import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
 import AddRoom from '../Screen/ServicesHotel/AddRoom'
@@ -77,9 +84,13 @@ const Navigate = () => {
                 <Stack.Screen name="PlaceManagement" component={PlaceManagement} />
                 <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
                 <Stack.Screen name="AccountManagement" component={AccountManagement} />
-                <Stack.Screen name="NotificationAdmin" component={NotificationAdmin} />
-                <Stack.Screen name="DetailsNotificationAdmin" component={DetailsNotificationAdmin} />
+                <Stack.Screen name="AdminFeedBack" component={AdminFeedBack} />
+                <Stack.Screen name="DetailsFeedbackAdmin" component={DetailsFeedbackAdmin} />
 
+                <Stack.Screen name= "NotificationManagement" component={NotificationManagement}/>
+                <Stack.Screen name= "AddNotification" component={AddNotification}/>
+                <Stack.Screen name= "UpdateNotification" component={UpdateNotification}/>
+                <Stack.Screen name= "DetailNotification" component={DetailNotification}/>
                 {/** Hotel */}
                 <Stack.Screen name="HomeHotel" component={HomeHotel} />
                 <Stack.Screen name="AddRoom" component={AddRoom} />
@@ -97,6 +108,8 @@ const Navigate = () => {
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="ChangeInfo" component={ChangeInfo} />
                 <Stack.Screen name="ChangePassWord" component={ChangePassWord} />
+                <Stack.Screen name="Notification" component={Notification} />
+                <Stack.Screen name="DetailNotificationUser" component={DetailNotificationUser} />
             </Stack.Navigator>
         </NavigationContainer>
     )

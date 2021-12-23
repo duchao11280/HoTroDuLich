@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.0.105:3000';
+const API_URL = 'http://192.168.1.6:3000';
 
 const getToken = async () => {
   try {
@@ -215,7 +215,97 @@ const disableImage = async (id) => {
 
   }
 }
+//=====================Notification==================//
+//get all notifications
+const getAllNotifications = async () => {
+  try {
+    let accessToken = await getToken();
+    const response = await fetch(
+      API_URL + `/api/v1/admin/notification`,
+      {
+        headers: {
+          "x-access-token": accessToken,
+        }
+      }
+    );
+    const json = await response.json();
+    return json;
+  } catch (error) {
 
+  }
+}
+// delete notification
+const deleteNotification = async (id) => {
+  try {
+    let accessToken = await getToken();
+    const respone = await fetch(API_URL + `/api/v1/admin/notification/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "x-access-token": accessToken,
+      }
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
+// add new notification
+const addNotification = async (title, content) => {
+  try {
+    let accessToken = await getToken();
+    var now = new Date();
+    var month = now.getMonth() +1;
+    var time = (now.getFullYear() + "-" +month + "-" + now.getDate()+
+       " " + now.getHours() + ":" + now.getMinutes());
+    const respone = await fetch(
+      API_URL + `/api/v1/admin/notification/addnew`, {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "x-access-token": accessToken,
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        time: time
+      })
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
+// Update 
+const updateNotification = async (id,title, content) => {
+  try {
+    let accessToken = await getToken();
+    var now = new Date();
+    var month = now.getMonth() +1;
+    var time = (now.getFullYear() + "-" +month + "-" + now.getDate()+
+       " " + now.getHours() + ":" + now.getMinutes());
+    const respone = await fetch(
+      API_URL + `/api/v1/admin/notification/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        "Accept": 'application/json',
+        'Content-Type': 'application/json',
+        "x-access-token": accessToken,
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        time: time
+      })
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
 export {
   getAllPlaces,
   getAllUsers,
@@ -226,6 +316,10 @@ export {
   uploadImagePlace,
   addPlaceInfo,
   disableImage,
-  getAllFeedBack
+  getAllFeedBack,
+  getAllNotifications,
+  deleteNotification,
+  addNotification,
+  updateNotification,
 }
 

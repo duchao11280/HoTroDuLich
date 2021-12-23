@@ -27,7 +27,7 @@ Notification.deleteNotification = (id,result) =>{
     })
 }
 Notification.getAllNotifications = (result) =>{
-    dbConn.query(`SELECT * FROM notification `,(err, res)=>{
+    dbConn.query(`SELECT * FROM notification ORDER BY time desc`,(err, res)=>{
         result(err, res)
     })
 }

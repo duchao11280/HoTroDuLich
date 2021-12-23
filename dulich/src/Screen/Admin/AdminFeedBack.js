@@ -8,7 +8,7 @@ import { Appbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAllFeedBack } from '../../networking/adminnetworking'
 
-const NotificationAdmin = ({ navigation }) => {
+const AdminFeedBack = ({ navigation }) => {
     const [listFeedBack, setListFeedBack] = useState([])
     const [isLoading, setLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false);
@@ -29,7 +29,7 @@ const NotificationAdmin = ({ navigation }) => {
         <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
-                <Appbar.Content title="Thông báo" />
+                <Appbar.Content title="Góp ý" />
             </Appbar.Header>
             <View style={styles.container}>
                 <View>
@@ -37,11 +37,13 @@ const NotificationAdmin = ({ navigation }) => {
                         <FlatList
                             data={listFeedBack}
                             ListFooterComponent={<View style={{ paddingBottom: 400 }} />}
+                            keyExtractor={item => item.feedbackID.toString()}
+
                             renderItem={({ item }) => {
                                 return (
                                     <TouchableOpacity style={styles.result}
                                         onPress={() => {
-                                            navigation.navigate('DetailsNotificationAdmin', {
+                                            navigation.navigate('DetailsFeedbackAdmin', {
                                                 content: item.content,
                                                 title: item.title,
                                                 userName: item.userName
@@ -89,4 +91,4 @@ const styles = StyleSheet.create({
         padding: 2
     }
 })
-export default NotificationAdmin;
+export default AdminFeedBack;

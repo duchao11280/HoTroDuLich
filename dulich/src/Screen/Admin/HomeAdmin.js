@@ -16,14 +16,18 @@ const HomeAdmin = ({ navigation }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.push("PlaceManagement")}>
+                    <TouchableOpacity 
+                        style={{alignItems:'center'}}
+                        onPress={() => navigation.push("PlaceManagement")}>
                         <Entypo name="location" size={40} color="black" style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý địa điểm</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.push("AccountManagement")}>
+                    <TouchableOpacity 
+                        style={{alignItems:'center'}}
+                        onPress={() => navigation.push("AccountManagement")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý tài khoản</Text>
                     </TouchableOpacity>
@@ -34,11 +38,30 @@ const HomeAdmin = ({ navigation }) => {
             </View>
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.push("NotificationAdmin")} style={{ paddingLeft: 20 }}>
+
+                    <TouchableOpacity onPress={() => navigation.push("AdminFeedBack")} style={{ paddingLeft: 20 }}>
                         <Entypo name="bell" size={40} color="black" style={styles.icon} />
+                        <Text style={styles.FontButton}>Góp ý</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.ServiceButton}>
+                <TouchableOpacity
+                        style={{alignItems:'center'}}
+                        onPress={() => navigation.push("NotificationManagement")}>
+                        <FontAwesome5 name={'bell'} size={40} style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Thông báo</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.ServiceButton}>
+                    <TouchableOpacity
+                        style={{alignItems:'center'}}
+                     onPress={() => navigation.pop()} >
+                        <Entypo name="log-out" size={40} color="black" style={styles.icon} />
+                        <Text style={styles.FontButton}>Đăng xuất</Text>
+
+                    </TouchableOpacity>
+                </View>
+
             </View>
 
             <View style={styles.ServiceButton}>
@@ -69,24 +92,28 @@ const styles = StyleSheet.create({
     },
     HeadButtonView: {
         flexDirection: 'row',
-
-        paddingLeft: 10,
-        paddingTop: 50
+        width: '100%',
+ 
+        paddingTop: 50,
     },
     FontButton: {
         fontSize: 16,
     },
     ServiceButton: {
-        paddingLeft: 30
+
+        width:'50%',
+        alignItems:'center'
+
     },
     icon: {
-        paddingLeft: 12,
+        //paddingLeft: 12,
     },
     smallIcon: {
         paddingLeft: 9,
     },
     longTexticon: {
-        paddingLeft: 30,
+       //paddingLeft: 30,
+       
     }
 })
 

@@ -47,6 +47,12 @@ const Home = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={styles.ServiceButton}>
+                    <TouchableOpacity onPress={() => navigation.push("Notification")}>
+                        <MaterialIcons name="notifications" size={42.5} color="black" style={styles.IconTwoWord} />
+                        <Text style={styles.FontButton}>Thông báo</Text>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("Information")}>
@@ -54,6 +60,7 @@ const Home = ({ navigation, route }) => {
                         <Text style={styles.FontButton}>Tài khoản</Text>
                     </TouchableOpacity>
                 </View>
+                
             </View>
 
         </View>
