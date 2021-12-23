@@ -138,7 +138,8 @@ const sendFeedback = async (id, params) => {
       },
       body: JSON.stringify({
         content: params.content,
-        title: params.title
+        title: params.title,
+        userName: params.userName
       })
     });
     const json = await respone.json();

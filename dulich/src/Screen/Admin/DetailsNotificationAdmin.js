@@ -1,63 +1,62 @@
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    Text, View, StyleSheet, Button, Image, FlatList, Alert,
+    ActivityIndicator, TextInput, TouchableOpacity
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Appbar } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAllFeedBack } from '../../networking/adminnetworking'
 
-
-
-
-
-const DATA = [
-    {
-        notificationID: '01',
-        userID: '01',
-        title: 'First Item',
-        content: 'mot',
-        time: "00:00"
-    },
-];
-
-
-const DetailNotificationAdmin = ({ navigation }) => {
-    const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.item} >
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.title}>{item.userID}</Text>
-            <Text style={styles.title}>{item.content}</Text>
-        </TouchableOpacity>
-
-    );
-
+const DetailsNotificationAdmin = ({ navigation, route }) => {
     return (
-        <SafeAreaView style={styles.container}>
-            <Appbar.Header statusBarHeight={10}>
-                <Appbar.BackAction onPress={() => navigation.navigate("HomeAdmin")} />
-                <Appbar.Content title="Thông báo" />
+        <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
+            <Appbar.Header statusBarHeight={20}>
+                <Appbar.BackAction onPress={() => navigation.pop()} />
+                <Appbar.Content title="Chi Tiết Thông báo" />
             </Appbar.Header>
-            <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.notificationID}
-            />
-        </SafeAreaView>
-    );
+            <View style={styles.container}>
+                <View style={styles.reading}>
+                    <View>
+                        <Text style={{ fontSize: 50, fontWeight: 'bold' }}>{route.params.title} </Text>
+                    </View>
+
+                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Người gửi:  {route.params.userName} </Text>
+
+                    <View style={styles.result}>
+                        <Text style={{ fontSize: 18, fontWeight: '900' }}>{route.params.content} </Text>
+                    </View>
+
+                </View>
+            </View>
+        </KeyboardAwareScrollView>
+    )
+
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
+        backgroundColor: '#e6e6ff'
     },
-    item: {
-        backgroundColor: '#FFFFFF',
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 8,
-        marginVertical: 1,
-        marginHorizontal: 10,
+    reading: {
+        padding: 10
     },
     title: {
         fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginLeft: 15,
     },
-});
-
-export default DetailNotificationAdmin;
+    content: {
+        fontSize: 18,
+        marginLeft: 18,
+    },
+    result: {
+        backgroundColor: '#ffe6ff',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 30
+    },
+})
+export default DetailsNotificationAdmin;

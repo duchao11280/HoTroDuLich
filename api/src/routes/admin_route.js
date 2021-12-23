@@ -56,7 +56,7 @@ router.delete('/notification/delete/:id', [verifyToken.verifyToken, checkRole.is
 router.get('/notification', [verifyToken.verifyToken, checkRole.isAdmin], notificationController.getAllNotification)
 
 router.get('/feedback',
-    //  [verifyToken.verifyToken, checkRole.isAdmin], 
+    [verifyToken.verifyToken, checkRole.isAdmin],
     feedbackController.adminGetAllFeedback)
 
 module.exports = router;

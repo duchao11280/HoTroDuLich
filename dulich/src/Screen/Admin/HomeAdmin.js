@@ -34,13 +34,21 @@ const HomeAdmin = ({ navigation }) => {
             </View>
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 20 }}>
-                        <Entypo name="log-out" size={40} color="black" style={styles.icon} />
-                        <Text style={styles.FontButton}>Đăng xuất</Text>
+                    <TouchableOpacity onPress={() => navigation.push("NotificationAdmin")} style={{ paddingLeft: 20 }}>
+                        <Entypo name="bell" size={40} color="black" style={styles.icon} />
+                        <Text style={styles.FontButton}>Thông báo</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </View >
+
+            <View style={styles.ServiceButton}>
+                <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 20 }}>
+                    <Entypo name="log-out" size={40} color="black" style={styles.icon} />
+                    <Text style={styles.FontButton}>Đăng xuất</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+
     )
 }
 

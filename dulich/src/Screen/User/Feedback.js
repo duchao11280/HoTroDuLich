@@ -11,6 +11,7 @@ import { sendFeedback } from '../../networking/usernetworking';
 const Feedback = ({ navigation }) => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
+    const [userName, setUsername] = useState('');
     let isValidate = false;
     const [isLoading, setLoading] = useState(false);
 
@@ -24,7 +25,7 @@ const Feedback = ({ navigation }) => {
             showAlert("Không được để trống nội dung", false);
             isValidate = false
         }
-        else if (title.length > 20) {
+        else if (title.length > 40) {
             showAlert("Tiêu đề quá dài, xin hãy đặt lại", false);
             isValidate = false
         }
@@ -55,25 +56,41 @@ const Feedback = ({ navigation }) => {
             Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")
         }
     }
+    // Lấy userID từ store
+    const getUserName = async () => {
+        try {
+            const userNameSyn = await AsyncStorage.getItem('userName')
+            setUsername(userNameSyn);
+
+        } catch (error) {
+            Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")
+        }
+    }
 
 
 
     // xử lý gửi phản hồi
     const handleSendFeedBack = () => {
+
         setLoading(true)
         var params = {
             content: content,
             title: title,
+            userName: userName
         }
+        console.log(userName)
         getUserID()
-            .then(() => sendFeedback(userID, params)
-                .then((response) => {
-                    setLoading(false);
-                    showAlert(response.message, response.status);
-                })
-                .catch((error) => {
-                    Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
-                })
+            .then(() => getUserName()
+                .then(() => sendFeedback(userID, params)
+                    .then((response) => {
+                        setLoading(false);
+                        showAlert(response.message, response.status);
+                    })
+                    .catch((error) => {
+                        Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau");
+                    }))
+                .catch(() => Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau"))
+
             )
             .catch(() => Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau"));
     }

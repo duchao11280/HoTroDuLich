@@ -25,8 +25,10 @@ const Login = ({ navigation }) => {
       try {
         await AsyncStorage.setItem("userID", response.data.user.userID.toString());
         await AsyncStorage.setItem("role", response.data.user.role.toString());
+        await AsyncStorage.setItem("userName", response.data.user.userName.toString());
         await AsyncStorage.setItem(TOKEN, response.data.accessToken);
         await AsyncStorage.setItem("fullName", response.data.user.fullName.toString());
+        console.log(response.data.user.userName.toString())
 
         if (response.data.user.role == 0) {
           navigation.navigate("Home")

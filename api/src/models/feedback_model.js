@@ -4,7 +4,8 @@ var Feedback = function (feedback) {
     this.feedbackID = feedback.feedbackID,
         this.content = feedback.content,
         this.userID = feedback.userID,
-        this.title = feedback.title
+        this.title = feedback.title,
+        this.userName = feedback.userName
 }
 
 Feedback.getAllFeedback = (result) => {
@@ -13,10 +14,10 @@ Feedback.getAllFeedback = (result) => {
     });
 }
 
-Feedback.sendFeedback = (content, userID, title, result) => {
-    dbConn.query(`INSERT into feedback(content,userID,title)` +
-        ` VALUES(?, ?, ?)`,
-        [content, userID, title],
+Feedback.sendFeedback = (content, userID, title, userName, result) => {
+    dbConn.query(`INSERT into feedback(content,userID,title,userName)` +
+        ` VALUES(?, ?, ?,?)`,
+        [content, userID, title, userName],
         (err, res) => {
             result(err, res);
         })

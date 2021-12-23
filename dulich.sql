@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 22/12/2021 18:32:38
+ Date: 24/12/2021 01:52:01
 */
 
 SET NAMES utf8mb4;
@@ -89,19 +89,17 @@ CREATE TABLE `feedback`  (
   `feedbackID` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `userID` int(11) NULL DEFAULT NULL,
-  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `userName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`feedbackID`) USING BTREE,
   INDEX `fk_feedback_place`(`userID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
-INSERT INTO `feedback` VALUES (1, 'loz Huy Ga', 1, 'Loz Huy');
-INSERT INTO `feedback` VALUES (6, '123', 1, 'tua de can gui');
-INSERT INTO `feedback` VALUES (7, 'noi dung can gui', 1, 'tua de can gui');
-INSERT INTO `feedback` VALUES (8, 'noi dung can gui', 1, 'tua de can gui');
-INSERT INTO `feedback` VALUES (9, 'noi dung 123\n', 25, 'tieu de');
+INSERT INTO `feedback` VALUES (23, 'Day la noi dung', 25, 'Thong bao day', 'user_Hoang');
+INSERT INTO `feedback` VALUES (24, 'Noi dung nay la mot noi dung', 25, 'Thong bao moi', 'user_Hoang');
 
 -- ----------------------------
 -- Table structure for image

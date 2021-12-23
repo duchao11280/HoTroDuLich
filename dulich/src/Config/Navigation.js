@@ -29,7 +29,8 @@ import HomeAdmin from '../Screen/Admin/HomeAdmin';
 import PlaceManagement from '../Screen/Admin/PlaceManagement/PlaceManagement';
 import PlaceDetail from '../Screen/Admin/PlaceManagement/PlaceDetail';
 import AccountManagement from '../Screen/Admin/AccountManagement';
-
+import NotificationAdmin from '../Screen/Admin/NotificationAdmin';
+import DetailsNotificationAdmin from '../Screen/Admin/DetailsNotificationAdmin';
 // hotel
 import HomeHotel from '../Screen/ServicesHotel/HomeHotel';
 import AddRoom from '../Screen/ServicesHotel/AddRoom'
@@ -76,6 +77,9 @@ const Navigate = () => {
                 <Stack.Screen name="PlaceManagement" component={PlaceManagement} />
                 <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
                 <Stack.Screen name="AccountManagement" component={AccountManagement} />
+                <Stack.Screen name="NotificationAdmin" component={NotificationAdmin} />
+                <Stack.Screen name="DetailsNotificationAdmin" component={DetailsNotificationAdmin} />
+
                 {/** Hotel */}
                 <Stack.Screen name="HomeHotel" component={HomeHotel} />
                 <Stack.Screen name="AddRoom" component={AddRoom} />
