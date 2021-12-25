@@ -39,8 +39,9 @@ const HomeAdmin = ({ navigation }) => {
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
 
-                    <TouchableOpacity onPress={() => navigation.push("AdminFeedBack")} style={{ paddingLeft: 20 }}>
+                    <TouchableOpacity onPress={() => navigation.push("AdminFeedBack")}>
                         <Entypo name="mail" size={40} color="black" style={styles.icon} />
+
                         <Text style={styles.FontButton}>Góp ý</Text>
                     </TouchableOpacity>
                 </View>
@@ -64,10 +65,12 @@ const HomeAdmin = ({ navigation }) => {
 
             </View>
 
-
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 45 }}>
+                    <TouchableOpacity
+                        style={{ alignItems: 'center' }}
+                        onPress={() => navigation.pop()} >
+
                         <Entypo name="log-out" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng xuất</Text>
                     </TouchableOpacity>

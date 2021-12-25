@@ -6,24 +6,33 @@ import {
 import { Appbar } from 'react-native-paper';
 import CardImage from '../../../Component/Admin/PlaceManagement/CardImage'
 import {
-    getImageByPlaceID, updateInfoPlace, uploadImagePlace, disableImage
-} from '../../../networking/adminnetworking'
+    getImageByPlaceID, updateInfoPlace, uploadImagePlace, disableImage,
+    getAllUserCommentByPlaceID, deleteCommentByAdmin
+} from '../../../networking/adminnetworking';
 import { BottomSheet, Icon } from 'react-native-elements';
+import CommentItem from '../../../Component/Place/CommentItem'
+
 import * as ImagePicker from 'expo-image-picker';
 
 const PlaceDetail = ({ navigation, route }) => {
     const [placeInfo, setPlaceInfo] = useState({ placeID: '', placeName: '', description: '', tips: '', city: '' });
     const [listImages, setListImages] = useState([])
-
+    const [listComment, setListComment] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false)
 
-    useEffect(() => {
-        setPlaceInfo(route.params.place);
+    useEffect( () => {
+        let unmounted = false;
+        if(!unmounted)
+            setPlaceInfo(route.params.place);
         getImageFromServer();
+        return () =>{
+            unmounted = true;
+        }
     }, [])
+
     const reqPermissionCamera = async () => {
         if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -72,20 +81,42 @@ const PlaceDetail = ({ navigation, route }) => {
             }
         }
     }
+    const getCommentFromServer = async () => {
+        getAllUserCommentByPlaceID(route.params.place.placeID)
+            .then((response) => { setListComment(response.data); })
+            .catch((err) => {setListComment([]); Alert.alert("Thông báo", "Kết nối thất bại") })
+            .finally(() => { setLoading(false), setRefreshing(false); });
+    }
+    const deleteComment = (id) => {
+        deleteCommentByAdmin(id)
+            .then((response) => {
+                if (response !== undefined)
+                    Alert.alert("Thông báo", response.message)
+
+                onRefresh();
+            })
+            .catch(() => {
+                Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau")
+            })
+
+    }
     const goBack = () => {
         navigation.pop();
     }
-    const getImageFromServer = () => {
+    const getImageFromServer = async () => {
         getImageByPlaceID(route.params.place.placeID)
-            .then((response) => {
+            .then((response) => {  
                 setListImages(response.data)
+                getCommentFromServer();
             })
-            .catch((err) => { Alert.alert("Thông báo", "Kết nối thất bại") })
+            .catch((err) => { Alert.alert("Thông báo", "Kết nối thất bại"); setListImages([]) })
             .finally(() => { setLoading(false), setRefreshing(false); });
     }
+
     const onRefresh = () => {
         setRefreshing(true)
         getImageFromServer();
+        getCommentFromServer();
     }
     const disableOneImage = (id) => {
         setLoading(true)
@@ -195,15 +226,8 @@ const PlaceDetail = ({ navigation, route }) => {
             </View>
         );
     }
-
-    return (
-        <SafeAreaView style={styles.container}>
-
-            <Appbar.Header statusBarHeight={20}>
-                <Appbar.BackAction onPress={() => { goBack() }} />
-                <Appbar.Content title="Quản lý địa điểm" />
-            </Appbar.Header>
-
+    const getHeader = () =>(
+        <View>
             <ScrollView style={styles.info} >
                 <View style={styles.itemText}>
                     <Text style={styles.textTitleInfo}>
@@ -272,6 +296,45 @@ const PlaceDetail = ({ navigation, route }) => {
                     >
                     </FlatList>}
             </View>
+        </View>
+    )
+    return (
+        <SafeAreaView style={styles.container}>
+
+            <Appbar.Header statusBarHeight={20}>
+                <Appbar.BackAction onPress={() => { goBack() }} />
+                <Appbar.Content title="Quản lý địa điểm" />
+            </Appbar.Header>
+
+            <View>
+                {isLoading ? <ActivityIndicator size="large" color='blue' /> :
+                    <FlatList
+                        data={listComment}
+                        keyExtractor={item => item.id.toString()}
+                        ListHeaderComponent={getHeader}
+                        contentContainerStyle={{ paddingBottom: 400 }}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <CommentItem
+                                    item={item} index={index}
+                                    handleDelete={deleteComment}
+                                >
+
+                                </CommentItem>
+
+                            );
+                        }}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={() => onRefresh()}
+                            />
+                        }
+                    >
+                    </FlatList>
+                }
+            </View>
+
             <BottomSheet
                 isVisible={bottomSheetVisible}
             >

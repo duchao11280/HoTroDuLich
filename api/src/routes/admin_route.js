@@ -3,6 +3,8 @@ const router = express.Router();
 
 const adminController = require('../controllers/admin_controller');
 const notificationController = require('../controllers/notification_controller')
+const commentController = require('../controllers/comment_controller')
+
 const uploadImage = require('../middleware/uploadImage');
 const checkRole = require('../middleware/checkRole');
 const verifyToken = require('../middleware/verifyToken');
@@ -54,6 +56,14 @@ router.put('/notification/update/:id', [verifyToken.verifyToken, checkRole.isAdm
 router.delete('/notification/delete/:id', [verifyToken.verifyToken, checkRole.isAdmin], adminController.deleteNotification)
 
 router.get('/notification', [verifyToken.verifyToken, checkRole.isAdmin], notificationController.getAllNotification)
+
+// ====================Comment=================//
+// Comment getALl
+router.get('/comment/placeid=:id',[verifyToken.verifyToken,checkRole.isAdmin],commentController.getAllCommentByPlaceID)
+
+
+//delete comment
+router.delete('/comment/:id',[verifyToken.verifyToken,checkRole.isAdmin],commentController.deleteComment)
 
 router.get('/feedback',
     [verifyToken.verifyToken, checkRole.isAdmin],

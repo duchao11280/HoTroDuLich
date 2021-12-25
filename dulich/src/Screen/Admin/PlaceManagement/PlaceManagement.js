@@ -18,13 +18,21 @@ const PlaceManagement = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        getPlaceFromServer();
-
+        let unmounted = false;
+        getPlaceFromServer(unmounted);
+        return () =>{
+            unmounted = true;
+        }
     }, []);
-    const getPlaceFromServer = () => {
-        getAllPlaces().then((listPlaces) => { setListPlaces(listPlaces) })
-            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); })
-            .finally(() => { setLoading(false), setRefreshing(false); });
+    const getPlaceFromServer = (unmounted) => {
+
+        getAllPlaces()
+            .then((listPlaces) => { 
+                if(!unmounted)
+                    setListPlaces(listPlaces)
+            })
+            .catch((err) => { Alert.alert("Thông báo", "Xảy ra lỗi, vui lòng thử lại sau"); setListPlaces([]) })
+            .finally(() => { setLoading(false), setRefreshing(false); flag = false;});
     }
     // khi kéo từ trên xuống refresh lại dữ liệu
     const onRefresh = () => { setRefreshing(true); getPlaceFromServer() }
@@ -140,7 +148,7 @@ const PlaceManagement = ({ navigation }) => {
                             data={filteredPlaces}
                             ListFooterComponent={<View style={{ paddingBottom: 400 }} />}
                             keyExtractor={item => item.placeID.toString()}
-
+                            
                             renderItem={({ item, index }) => {
                                 return (
                                     <Pressable

@@ -306,6 +306,43 @@ const updateNotification = async (id, title, content) => {
 
   }
 }
+//=========comment===========//
+// get comment for admin by place id
+const getAllUserCommentByPlaceID = async (id) => {
+  try {
+      let accessToken = await getToken();
+      const response = await fetch(
+          API_URL + `/api/v1/admin/comment/placeid=${id}`,
+          {
+              method: 'GET',
+              headers: {
+                  "x-access-token": accessToken,
+              }
+          }
+      );
+      const json = await response.json();
+      return json;
+  } catch (error) {
+
+  }
+};
+// delete comment
+
+const deleteCommentByAdmin = async (id) => {
+  try {
+    let accessToken = await getToken();
+    const respone = await fetch(API_URL + `/api/v1/admin/comment/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "x-access-token": accessToken,
+      }
+    });
+    const json = await respone.json();
+    return json;
+  } catch (error) {
+
+  }
+}
 export {
   getAllPlaces,
   getAllUsers,
@@ -321,5 +358,7 @@ export {
   deleteNotification,
   addNotification,
   updateNotification,
+  getAllUserCommentByPlaceID,
+  deleteCommentByAdmin,
 }
 
