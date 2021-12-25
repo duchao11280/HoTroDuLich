@@ -10,7 +10,7 @@ import { getAllFeedBack } from '../../networking/adminnetworking'
 
 const DetailsFeedbackAdmin = ({ navigation, route }) => {
     return (
-        <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
+        <View style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
                 <Appbar.Content title="Chi Tiết Góp ý" />
@@ -29,7 +29,7 @@ const DetailsFeedbackAdmin = ({ navigation, route }) => {
 
                 </View>
             </View>
-        </KeyboardAwareScrollView>
+        </View>
     )
 
 }

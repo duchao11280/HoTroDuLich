@@ -18,6 +18,7 @@ import Feedback from '../Screen/User/Feedback'
 import Notification from '../Screen/User/Notification'
 import DetailNotificationUser from '../Screen/User/DetailNotificationUser'
 import Receipt from '../Screen/User/Receipt'
+import ReceiptTable from '../Screen/User/ReceiptTable'
 
 //DetaiUser
 import DetailHotel from '../Screen/User/DetailHotel'
@@ -75,6 +76,7 @@ const Navigate = () => {
                 <Stack.Screen name="DetailRestaurant" component={DetailRestaurant} />
                 <Stack.Screen name="Information" component={Information} />
                 <Stack.Screen name="Receipt" component={Receipt} />
+                <Stack.Screen name="ReceiptTable" component={ReceiptTable} />
                 <Stack.Screen name="Feedback" component={Feedback} />
 
 
@@ -87,10 +89,10 @@ const Navigate = () => {
                 <Stack.Screen name="AdminFeedBack" component={AdminFeedBack} />
                 <Stack.Screen name="DetailsFeedbackAdmin" component={DetailsFeedbackAdmin} />
 
-                <Stack.Screen name= "NotificationManagement" component={NotificationManagement}/>
-                <Stack.Screen name= "AddNotification" component={AddNotification}/>
-                <Stack.Screen name= "UpdateNotification" component={UpdateNotification}/>
-                <Stack.Screen name= "DetailNotification" component={DetailNotification}/>
+                <Stack.Screen name="NotificationManagement" component={NotificationManagement} />
+                <Stack.Screen name="AddNotification" component={AddNotification} />
+                <Stack.Screen name="UpdateNotification" component={UpdateNotification} />
+                <Stack.Screen name="DetailNotification" component={DetailNotification} />
                 {/** Hotel */}
                 <Stack.Screen name="HomeHotel" component={HomeHotel} />
                 <Stack.Screen name="AddRoom" component={AddRoom} />

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const API_URL = 'http://192.168.1.6:3000';
+const API_URL = 'http://192.168.1.8:3000';
 
 const getToken = async () => {
   try {
@@ -255,9 +255,9 @@ const addNotification = async (title, content) => {
   try {
     let accessToken = await getToken();
     var now = new Date();
-    var month = now.getMonth() +1;
-    var time = (now.getFullYear() + "-" +month + "-" + now.getDate()+
-       " " + now.getHours() + ":" + now.getMinutes());
+    var month = now.getMonth() + 1;
+    var time = (now.getFullYear() + "-" + month + "-" + now.getDate() +
+      " " + now.getHours() + ":" + now.getMinutes());
     const respone = await fetch(
       API_URL + `/api/v1/admin/notification/addnew`, {
       method: 'POST',
@@ -279,13 +279,13 @@ const addNotification = async (title, content) => {
   }
 }
 // Update 
-const updateNotification = async (id,title, content) => {
+const updateNotification = async (id, title, content) => {
   try {
     let accessToken = await getToken();
     var now = new Date();
-    var month = now.getMonth() +1;
-    var time = (now.getFullYear() + "-" +month + "-" + now.getDate()+
-       " " + now.getHours() + ":" + now.getMinutes());
+    var month = now.getMonth() + 1;
+    var time = (now.getFullYear() + "-" + month + "-" + now.getDate() +
+      " " + now.getHours() + ":" + now.getMinutes());
     const respone = await fetch(
       API_URL + `/api/v1/admin/notification/update/${id}`, {
       method: 'PUT',

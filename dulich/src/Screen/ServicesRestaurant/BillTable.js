@@ -33,7 +33,7 @@ const BillTable = ({ navigation }) => {
       .finally(() => { setLoading(false) })
   }
   return (
-    <KeyboardAwareScrollView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <Appbar.Header statusBarHeight={20}>
         <Appbar.BackAction onPress={() => navigation.pop()} />
         <Appbar.Content title="Bàn được đặt" />
@@ -68,7 +68,7 @@ const BillTable = ({ navigation }) => {
             </FlatList>}
         </View>
       </View>
-    </KeyboardAwareScrollView>
+    </View>
   )
 
 }

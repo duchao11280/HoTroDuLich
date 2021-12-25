@@ -16,8 +16,8 @@ const HomeAdmin = ({ navigation }) => {
 
             <View style={styles.HeadButtonView}>
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity 
-                        style={{alignItems:'center'}}
+                    <TouchableOpacity
+                        style={{ alignItems: 'center' }}
                         onPress={() => navigation.push("PlaceManagement")}>
                         <Entypo name="location" size={40} color="black" style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý địa điểm</Text>
@@ -25,8 +25,8 @@ const HomeAdmin = ({ navigation }) => {
                 </View>
 
                 <View style={styles.ServiceButton}>
-                    <TouchableOpacity 
-                        style={{alignItems:'center'}}
+                    <TouchableOpacity
+                        style={{ alignItems: 'center' }}
                         onPress={() => navigation.push("AccountManagement")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Quản lý tài khoản</Text>
@@ -40,13 +40,13 @@ const HomeAdmin = ({ navigation }) => {
                 <View style={styles.ServiceButton}>
 
                     <TouchableOpacity onPress={() => navigation.push("AdminFeedBack")} style={{ paddingLeft: 20 }}>
-                        <Entypo name="bell" size={40} color="black" style={styles.icon} />
+                        <Entypo name="mail" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Góp ý</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.ServiceButton}>
-                <TouchableOpacity
-                        style={{alignItems:'center'}}
+                    <TouchableOpacity
+                        style={{ alignItems: 'center' }}
                         onPress={() => navigation.push("NotificationManagement")}>
                         <FontAwesome5 name={'bell'} size={40} style={styles.longTexticon} />
                         <Text style={styles.FontButton}>Thông báo</Text>
@@ -54,8 +54,8 @@ const HomeAdmin = ({ navigation }) => {
                 </View>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity
-                        style={{alignItems:'center'}}
-                     onPress={() => navigation.pop()} >
+                        style={{ alignItems: 'center' }}
+                        onPress={() => navigation.pop()} >
                         <Entypo name="log-out" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Đăng xuất</Text>
 
@@ -64,12 +64,16 @@ const HomeAdmin = ({ navigation }) => {
 
             </View>
 
-            <View style={styles.ServiceButton}>
-                <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 20 }}>
-                    <Entypo name="log-out" size={40} color="black" style={styles.icon} />
-                    <Text style={styles.FontButton}>Đăng xuất</Text>
-                </TouchableOpacity>
+
+            <View style={styles.HeadButtonView}>
+                <View style={styles.ServiceButton}>
+                    <TouchableOpacity onPress={() => navigation.pop()} style={{ paddingLeft: 45 }}>
+                        <Entypo name="log-out" size={40} color="black" style={styles.icon} />
+                        <Text style={styles.FontButton}>Đăng xuất</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
+
         </View>
 
     )
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
     HeadButtonView: {
         flexDirection: 'row',
         width: '100%',
- 
+
         paddingTop: 50,
     },
     FontButton: {
@@ -101,8 +105,8 @@ const styles = StyleSheet.create({
     },
     ServiceButton: {
 
-        width:'50%',
-        alignItems:'center'
+        width: '50%',
+        alignItems: 'center'
 
     },
     icon: {
@@ -112,8 +116,8 @@ const styles = StyleSheet.create({
         paddingLeft: 9,
     },
     longTexticon: {
-       //paddingLeft: 30,
-       
+        //paddingLeft: 30,
+
     }
 })
 

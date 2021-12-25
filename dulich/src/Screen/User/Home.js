@@ -13,15 +13,15 @@ const Home = ({ navigation, route }) => {
                 <Image source={require('../../../assets/Beach.png')} />
             </View>
 
-            <View style={styles.HeadButtonView}>
-                <View style={styles.ServiceButton}>
+            <View style={styles.firstHeadButtonView}>
+                <View style={styles.ServiceButton} style={{ paddingLeft: 15 }}>
                     <TouchableOpacity onPress={() => navigation.navigate("PlacesInfo")}>
                         <Entypo name="location" size={40} color="black" style={styles.icon} />
                         <Text style={styles.FontButton}>Địa điểm</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.ServiceButton}>
+                <View style={styles.ServiceButton} >
                     <TouchableOpacity onPress={() => navigation.navigate("Hotel")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
                         <Text style={styles.FontButton}>Khách sạn</Text>
@@ -37,16 +37,26 @@ const Home = ({ navigation, route }) => {
                 </View>
             </View>
 
-            <View style={styles.HeadButtonView}>
-
-
-                <View style={styles.ServiceButton}>
+            <View style={styles.secondHeadButtonView}>
+                <View style={styles.ServiceButton} >
                     <TouchableOpacity onPress={() => navigation.navigate("Receipt")}>
-                        <MaterialIcons name="receipt-long" size={42.5} color="black" style={styles.IconThreeword} />
-                        <Text style={styles.FontButton}>Hóa đơn phòng</Text>
+                        <MaterialIcons name="receipt-long" size={42.5} color="black" style={{ paddingLeft: 9 }} />
+                        <Text style={styles.FontButton}>Hóa đơn Phòng </Text>
                     </TouchableOpacity>
                 </View>
 
+                <View style={styles.ServiceButton} >
+                    <TouchableOpacity onPress={() => navigation.navigate("ReceiptTable")}>
+                        <MaterialIcons name="receipt-long" size={42.5} color="black" style={{ paddingLeft: 9 }} />
+                        <Text style={styles.FontButton}>Hóa đơn Bàn </Text>
+                    </TouchableOpacity>
+                </View>
+
+
+            </View>
+
+
+            <View style={styles.firstHeadButtonView}>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.push("Notification")}>
                         <MaterialIcons name="notifications" size={42.5} color="black" style={styles.IconTwoWord} />
@@ -60,10 +70,8 @@ const Home = ({ navigation, route }) => {
                         <Text style={styles.FontButton}>Tài khoản</Text>
                     </TouchableOpacity>
                 </View>
-                
             </View>
-
-        </View>
+        </View >
     )
 }
 
@@ -82,16 +90,26 @@ const styles = StyleSheet.create({
         width: 350,
         resizeMode: 'contain',
     },
-    HeadButtonView: {
+    firstHeadButtonView: {
         flexDirection: 'row',
-
-        paddingLeft: 10,
-        paddingTop: 50
+        paddingLeft: 20,
+        paddingTop: 40
+    },
+    secondHeadButtonView: {
+        flexDirection: 'row',
+        paddingLeft: 15,
+        paddingTop: 40
     },
     FontButton: {
         fontSize: 16,
     },
+    FontButtonLong: {
+        fontSize: 16,
+    },
     ServiceButton: {
+        paddingLeft: 25
+    },
+    ServiceButtonlong: {
         paddingLeft: 30
     },
     icon: {

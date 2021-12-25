@@ -26,7 +26,7 @@ const AdminFeedBack = ({ navigation }) => {
             .finally(() => { setLoading(false); setRefreshing(false) })
     }
     return (
-        <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
+        <View style={{ flex: 1, backgroundColor: '#e6e6ff' }}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
                 <Appbar.Content title="Góp ý" />
@@ -61,7 +61,7 @@ const AdminFeedBack = ({ navigation }) => {
                         </FlatList>}
                 </View>
             </View>
-        </KeyboardAwareScrollView>
+        </View>
     )
 
 }
