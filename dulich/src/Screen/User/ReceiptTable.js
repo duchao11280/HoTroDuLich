@@ -51,7 +51,8 @@ const ReceiptTable = ({ navigation }) => {
                                         <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Bàn:{item.tableName} </Text>
                                         <Text style={styles.textinfo}>Địa điểm: {item.placeName} </Text>
                                         <Text style={styles.textinfo}>Địa chỉ: {item.address} </Text>
-                                        <Text style={styles.textinfo}>Môt tả {item.description} </Text>
+                                        <Text style={styles.textinfo}>Địa điểm: {item.placeName} </Text>
+                                        <Text style={styles.textinfo}>Thời gian: {item.startTime} </Text>
                                     </View>
 
                                 );

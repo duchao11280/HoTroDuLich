@@ -42,6 +42,7 @@ const DetailHotel = ({ navigation, route }) => {
         navigation.pop();
     }
     const onBookTable = async () => {
+        console.log(route.params.timeBook)
         const user = await getUserID()
         bookTable(table.tableID, user, route.params.timeBook, phoneNumber)
             .then((response) => { Alert.alert("Thông báo", response.message); goBack() })
@@ -50,9 +51,9 @@ const DetailHotel = ({ navigation, route }) => {
     const popup = () => {
         Alert.alert(
             //title
-            'Xác nhận đặt phòng',
+            'Xác nhận đặt bàn',
             //body
-            'Bạn có chắc muốn đặt phòng này?',
+            'Bạn có chắc muốn đặt bàn này?',
             [
                 { text: 'Có', onPress: () => onBookTable() },
                 {
@@ -76,7 +77,7 @@ const DetailHotel = ({ navigation, route }) => {
             </View>
 
             <View style={styles.showInfo}>
-                <Text style={styles.title}>Tên phòng :{table.tableName}</Text>
+                <Text style={styles.title}>Tên bàn :{table.tableName}</Text>
                 <Text>Số người: {table.slot}</Text>
                 <Text>Giá phòng: {table.price}</Text>
                 <Text>Mô tả: {table.description}</Text>
@@ -108,7 +109,7 @@ const DetailHotel = ({ navigation, route }) => {
                         }
                     }}>
                     <View style={styles.center}>
-                        <Text> Đặt phòng</Text>
+                        <Text> Đặt bàn</Text>
                     </View>
                 </TouchableOpacity>
 

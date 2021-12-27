@@ -20,8 +20,8 @@ const UpdateNotification = ({ navigation, route }) => {
     //Add room
     const onUpdateNotification = async () => {
         var id = route.params.notification.notificationID;
-        updateNotification(id,title, content)
-            .then((res) => { Alert.alert("Thông báo","Cập nhật thành công") })
+        updateNotification(id, title, content)
+            .then((res) => { Alert.alert("Thông báo", "Cập nhật thành công") })
             .catch((err) => { console.log(err) })
     }
 
@@ -75,7 +75,7 @@ const UpdateNotification = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <Appbar.Header statusBarHeight={20}>
                 <Appbar.BackAction onPress={() => navigation.pop()} />
-                <Appbar.Content title="Thêm phòng" />
+                <Appbar.Content title="Cập nhật thông báo" />
             </Appbar.Header>
 
 
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
     },
     cardInput: {
         width: '90%',
-        
+
         marginHorizontal: '5%',
-        marginTop:'5%',
+        marginTop: '5%',
         padding: 25,
         backgroundColor: 'white',
         borderRadius: 20,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.41,
         shadowRadius: 9.11,
-        
+
         elevation: 14,
     },
     button: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     buttonUpdate: {
         borderRadius: 20,
         padding: 18,
-        
+
         backgroundColor: 'green',
         width: '70%',
         alignItems: 'center',

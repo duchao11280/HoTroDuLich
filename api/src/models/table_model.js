@@ -47,7 +47,7 @@ Table.searchTabletoBook = (placeID, slot, time, result) => {
     dbConn.query(`Select DISTINCT tableservices.tableID, tableName, tableservices.slot,
             tableservices.description, tableservices.address 
         FROM tableservices LEFT JOIN booktable ON tableservices.tableID = booktable.tableID 
-        WHERE tableservices.slot<= ? and tableservices.placeID = ?
+        WHERE tableservices.slot>= ? and tableservices.placeID = ?
             and (booktable.startTime != ? or ISNULL(booktable.startTime) = 1)`,
         [slot, placeID, time],
         (err, res) => {

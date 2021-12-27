@@ -8,10 +8,11 @@ exports.searchTabletoBook = (req, res) => {
                 res.status(500).json({ status: false, message: "Thất bại" })
                 return;
             };
-            res.json({ status: true, message: 'Lấy dữ liệu thành công', data: listTable })
+            res.json({ status: true, message: 'Lấy dữ liệu thành công', data: listTable, timeBook: req.body.startTime })
         })
 }
 exports.bookTable = (req, res) => {
+    console.log(req.body.startTime)
     BookTableModel.insertBookTable(req.body.tableID, req.body.userID, req.body.startTime,
         req.body.phoneNumber, (err, table) => {
             if (err) {

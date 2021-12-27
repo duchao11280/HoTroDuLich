@@ -24,7 +24,7 @@ const HomeHotel = ({ navigation }) => {
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.navigate("BillRoom")}>
                         <FontAwesome5 name={'hotel'} size={40} style={styles.icon} />
-                        <Text style={styles.FontButton}> phòng được đặt</Text>
+                        <Text style={styles.FontButton}> Phòng được đặt</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -44,7 +44,7 @@ const HomeHotel = ({ navigation }) => {
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
                         <MaterialIcons name="logout" size={40} color="black" style={styles.icon} />
-                        <Text style={styles.FontButton}>Đăng suất</Text>
+                        <Text style={styles.FontButton}>Đăng xuất</Text>
                     </TouchableOpacity>
                 </View>
             </View>

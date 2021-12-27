@@ -53,7 +53,7 @@ const Restaurant = ({ navigation }) => {
   const onSearch = () => {
 
     searchTabletoBook(slot, placeID, text)
-      .then((response) => { setListTable(response.data); setTimeBook(response.timeBook) })
+      .then((response) => { console.log(response); setListTable(response.data); setTimeBook(response.timeBook) })
       .catch(() => { Alert.alert("Thông báo", "Hệ thống xảy ra lỗi, vui lòng thử lại sau") })
   }
 
@@ -68,6 +68,7 @@ const Restaurant = ({ navigation }) => {
   }
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.item} onPress={() => {
+      console.log(timeBook);
       navigation.push('DetailRestaurant', { table: item, timeBook: timeBook })
     }}>
       <Text style={styles.title}>Tên phòng: {item.tableName}</Text>
@@ -141,7 +142,7 @@ const Restaurant = ({ navigation }) => {
             </View>
             <View style={styles.chooseTime}>
               <View >
-                <TouchableOpacity title="Chọn Giờ" onPress={showTimepicker}
+                <TouchableOpacity onPress={showTimepicker}
                   style={styles.button}>
                   <Text> chọn giờ </Text>
                 </TouchableOpacity>

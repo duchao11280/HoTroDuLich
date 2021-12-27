@@ -69,14 +69,14 @@ const Information = ({ navigation }) => {
         <Text style={styles.headTitle}> Thông tin</Text>
         <Line />
         <View style={styles.TitleView}>
-          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]}>
+          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={() => alert('Ứng dụng thực hiện cho môn TLCN')} >
             <FontAwesome5 name={'info'} size={30} />
             <Text style={styles.Title}>  Về ứng dụng</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.TitleView}>
-          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]}>
+          <TouchableOpacity style={[{ flex: 0.5, flexDirection: 'row' }]} onPress={() => alert('Ứng dụng thực hiện bởi Đức Hảo và Thanh Hoàng')}>
             <FontAwesome5 name={'users'} size={20} />
             <Text style={styles.Title}>Về chúng tôi</Text>
           </TouchableOpacity>

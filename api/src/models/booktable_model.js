@@ -14,7 +14,7 @@ BookTable.insertBookTable = (tableID, userID, startTime, phoneNumber, result) =>
 }
 // người dùng 
 BookTable.getAllByUserID = (id, result) => {
-    dbConn.query(` SELECT DISTINCT booktable.id, tableservices.tableID, tableservices.tableName
+    dbConn.query(` SELECT DISTINCT booktable.id, tableservices.tableID, tableservices.tableName,booktable.startTime
             , tableservices.slot, tableservices.description, tableservices.address,place.placeName
         from booktable, tableservices, place 
         WHERE tableservices.tableID =booktable.tableID and booktable.userID = ${id}

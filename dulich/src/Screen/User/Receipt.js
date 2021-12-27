@@ -51,9 +51,10 @@ const Receipt = ({ navigation }) => {
                     <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Phòng:{item.roomName} </Text>
                     <Text style={styles.textinfo}>Địa điểm: {item.placeName} </Text>
                     <Text style={styles.textinfo}>Địa chỉ: {item.address} </Text>
+                    <Text style={styles.textinfo}>thời gian: {item.startTime} </Text>
                     <Text style={styles.textinfo}>Giá:  {item.price} </Text>
                     <Text style={styles.textinfo}>Số người {item.slot} </Text>
-                    <Text style={styles.textinfo}>Môt tả {item.description} </Text>
+
                   </View>
 
                 );

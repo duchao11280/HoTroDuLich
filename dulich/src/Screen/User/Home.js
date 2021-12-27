@@ -45,7 +45,7 @@ const Home = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.ServiceButton} >
+                <View style={styles.ServiceButton} style={{ paddingLeft: 50 }}>
                     <TouchableOpacity onPress={() => navigation.navigate("ReceiptTable")}>
                         <MaterialIcons name="receipt-long" size={42.5} color="black" style={{ paddingLeft: 9 }} />
                         <Text style={styles.FontButton}>Hóa đơn Bàn </Text>
@@ -56,7 +56,7 @@ const Home = ({ navigation, route }) => {
             </View>
 
 
-            <View style={styles.firstHeadButtonView}>
+            <View style={styles.secondHeadButtonView}>
                 <View style={styles.ServiceButton}>
                     <TouchableOpacity onPress={() => navigation.push("Notification")}>
                         <MaterialIcons name="notifications" size={42.5} color="black" style={styles.IconTwoWord} />
@@ -64,7 +64,7 @@ const Home = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.ServiceButton}>
+                <View style={styles.ServiceButton} style={{ paddingLeft: 90 }}>
                     <TouchableOpacity onPress={() => navigation.navigate("Information")}>
                         <MaterialIcons name="account-circle" size={42.5} color="black" style={styles.IconTwoWord} />
                         <Text style={styles.FontButton}>Tài khoản</Text>
