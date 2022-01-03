@@ -15,7 +15,7 @@ const TableItem = (props) => {
 
             <View style={Styles.limmitRow}>
                 <Text style={Styles.textInfo}>
-                    Tên phòng: {props.item.tableName}
+                    Tên bàn: {props.item.tableName}
                 </Text>
             </View>
 

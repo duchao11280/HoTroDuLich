@@ -86,7 +86,7 @@ const Restaurant = ({ navigation }) => {
     tempDate = new Date(currentDate);
     now = Date.now();
     //console.log(tempDate > now);
-    let fDate = tempDate.getFullYear() + '-' + (tempDate.getMonth()) + '-' + tempDate.getDate();
+    let fDate = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate();
     let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
     setText(fDate + ' ' + fTime)
     if (tempDate < now) {
