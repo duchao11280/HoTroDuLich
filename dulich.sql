@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 03/01/2022 19:33:08
+ Date: 09/01/2022 10:15:05
 */
 
 SET NAMES utf8mb4;
@@ -258,7 +258,7 @@ CREATE TABLE `room`  (
   INDEX `fk_room_place1`(`placeID`) USING BTREE,
   CONSTRAINT `fk_room_place1` FOREIGN KEY (`placeID`) REFERENCES `place` (`placeID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_room_user` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of room
@@ -268,10 +268,13 @@ INSERT INTO `room` VALUES (2, 'R2', 2, 300000, 'Phòng ngủ tiện lợi, nệm
 INSERT INTO `room` VALUES (3, 'R3', 3, 400000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 400000vnd/1 ngày', 'Duong cach mang t8', 0, 8, 5, 0);
 INSERT INTO `room` VALUES (4, 'R4', 3, 400000, 'Phòng ngủ tiện lợi, nệm ấm chăn êm, 400000vnd/1 ngày', 'Số 10 đường Nguyễn Thị Minh Khai', 0, 8, 1, 0);
 INSERT INTO `room` VALUES (5, 'R5', 1, 150000, 'Phong hoi hep', '6 Vo Nguyen GIap', 0, 8, 3, 0);
-INSERT INTO `room` VALUES (7, 'Phong 1008', 1, 200000, 'Phong 1008 dep', 'KTX khu B, Dong Hoa, Di An', 0, 23, 9, 0);
+INSERT INTO `room` VALUES (7, 'Phong 1008', 2, 200000, 'Phong 1008 dep', 'KTX khu B, Dong Hoa, Di An', 0, 23, 3, 0);
 INSERT INTO `room` VALUES (8, 'Phong 523', 5, 1500000, 'Phong 523 day du tien nghi', '484 le van viet, Q9 TP.Ho Chi Minh', 0, 23, 1, 1);
-INSERT INTO `room` VALUES (9, 'Phong 523', 5, 500000, 'phong dep', '01 le hong phong binh thuan', 0, 23, 9, 0);
+INSERT INTO `room` VALUES (9, 'Phong 523', 5, 500000, 'phong dep', '01 le hong phong binh thuan', 0, 23, 9, 1);
 INSERT INTO `room` VALUES (10, 'Phong 523', 2, 500000, 'Phong o lau 3', '01 Le hong phong', 0, 27, 3, 0);
+INSERT INTO `room` VALUES (11, 'Phong 01', 2, 300000, 'Phong co may lanh va day du tien nghi', '225/4 Tran hung dao, Dong Nai', 0, 23, 1, 0);
+INSERT INTO `room` VALUES (12, 'Phong D6', 2, 300000, 'Phong co may lanh va day du tien nghi', '226/04. Thac gian dien, Dong Nai', 0, 23, 3, 0);
+INSERT INTO `room` VALUES (13, 'Phong R3', 3, 300000, '123', '123', 0, 23, 2, 0);
 
 -- ----------------------------
 -- Table structure for tableservices
@@ -292,7 +295,7 @@ CREATE TABLE `tableservices`  (
   INDEX `fk_restaurant_place`(`placeID`) USING BTREE,
   CONSTRAINT `fk_restaurant_place` FOREIGN KEY (`placeID`) REFERENCES `place` (`placeID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_restaurant_user` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tableservices
@@ -306,6 +309,10 @@ INSERT INTO `tableservices` VALUES (8, 'B6', 10, 'Bàn rông, view dep', b'0', 9
 INSERT INTO `tableservices` VALUES (9, 'B7', 10, 'View dep', b'0', 9, 1, 'So 1 duong Le Loi', 0);
 INSERT INTO `tableservices` VALUES (10, '1', 1, '1', b'0', 21, 1, '1', 0);
 INSERT INTO `tableservices` VALUES (11, 'Ban so 2', 2, 'Ban dep, thoang mat', b'0', 24, 2, '2', 0);
+INSERT INTO `tableservices` VALUES (12, 'Ban 01', 2, 'Ban dep nhat', b'0', 24, 1, '02/9, Bai dau, Dong nai', 0);
+INSERT INTO `tableservices` VALUES (13, 'Ban 04', 2, 'Ban danh cho 2 nguoi', b'0', 24, 3, '09, le van viet, thac giang dien, dong nai ', 0);
+INSERT INTO `tableservices` VALUES (14, 'ban 09', 3, 'Ban dep, rong rai', b'0', 24, 1, 'Bai dau, Dong Nai', 0);
+INSERT INTO `tableservices` VALUES (15, 'ban 112', 4, 'Ban rong rai', b'0', 24, 3, 'Thac Giang Dien', 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -347,7 +354,7 @@ INSERT INTO `user` VALUES (19, 'Phucwjbu', '$2a$14$qrFiUSc3CYafIsYoYfBu0O6WLVa/Q
 INSERT INTO `user` VALUES (20, 'Phucwjbu_hotel', '$2a$14$M7Rygs8UFqID55Q/F7G28.tc4u9dd1/TmEFezdMvUTLDsEJ/PeWLe', 'Phuc tran', 'phuc123@gmail.com', '0945235875', 2, 1);
 INSERT INTO `user` VALUES (21, 'Phucwjbu_restaurant', '$2a$14$Hq2GApVWWv7aYRHLI393SO4NHSjtjI7Njpm07v2j6WkezUfAk4DLu', 'Phuc tran', 'phuc123@gmail.com', '0945235875', 3, 1);
 INSERT INTO `user` VALUES (22, 'hoang_user', '$2a$14$GpacsgGy/VX39ggziIwHJudjCtXjWrrSxSo.QWcv3gjq8B4UBoRRS', 'Nguyen Thanh Hoang', 'hoanguyen@gmail.com', '09346232201', 0, 0);
-INSERT INTO `user` VALUES (23, 'hoang_hotel', '$2a$14$OD3EQDDvvm7P8y1h/48IqejD8N74E4kpEW0VeNilP38nuU5Nc4gUG', 'hoang_hotel', 'hoanguyen_Hotel@gmail.com', '09346232201', 2, 1);
+INSERT INTO `user` VALUES (23, 'hoang_hotel', '$2a$14$OD3EQDDvvm7P8y1h/48IqejD8N74E4kpEW0VeNilP38nuU5Nc4gUG', 'hoang_hotel', 'hoanguyen_Hotel@gmail.com', '09346232201', 2, 0);
 INSERT INTO `user` VALUES (24, 'hoang_restaurant', '$2a$14$vh9UqQnh.jT92Ba5TkdRgugbXCChnDr88igkINuOOsgfxRpQ0z/6.', 'hoang_restaurant', 'hoanguyen_restaurant@gmail.com', '09346232201', 3, 0);
 INSERT INTO `user` VALUES (25, 'user_Hoang', '$2a$14$x32SbHxKi9vruju6QWe2u.vu/Qc7wp6axlL.BMlmCLthdSLjBM7K2', 'Hoangthanh', 'hoanguyen.012000@gmail.com', '0934164220', 0, 0);
 INSERT INTO `user` VALUES (26, 'Admin_Hoang', '$2a$14$XjratcfYOkKv5htsRcdIAe8ezs/BWfa3hP4ameyyXZPVQVZPZZEj6', 'HoangAdmin', 'hoanguyen.012000@gmail.com', '0934164220', 1, 0);
